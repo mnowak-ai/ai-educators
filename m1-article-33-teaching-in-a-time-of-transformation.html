@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teaching in a Time of Transformation — AI in Business Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--accent:#C084FC;--red:#E53E3E;--red-pale:#FFF1F1;--green:#276749;--green-pale:#F0FFF4;--amber:#B45309;--amber-pale:#FFF7ED;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+  .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;transition:width 0.1s ease;}
+  .hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+  .lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+  .lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;display:inline-block;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,54px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-0.02em;}
+  .hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+  .hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+  .content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+  .section{padding:32px 0 0;}
+  h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;letter-spacing:-0.01em;line-height:1.2;}
+  p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+  mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+  /* CATEGORY PILLS */
+  .cat-pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px;}
+  .cat-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;}
+  .pill-ethics{background:var(--purple-pale);color:var(--purple);border:1.5px solid var(--purple-mid);}
+  .pill-privacy{background:var(--red-pale);color:var(--red);border:1.5px solid #FCA5A5;}
+  .pill-equity{background:var(--green-pale);color:var(--green);border:1.5px solid #86efac;}
+  .pill-human{background:var(--amber-pale);color:var(--amber);border:1.5px solid #FCD34D;}
+
+  /* NAV PILLS */
+  .concept-nav{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0;}
+  .cn-pill{display:flex;align-items:center;gap:7px;padding:9px 15px;border-radius:100px;border:1.5px solid var(--purple-mid);background:var(--white);font-size:12px;font-weight:700;color:var(--gray-muted);cursor:pointer;transition:all 0.2s;}
+  .cn-pill:hover{border-color:var(--purple);color:var(--purple);}
+  .cn-pill.active{background:var(--purple);border-color:var(--purple);color:white;}
+
+  /* TERM CARDS */
+  .terms-list{display:flex;flex-direction:column;gap:14px;margin:28px 0;}
+  .term-card{border-radius:22px;overflow:hidden;transition:border-color 0.2s;scroll-margin-top:80px;}
+  .term-card:hover,.term-card.open{border-color:var(--purple) !important;}
+
+  /* Per-category border colors */
+  .tc-ethics{border:1.5px solid var(--purple-mid);}
+  .tc-privacy{border:1.5px solid #FCA5A5;}
+  .tc-equity{border:1.5px solid #86efac;}
+  .tc-human{border:1.5px solid #FCD34D;}
+
+  .term-header{display:flex;align-items:center;gap:14px;padding:20px 24px;background:var(--white);cursor:pointer;user-select:none;}
+  .term-icon{font-size:26px;flex-shrink:0;}
+  .term-cat{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px;flex-shrink:0;}
+  .cat-e{background:var(--purple-pale);color:var(--purple);}
+  .cat-p{background:var(--red-pale);color:var(--red);}
+  .cat-q{background:var(--green-pale);color:var(--green);}
+  .cat-h{background:var(--amber-pale);color:var(--amber);}
+  .term-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--purple-dark);flex:1;line-height:1.3;}
+  .term-toggle{width:28px;height:28px;background:var(--purple-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--purple);transition:transform 0.3s,background 0.2s;flex-shrink:0;}
+  .term-card.open .term-toggle{transform:rotate(45deg);background:var(--purple);color:white;}
+  .term-body{max-height:0;overflow:hidden;transition:max-height 0.45s ease;}
+  .term-card.open .term-body{max-height:700px;}
+  .term-inner{padding:0 24px 26px 70px;}
+  .term-definition{font-size:15px;line-height:1.8;color:var(--gray-text);margin-bottom:14px;}
+  .term-why{background:var(--purple-pale);border-left:3px solid var(--purple);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13.5px;line-height:1.65;color:var(--purple-dark);margin-bottom:10px;}
+  .term-why::before{content:'📌 Why it matters in your classroom: ';font-weight:700;}
+  .term-action{background:var(--green-pale);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13.5px;line-height:1.65;color:var(--gray-text);}
+  .term-action::before{content:'✅ One thing you can do: ';font-weight:700;color:var(--green);}
+
+  /* PULL QUOTE */
+  .pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+  .pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+  .pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+  /* QUIZ */
+  .quiz-block{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:40px 0;}
+  .quiz-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+  .quiz-icon-box{width:44px;height:44px;background:var(--purple);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .quiz-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);}
+  .quiz-q{font-size:16px;font-weight:600;color:var(--gray-text);margin-bottom:14px;line-height:1.5;}
+  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .quiz-opt{display:flex;align-items:center;gap:13px;padding:14px 18px;background:var(--white);border:2px solid var(--purple-mid);border-radius:14px;cursor:pointer;font-size:15px;color:var(--gray-text);transition:all 0.2s;}
+  .quiz-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .quiz-opt.correct{border-color:var(--green);background:var(--green-pale);color:var(--green);}
+  .quiz-opt.wrong{border-color:var(--red);background:var(--red-pale);color:var(--red);}
+  .quiz-opt-letter{width:28px;height:28px;border-radius:50%;background:var(--purple-pale);border:1.5px solid var(--purple-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--purple);flex-shrink:0;}
+  .quiz-feedback{padding:14px 18px;border-radius:14px;font-size:15px;font-weight:500;display:none;line-height:1.6;}
+  .quiz-feedback.correct{background:var(--green-pale);color:var(--green);border:1.5px solid #86efac;display:block;}
+  .quiz-feedback.wrong{background:var(--red-pale);color:var(--red);border:1.5px solid #FCA5A5;display:block;}
+
+  /* REFLECTION */
+  .reflection-block{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .reflection-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+  .reflection-title::before{content:'✍️';font-size:24px;}
+  .reflection-items{display:flex;flex-direction:column;gap:14px;}
+  .reflection-item{display:flex;align-items:flex-start;gap:16px;background:var(--white);border-radius:16px;padding:18px 20px;border:1.5px solid var(--purple-mid);}
+  .reflection-num{min-width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .reflection-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  /* SUMMARY */
+  .summary-block{background:linear-gradient(135deg,var(--purple-pale) 0%,var(--purple-mid) 100%);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .summary-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;}
+  .summary-items{display:flex;flex-direction:column;gap:12px;}
+  .summary-item{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.7);border-radius:14px;padding:14px 18px;}
+  .summary-check{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .summary-check svg{width:11px;height:11px;}
+  .summary-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 1 · Ethics & Equity in AI</div>
+  <h1>Teaching in a Time of Transformation</h1>
+  <p class="hero-sub">As AI becomes more common in schools, educators face questions that go beyond tool selection — questions about fairness, privacy, consent, and what we owe students. These eight terms help you lead with ethics, equity, and intention.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- INTRO + CATEGORY LEGEND -->
+  <div class="section fade-in">
+    <p>Each term below is organized by category so you can see how these concepts connect to each other. Every entry includes what it means in practice — and one concrete action you can take. Use the pills to jump to any term:</p>
+
+    <div class="cat-pills">
+      <div class="cat-pill pill-ethics">⚖️ Ethics</div>
+      <div class="cat-pill pill-privacy">🔒 Privacy</div>
+      <div class="cat-pill pill-equity">🌍 Equity</div>
+      <div class="cat-pill pill-human">🤝 Human Partnership</div>
+    </div>
+
+    <div class="concept-nav">
+      <div class="cn-pill active" onclick="jumpTo('term-1',this)">Bias (in AI)</div>
+      <div class="cn-pill" onclick="jumpTo('term-2',this)">Data Privacy</div>
+      <div class="cn-pill" onclick="jumpTo('term-3',this)">Ethics (EdTech)</div>
+      <div class="cn-pill" onclick="jumpTo('term-4',this)">Human-AI Partnership</div>
+      <div class="cn-pill" onclick="jumpTo('term-5',this)">Informed Consent</div>
+      <div class="cn-pill" onclick="jumpTo('term-6',this)">Invisible Harm</div>
+      <div class="cn-pill" onclick="jumpTo('term-7',this)">Digital Footprint</div>
+      <div class="cn-pill" onclick="jumpTo('term-8',this)">Educational Equity</div>
+    </div>
+  </div>
+
+  <!-- TERMS -->
+  <div class="section fade-in">
+    <div class="terms-list">
+
+      <div class="term-card tc-ethics" id="term-1">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">⚖️</div>
+          <div class="term-title">Bias (in AI)</div>
+          <div class="term-cat cat-e">Ethics</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">AI bias occurs when a system produces unfair or skewed outputs — not because it was deliberately programmed to discriminate, but because the data it was trained on reflected existing human biases or inequalities. In education, this can mean AI tools that perform poorly for students from certain backgrounds, recommend fewer opportunities to underrepresented groups, or grade writing differently based on cultural norms in language.</div>
+          <div class="term-why">Bias in AI can quietly disadvantage students who are already marginalized — making inequity feel "algorithmic" and therefore harder to challenge. Recognizing it is the first step to addressing it.</div>
+          <div class="term-action">When using any AI tool with students, ask: does this work equally well for all my learners? If you notice inconsistent or puzzling results for specific student groups, flag it — and don't let AI outputs override your professional judgment.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card tc-privacy" id="term-2">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🔒</div>
+          <div class="term-title">Data Privacy</div>
+          <div class="term-cat cat-p">Privacy</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Data privacy refers to a student's right to control how their personal information — academic records, behavior data, learning patterns, and even keystrokes — is collected, stored, and used by technology platforms. In the U.S., FERPA (Family Educational Rights and Privacy Act) protects student educational records, but many AI tools operate in regulatory gray areas. When you enter student information into a public AI tool, that data may be used to train future models.</div>
+          <div class="term-why">Students — especially minors — cannot always protect their own data. Educators act as data stewards. The choices you make about which tools to use, and what information you share, have real consequences for students' long-term privacy.</div>
+          <div class="term-action">Only use AI tools that your district has vetted for student data privacy compliance. Never enter a student's name, grade, specific behavior, or identifying details into a public AI platform like a standard ChatGPT interface.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card tc-ethics" id="term-3">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">😇</div>
+          <div class="term-title">Ethics (in EdTech)</div>
+          <div class="term-cat cat-e">Ethics</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Ethics in educational technology refers to the moral framework educators use to evaluate whether a technology tool is appropriate, fair, honest, and beneficial for students. It asks not just "can we use this?" but "should we use this, and under what conditions?" Ethical EdTech practice involves transparency with students, protecting their wellbeing, avoiding deception, and ensuring technology serves learning rather than surveilling or exploiting students.</div>
+          <div class="term-why">Technology companies don't always design products with student wellbeing as the priority. Educators are often the last line of defense — the professionals who can say "this doesn't serve our students" and choose not to deploy something even when it's available.</div>
+          <div class="term-action">Before adopting any AI tool for classroom use, ask: Is it transparent about how it works? Does it protect student data? Would I be comfortable explaining its use to students and families? If any answer is uncertain, slow down.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card tc-human" id="term-4">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🤝</div>
+          <div class="term-title">Human-AI Partnership</div>
+          <div class="term-cat cat-h">Human Partnership</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">A Human-AI Partnership is a model of collaboration in which humans and AI systems work together — each contributing what they do best. Humans bring judgment, empathy, ethics, creativity, and contextual understanding. AI brings speed, pattern recognition, scalability, and tireless availability. In education, a genuine partnership means the teacher remains the decision-maker and relationship-builder, while AI handles tasks that free up time for deeper human engagement.</div>
+          <div class="term-why">Without this framing, AI can slide from "tool" to "authority" — with educators deferring to AI outputs rather than leading with their own expertise. A partnership model keeps the human — and the student — at the center.</div>
+          <div class="term-action">Adopt a simple rule: never let an AI output reach a student without your explicit review and approval. You are the partner — not the passenger.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card tc-privacy" id="term-5">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">📋</div>
+          <div class="term-title">Informed Consent</div>
+          <div class="term-cat cat-p">Privacy</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Informed consent means that individuals — in this case students and their families — clearly understand what data is being collected, how it will be used, who will have access to it, and what rights they have before agreeing to use a technology platform. True informed consent isn't a wall of legal text. It's a genuine, age-appropriate explanation followed by a meaningful choice. For minors, consent typically requires parental or guardian approval.</div>
+          <div class="term-why">Many school technology adoptions happen without meaningful informed consent — families click "I agree" without understanding the implications. Educators who understand informed consent can advocate for more transparent practices in their schools.</div>
+          <div class="term-action">When introducing any new AI tool to students, explain in plain language what it does, what data it might collect, and how you'll use it. Give families a genuine way to ask questions or opt out if they have concerns.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card tc-ethics" id="term-6">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">👁️</div>
+          <div class="term-title">Invisible Harm</div>
+          <div class="term-cat cat-e">Ethics</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Invisible harm refers to negative consequences of AI use that are difficult to see, measure, or attribute to any single cause — but that accumulate over time and disproportionately affect vulnerable populations. In education, examples include: over-reliance on AI eroding students' independent problem-solving skills; surveillance tools increasing anxiety; biased AI assessments closing off academic opportunities; or data collection enabling targeting of students by third parties years later.</div>
+          <div class="term-why">Because invisible harms are subtle and delayed, they often go unaddressed until significant damage has occurred. Educators who understand this concept are better equipped to ask "what might this cost students in five years?" — not just "does this work today?"</div>
+          <div class="term-action">Build a habit of asking: what is this tool optimizing for — and what might it be eroding? Short-term efficiency gains can sometimes mask long-term losses in student capability, privacy, or wellbeing.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card tc-privacy" id="term-7">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">👣</div>
+          <div class="term-title">Digital Footprint</div>
+          <div class="term-cat cat-p">Privacy</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">A digital footprint is the trail of data that a person creates through their online activity — searches, clicks, uploads, interactions with apps, and use of AI tools. Every time a student interacts with an AI tool, they may be leaving data behind that can be stored, analyzed, or sold. In an educational context, this includes information about what topics they explored, what questions they asked, how they performed, and how long they spent on tasks.</div>
+          <div class="term-why">Students' digital footprints can follow them for years — sometimes decades. Data created in middle school can potentially affect college applications, job searches, or insurance decisions. Educators have a responsibility to help students understand and protect their digital trail.</div>
+          <div class="term-action">Teach students, in age-appropriate ways, that their interactions with AI tools leave data behind. Help them develop habits of privacy: not sharing unnecessary personal information, using district-approved platforms, and knowing what data the tools they use are collecting.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card tc-equity" id="term-8">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🌍</div>
+          <div class="term-title">Educational Equity</div>
+          <div class="term-cat cat-q">Equity</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Educational equity means ensuring every student has access to the resources, support, and opportunities they need to succeed — accounting for the fact that different students start from different places. In the context of AI, equity asks: who has access to AI tools at home? Whose voices are represented in the data AI was trained on? Who benefits from AI in school, and who is left behind or actively harmed by it? Equity is not the same as equality — giving everyone the same tool doesn't guarantee the same outcomes.</div>
+          <div class="term-why">Without deliberate attention to equity, AI in schools risks amplifying existing inequalities rather than closing them. Students with more resources at home may use AI to accelerate their learning, while students without access fall further behind. Educators are uniquely positioned to notice and address this gap.</div>
+          <div class="term-action">Audit your AI tool use through an equity lens: do all your students have reliable access to the tools you're using? Are the tools you're using culturally responsive? Are they producing fair outcomes across different student groups? Advocate for school-wide access and support when gaps exist.</div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote fade-in">
+    <p>Technology alone cannot make education more equitable. Only intentional educators — asking the right questions and advocating for the right answers — can do that.</p>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-block fade-in">
+    <div class="quiz-header">
+      <div class="quiz-icon-box">🧠</div>
+      <div class="quiz-title">Check Your Understanding</div>
+    </div>
+    <div class="quiz-q">A teacher notices that an AI grading tool consistently rates essays by English language learners lower than essays by native speakers — even when content quality is similar. Which concept best describes what's happening?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">A</div>Digital Footprint — the students' data is being stored without their knowledge.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">B</div>Informed Consent — the students didn't agree to be evaluated by AI.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,true)"><div class="quiz-opt-letter">C</div>Bias (in AI) — the tool is producing unfair outcomes likely due to skewed training data.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">D</div>Invisible Harm — the damage won't be visible until years later.</div>
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="reflection-block fade-in">
+    <div class="reflection-title">Reflection Questions</div>
+    <div class="reflection-items">
+      <div class="reflection-item">
+        <div class="reflection-num">1</div>
+        <div class="reflection-text">Which of these eight concepts feels most urgent or relevant to your current teaching context — and why?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">2</div>
+        <div class="reflection-text">Think about a technology tool your school currently uses with students. How would you evaluate it through the lens of data privacy and informed consent?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">3</div>
+        <div class="reflection-text">What does educational equity in an AI-enhanced classroom look like in your specific school community — and what would need to change to get there?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-block fade-in">
+    <div class="summary-title">📌 Eight Concepts to Remember</div>
+    <div class="summary-items">
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Bias (in AI)</strong> — AI can produce unfair outcomes because of skewed training data; educators must watch for inconsistent results across student groups.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Data Privacy</strong> — Students have a right to control their information; never share student data with unvetted public AI tools.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Ethics (EdTech)</strong> — Ask not just "can we use this?" but "should we, and under what conditions?" Educators are the last line of defense.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Human-AI Partnership</strong> — Humans provide judgment and empathy; AI provides speed and scale. The teacher always makes the final call.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Informed Consent</strong> — Students and families deserve a genuine, clear explanation of what AI tools collect and do before they're required to use them.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Invisible Harm</strong> — Some costs of AI use are subtle and delayed; ask what a tool might be eroding, not just what it's delivering today.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Digital Footprint</strong> — Every student interaction with AI leaves data behind; educators help students protect their long-term digital trail.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Educational Equity</strong> — AI can widen or narrow opportunity gaps; intentional educators audit their tools and advocate for access and fairness for all students.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll',()=>{const el=document.documentElement;document.getElementById('progressBar').style.width=((el.scrollTop/(el.scrollHeight-el.clientHeight))*100)+'%';});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.12});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  function jumpTo(id, pill){
+    document.querySelectorAll('.cn-pill').forEach(p=>p.classList.remove('active'));
+    if(pill)pill.classList.add('active');
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.classList.add('open');
+    setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50);
+  }
+
+  function toggleTerm(card){
+    const wasOpen=card.classList.contains('open');
+    document.querySelectorAll('.term-card').forEach(c=>c.classList.remove('open'));
+    if(!wasOpen)card.classList.add('open');
+  }
+
+  function answerQuiz(el,correct){
+    if(document.querySelector('.quiz-opt.correct,.quiz-opt.wrong'))return;
+    el.classList.add(correct?'correct':'wrong');
+    const fb=document.getElementById('quizFeedback');
+    fb.className='quiz-feedback '+(correct?'correct':'wrong');
+    fb.textContent=correct
+      ?'✅ Exactly right! When an AI tool consistently produces worse outcomes for a specific student group, that\'s AI bias at work — the system\'s training data likely underrepresented or misrepresented that group\'s language and writing patterns.'
+      :'❌ Not quite. This scenario describes AI bias — when a system produces unfair results because its training data encoded existing inequalities or cultural norms that disadvantage certain groups. The teacher in this situation should not let the AI score override their own professional judgment.';
+  }
+</script>
+</body>
+</html>
