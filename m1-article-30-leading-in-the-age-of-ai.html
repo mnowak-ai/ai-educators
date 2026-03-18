@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leading in the Age of AI — AI in Business Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--accent:#C084FC;--red:#E53E3E;--red-pale:#FFF1F1;--green:#276749;--green-pale:#F0FFF4;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+  .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;transition:width 0.1s ease;}
+  .hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+  .lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+  .lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;display:inline-block;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,54px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-0.02em;}
+  .hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+  .hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+  .content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+  .section{padding:32px 0 0;}
+  h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;letter-spacing:-0.01em;line-height:1.2;}
+  p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+  mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+  /* CAN / CAN'T SPLIT */
+  .can-cant{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
+  @media(max-width:560px){.can-cant{grid-template-columns:1fr;}}
+  .cc-col{border-radius:22px;padding:22px 20px;}
+  .cc-can{background:var(--green-pale);border:1.5px solid #86efac;}
+  .cc-cant{background:var(--red-pale);border:1.5px solid #FCA5A5;}
+  .cc-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:14px;}
+  .badge-can{background:#bbf7d0;color:var(--green);}
+  .badge-cant{background:#fecaca;color:var(--red);}
+  .cc-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.65;color:var(--gray-text);margin-bottom:12px;}
+  .cc-dot{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-size:11px;font-weight:700;}
+  .dot-g{background:var(--green);color:white;}
+  .dot-r{background:var(--red);color:white;}
+  .cc-item-title{font-weight:700;display:block;margin-bottom:2px;}
+
+  /* ROLE SHIFT — animated arrows */
+  .role-shifts{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+  .rs-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:16px 20px;background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:18px;}
+  @media(max-width:520px){.rs-row{grid-template-columns:1fr;gap:6px;text-align:center;}}
+  .rs-from{background:var(--white);border:1.5px solid #FCA5A5;border-radius:12px;padding:12px 14px;text-align:center;}
+  .rs-to{background:var(--white);border:1.5px solid #86efac;border-radius:12px;padding:12px 14px;text-align:center;}
+  .rs-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;}
+  .rs-from .rs-label{color:var(--red);}
+  .rs-to .rs-label{color:var(--green);}
+  .rs-text{font-size:14px;font-weight:700;color:var(--purple-dark);}
+  .rs-arrow{font-size:22px;color:var(--purple);text-align:center;}
+
+  /* WHY ESSENTIAL — 3 reason cards */
+  .essential-list{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+  .ess-item{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:var(--purple-pale);border:1.5px solid var(--purple-mid);border-radius:18px;}
+  .ess-icon{font-size:28px;flex-shrink:0;}
+  .ess-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+  .ess-desc{font-size:14px;line-height:1.65;color:var(--gray-muted);}
+
+  /* PRACTICAL TIPS */
+  .tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+  @media(max-width:560px){.tips-grid{grid-template-columns:1fr;}}
+  .tip-card{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:18px;padding:20px 18px;display:flex;align-items:flex-start;gap:12px;transition:all 0.2s;}
+  .tip-card:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .tip-icon{font-size:26px;flex-shrink:0;}
+  .tip-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+  .tip-desc{font-size:13px;line-height:1.65;color:var(--gray-muted);}
+
+  /* CLOSING DECLARATION */
+  .declaration{background:linear-gradient(135deg,var(--purple-dark) 0%,var(--purple) 100%);border-radius:24px;padding:36px 32px;margin:28px 0;color:white;text-align:center;position:relative;overflow:hidden;}
+  .declaration::before{content:'🏫';position:absolute;left:20px;top:50%;transform:translateY(-50%);font-size:80px;opacity:0.1;}
+  .declaration::after{content:'❤️';position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:80px;opacity:0.1;}
+  .declaration h3{font-family:'Fraunces',serif;font-size:22px;font-weight:900;margin-bottom:14px;}
+  .declaration p{font-size:16px;line-height:1.75;color:rgba(255,255,255,0.9);max-width:560px;margin:0 auto;}
+  .declaration strong{color:#C084FC;}
+
+  /* PULL QUOTE */
+  .pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+  .pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+  .pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+  /* QUIZ */
+  .quiz-block{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:40px 0;}
+  .quiz-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+  .quiz-icon-box{width:44px;height:44px;background:var(--purple);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .quiz-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);}
+  .quiz-q{font-size:16px;font-weight:600;color:var(--gray-text);margin-bottom:14px;line-height:1.5;}
+  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .quiz-opt{display:flex;align-items:center;gap:13px;padding:14px 18px;background:var(--white);border:2px solid var(--purple-mid);border-radius:14px;cursor:pointer;font-size:15px;color:var(--gray-text);transition:all 0.2s;}
+  .quiz-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .quiz-opt.correct{border-color:var(--green);background:var(--green-pale);color:var(--green);}
+  .quiz-opt.wrong{border-color:var(--red);background:var(--red-pale);color:var(--red);}
+  .quiz-opt-letter{width:28px;height:28px;border-radius:50%;background:var(--purple-pale);border:1.5px solid var(--purple-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--purple);flex-shrink:0;}
+  .quiz-feedback{padding:14px 18px;border-radius:14px;font-size:15px;font-weight:500;display:none;line-height:1.6;}
+  .quiz-feedback.correct{background:var(--green-pale);color:var(--green);border:1.5px solid #86efac;display:block;}
+  .quiz-feedback.wrong{background:var(--red-pale);color:var(--red);border:1.5px solid #FCA5A5;display:block;}
+
+  /* REFLECTION */
+  .reflection-block{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .reflection-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+  .reflection-title::before{content:'✍️';font-size:24px;}
+  .reflection-items{display:flex;flex-direction:column;gap:14px;}
+  .reflection-item{display:flex;align-items:flex-start;gap:16px;background:var(--white);border-radius:16px;padding:18px 20px;border:1.5px solid var(--purple-mid);}
+  .reflection-num{min-width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .reflection-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  /* SUMMARY */
+  .summary-block{background:linear-gradient(135deg,var(--purple-pale) 0%,var(--purple-mid) 100%);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .summary-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;}
+  .summary-items{display:flex;flex-direction:column;gap:12px;}
+  .summary-item{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.7);border-radius:14px;padding:14px 18px;}
+  .summary-check{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .summary-check svg{width:11px;height:11px;}
+  .summary-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 1 · AI in Education</div>
+  <h1>Leading in the Age of AI</h1>
+  <p class="hero-sub">AI will not replace educators. But it will reshape what educators do — and amplify the impact of great teaching. Here's how to keep yourself, the educator, at the center of an AI-enhanced classroom.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- CAN / CAN'T -->
+  <div class="section fade-in">
+    <h2>What AI Can Do — and What It Can't</h2>
+    <p>Understanding where AI genuinely helps and where it falls short is the foundation of using it well. Here's an honest look at both sides:</p>
+
+    <div class="can-cant">
+      <div class="cc-col cc-can">
+        <div class="cc-badge badge-can">✅ AI Excels At</div>
+        <div class="cc-item">
+          <div class="cc-dot dot-g">✓</div>
+          <div><span class="cc-item-title">Automating Routine Tasks</span>Grading quizzes, generating practice questions, creating summaries — freeing up hours each week.</div>
+        </div>
+        <div class="cc-item">
+          <div class="cc-dot dot-g">✓</div>
+          <div><span class="cc-item-title">Personalizing Practice</span>Adapting learning materials to match a student's level and pace in real time.</div>
+        </div>
+        <div class="cc-item">
+          <div class="cc-dot dot-g">✓</div>
+          <div><span class="cc-item-title">Providing Instant Feedback</span>Giving students support in the moment — not at the next class, not in three days when papers are returned.</div>
+        </div>
+      </div>
+      <div class="cc-col cc-cant">
+        <div class="cc-badge badge-cant">❌ AI Cannot</div>
+        <div class="cc-item">
+          <div class="cc-dot dot-r">✗</div>
+          <div><span class="cc-item-title">Replace Human Relationships</span>Trust, encouragement, and genuine care are things students only get from people — not algorithms.</div>
+        </div>
+        <div class="cc-item">
+          <div class="cc-dot dot-r">✗</div>
+          <div><span class="cc-item-title">Understand Context</span>A computer can flag grammar errors but won't know the unique challenges a student is facing at home or in life.</div>
+        </div>
+        <div class="cc-item">
+          <div class="cc-dot dot-r">✗</div>
+          <div><span class="cc-item-title">Model Lifelong Learning</span>Students need human role models who demonstrate curiosity, resilience, and empathy — not just outputs.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote fade-in">
+    <p>AI may transform how you teach — but it will never change why you teach.</p>
+  </div>
+
+  <!-- ROLE SHIFTS -->
+  <div class="section fade-in">
+    <h2>Redefining the Teacher's Role</h2>
+    <p>Instead of making teachers less important, AI shifts their focus toward what matters most. Here's how the role evolves — not away from teaching, but deeper into it:</p>
+
+    <div class="role-shifts">
+      <div class="rs-row">
+        <div class="rs-from"><div class="rs-label">Moving Away From</div><div class="rs-text">Deliverers of Content</div></div>
+        <div class="rs-arrow">→</div>
+        <div class="rs-to"><div class="rs-label">Moving Toward</div><div class="rs-text">Designers of Learning Experiences</div></div>
+      </div>
+      <div class="rs-row">
+        <div class="rs-from"><div class="rs-label">Moving Away From</div><div class="rs-text">Graders of Work</div></div>
+        <div class="rs-arrow">→</div>
+        <div class="rs-to"><div class="rs-label">Moving Toward</div><div class="rs-text">Coaches & Personal Guides</div></div>
+      </div>
+      <div class="rs-row">
+        <div class="rs-from"><div class="rs-label">Moving Away From</div><div class="rs-text">Lecturers at the Front</div></div>
+        <div class="rs-arrow">→</div>
+        <div class="rs-to"><div class="rs-label">Moving Toward</div><div class="rs-text">Mentors & Relationship Builders</div></div>
+      </div>
+    </div>
+
+    <p>Think of AI as a powerful assistant: it takes some tasks off your plate so you can invest more time <mark>where students need you most</mark>.</p>
+  </div>
+
+  <!-- WHY ESSENTIAL -->
+  <div class="section fade-in">
+    <h2>Why Educators Remain Essential</h2>
+    <p>Even in an AI-rich classroom, teachers are the difference-makers. Here's why no technology changes that:</p>
+
+    <div class="essential-list">
+      <div class="ess-item">
+        <div class="ess-icon">🤝</div>
+        <div>
+          <div class="ess-title">Trust Is Human</div>
+          <div class="ess-desc">Students and families trust educators — not algorithms. The relationship you build with a student is irreplaceable, and it's what makes learning safe enough to happen.</div>
+        </div>
+      </div>
+      <div class="ess-item">
+        <div class="ess-icon">🗣️</div>
+        <div>
+          <div class="ess-title">Learning Is Social</div>
+          <div class="ess-desc">Peer discussions, debates, group projects, and collaborative problem-solving all require skilled human facilitation. AI can prompt questions — only a teacher can read the room and guide what comes next.</div>
+        </div>
+      </div>
+      <div class="ess-item">
+        <div class="ess-icon">⚖️</div>
+        <div>
+          <div class="ess-title">Ethics Need Leaders</div>
+          <div class="ess-desc">Teachers model the responsible, thoughtful use of AI for students — and guide them in making wise choices about when to use it, how to verify it, and why honesty matters. That modeling only happens through relationship.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRACTICAL TIPS -->
+  <div class="section fade-in">
+    <h2>Practical Ways to Stay Centered</h2>
+    <p>Staying at the center of your classroom in an AI age isn't about resistance — it's about intentionality. Here's how:</p>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">📚</div>
+        <div>
+          <div class="tip-title">Use AI for Preparation, Not Presence</div>
+          <div class="tip-desc">Let AI draft lesson plans, create practice sets, or generate material outlines — but keep the delivery, the energy, and the connection with students uniquely yours.</div>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">❤️</div>
+        <div>
+          <div class="tip-title">Balance Efficiency with Empathy</div>
+          <div class="tip-desc">AI can generate quick feedback, but your personal encouragement and belief in a student is what makes feedback feel meaningful and motivating.</div>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🚗</div>
+        <div>
+          <div class="tip-title">Stay in the Driver's Seat</div>
+          <div class="tip-desc">Explore AI tools with curiosity — but you set the boundaries. You decide when AI is helpful, and when your professional judgment matters more than any automated output.</div>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">📣</div>
+        <div>
+          <div class="tip-title">Invest in Your Professional Voice</div>
+          <div class="tip-desc">Don't let AI flatten your communication style. Add your tone, your warmth, your values. The voice students and families trust is yours — protect it.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DECLARATION -->
+  <div class="section fade-in">
+    <div class="declaration">
+      <h3>Technology Is Only as Powerful as the People Who Use It</h3>
+      <p>Students don't just need information — they need <strong>inspiration, guidance, and belonging</strong>. AI cannot provide those things. By keeping educators at the center, we ensure AI serves as a tool for human connection and growth — not a substitute for it.</p>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-block fade-in">
+    <div class="quiz-header">
+      <div class="quiz-icon-box">🧠</div>
+      <div class="quiz-title">Check Your Understanding</div>
+    </div>
+    <div class="quiz-q">Which of the following is something AI genuinely cannot do in an educational setting?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">A</div>Generate practice questions tailored to a student's current level.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">B</div>Provide instant feedback on a student's quiz responses.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">C</div>Summarize a lengthy reading into key bullet points.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,true)"><div class="quiz-opt-letter">D</div>Build a trusted, ongoing relationship with a student based on genuine care and understanding of their context.</div>
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="reflection-block fade-in">
+    <div class="reflection-title">Reflection Questions</div>
+    <div class="reflection-items">
+      <div class="reflection-item">
+        <div class="reflection-num">1</div>
+        <div class="reflection-text">Which tasks in your teaching could you imagine AI taking off your plate — without diminishing your role or impact as an educator?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">2</div>
+        <div class="reflection-text">What aspects of teaching can only be done by you — the specific human being in that classroom — that no AI could replicate?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">3</div>
+        <div class="reflection-text">How do you think your role as an educator might evolve over the next 5–10 years as AI becomes more embedded in schools?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-block fade-in">
+    <div class="summary-title">📌 What You Learned</div>
+    <div class="summary-items">
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">AI excels at automating routine tasks, personalizing practice, and providing instant feedback — but cannot replace human relationships, context, or role modeling.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">AI shifts the teacher's role from content deliverer to learning designer, from grader to coach, from lecturer to mentor — deepening what educators do.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">Educators remain essential because trust is human, learning is social, and ethical leadership requires a person — not an algorithm.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">Stay centered by using AI for preparation, balancing efficiency with empathy, staying in the driver's seat, and protecting your professional voice.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">Technology is only as powerful as the people who use it — students need inspiration, guidance, and belonging that only educators can provide.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll',()=>{const el=document.documentElement;document.getElementById('progressBar').style.width=((el.scrollTop/(el.scrollHeight-el.clientHeight))*100)+'%';});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.12});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+  function answerQuiz(el,correct){
+    if(document.querySelector('.quiz-opt.correct,.quiz-opt.wrong'))return;
+    el.classList.add(correct?'correct':'wrong');
+    const fb=document.getElementById('quizFeedback');
+    fb.className='quiz-feedback '+(correct?'correct':'wrong');
+    fb.textContent=correct
+      ?'✅ Exactly right! Building genuine, trusted relationships with students — grounded in real care, context, and ongoing presence — is something only a human educator can do. AI has no equivalent.'
+      :'❌ Not quite. AI can actually do A, B, and C quite well. What it genuinely cannot do is build the kind of trusted, context-aware relationship with a student that defines great teaching.';
+  }
+</script>
+</body>
+</html>
