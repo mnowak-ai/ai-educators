@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choosing What Works for You — AI in Business Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--accent:#C084FC;--red:#E53E3E;--red-pale:#FFF1F1;--green:#276749;--green-pale:#F0FFF4;--amber:#B45309;--amber-pale:#FFF7ED;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+  .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;transition:width 0.1s ease;}
+  .hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+  .lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+  .lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;display:inline-block;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,54px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-0.02em;}
+  .hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+  .hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+  .content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+  .section{padding:32px 0 0;}
+  h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;letter-spacing:-0.01em;line-height:1.2;}
+  p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+  mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+  /* WHY OVERWHELMING — 4 warning cards */
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+  @media(max-width:560px){.why-grid{grid-template-columns:1fr;}}
+  .why-card{background:var(--amber-pale);border:1.5px solid #FCD34D;border-radius:16px;padding:18px 16px;display:flex;align-items:flex-start;gap:12px;}
+  .why-icon{font-size:22px;flex-shrink:0;}
+  .why-title{font-size:14px;font-weight:700;color:var(--amber);margin-bottom:3px;}
+  .why-desc{font-size:13px;line-height:1.6;color:var(--gray-text);}
+
+  /* EVALUATION CHECKLIST — interactive */
+  .eval-checklist{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:22px;padding:28px;margin:24px 0;}
+  .ec-label{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--purple);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+  .ec-label::after{content:'';flex:1;height:1px;background:var(--purple-mid);}
+  .ec-items{display:flex;flex-direction:column;gap:0;}
+  .ec-item{border-bottom:1px solid var(--purple-mid);padding:16px 0;}
+  .ec-item:last-child{border-bottom:none;padding-bottom:0;}
+  .ec-q{display:flex;align-items:flex-start;gap:12px;cursor:pointer;}
+  .ec-num{width:28px;height:28px;background:var(--purple);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0;margin-top:1px;}
+  .ec-q-text{font-size:15px;font-weight:700;color:var(--purple-dark);flex:1;line-height:1.4;padding-top:4px;}
+  .ec-toggle{font-size:16px;color:var(--purple);flex-shrink:0;padding-top:4px;transition:transform 0.3s;}
+  .ec-item.open .ec-toggle{transform:rotate(45deg);}
+  .ec-detail{max-height:0;overflow:hidden;transition:max-height 0.35s ease;padding-left:40px;}
+  .ec-item.open .ec-detail{max-height:200px;}
+  .ec-example{padding:10px 14px;background:var(--green-pale);border:1.5px solid #86efac;border-radius:12px;font-size:13.5px;line-height:1.65;color:var(--gray-text);margin-top:10px;}
+  .ec-example::before{content:'✅ Example: ';font-weight:700;color:var(--green);}
+
+  /* CATEGORIES — tab switcher */
+  .categories-block{margin:24px 0;}
+  .cat-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:0;}
+  .cat-tab{padding:9px 16px;border-radius:12px 12px 0 0;border:1.5px solid var(--purple-mid);border-bottom:none;background:var(--white);font-size:12px;font-weight:700;color:var(--gray-muted);cursor:pointer;transition:all 0.2s;}
+  .cat-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+  .cat-panel{display:none;background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:0 16px 16px 16px;padding:22px 24px;}
+  .cat-panel.active{display:block;}
+  .cat-icon{font-size:32px;margin-bottom:10px;}
+  .cat-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--purple-dark);margin-bottom:8px;}
+  .cat-desc{font-size:15px;line-height:1.75;color:var(--gray-text);margin-bottom:10px;}
+  .cat-examples{font-size:13px;color:var(--gray-muted);line-height:1.6;}
+  .cat-examples strong{color:var(--purple-dark);}
+  .cat-watch{margin-top:10px;padding:10px 14px;background:var(--amber-pale);border:1px solid #FCD34D;border-radius:10px;font-size:13px;color:var(--gray-text);}
+  .cat-watch::before{content:'⚠️ Watch out: ';font-weight:700;color:var(--amber);}
+
+  /* STAY IN CONTROL — 4 tip cards */
+  .control-list{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+  .ctrl-item{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:18px;transition:all 0.2s;}
+  .ctrl-item:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .ctrl-icon{font-size:26px;flex-shrink:0;}
+  .ctrl-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+  .ctrl-desc{font-size:14px;line-height:1.65;color:var(--gray-muted);}
+
+  /* CLOSING CALLOUT */
+  .closing-block{background:linear-gradient(135deg,var(--purple-dark) 0%,var(--purple) 100%);border-radius:22px;padding:32px;margin:28px 0;color:white;position:relative;overflow:hidden;}
+  .closing-block::before{content:'🎯';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:64px;opacity:0.15;}
+  .closing-block h3{font-family:'Fraunces',serif;font-size:20px;font-weight:700;margin-bottom:12px;}
+  .closing-block p{font-size:15px;line-height:1.7;color:rgba(255,255,255,0.9);margin:0;}
+  .closing-block strong{color:#C084FC;}
+
+  /* PULL QUOTE */
+  .pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+  .pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+  .pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+  /* QUIZ */
+  .quiz-block{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:40px 0;}
+  .quiz-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+  .quiz-icon-box{width:44px;height:44px;background:var(--purple);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .quiz-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);}
+  .quiz-q{font-size:16px;font-weight:600;color:var(--gray-text);margin-bottom:14px;line-height:1.5;}
+  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .quiz-opt{display:flex;align-items:center;gap:13px;padding:14px 18px;background:var(--white);border:2px solid var(--purple-mid);border-radius:14px;cursor:pointer;font-size:15px;color:var(--gray-text);transition:all 0.2s;}
+  .quiz-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .quiz-opt.correct{border-color:var(--green);background:var(--green-pale);color:var(--green);}
+  .quiz-opt.wrong{border-color:var(--red);background:var(--red-pale);color:var(--red);}
+  .quiz-opt-letter{width:28px;height:28px;border-radius:50%;background:var(--purple-pale);border:1.5px solid var(--purple-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--purple);flex-shrink:0;}
+  .quiz-feedback{padding:14px 18px;border-radius:14px;font-size:15px;font-weight:500;display:none;line-height:1.6;}
+  .quiz-feedback.correct{background:var(--green-pale);color:var(--green);border:1.5px solid #86efac;display:block;}
+  .quiz-feedback.wrong{background:var(--red-pale);color:var(--red);border:1.5px solid #FCA5A5;display:block;}
+
+  /* REFLECTION */
+  .reflection-block{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .reflection-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+  .reflection-title::before{content:'✍️';font-size:24px;}
+  .reflection-items{display:flex;flex-direction:column;gap:14px;}
+  .reflection-item{display:flex;align-items:flex-start;gap:16px;background:var(--white);border-radius:16px;padding:18px 20px;border:1.5px solid var(--purple-mid);}
+  .reflection-num{min-width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .reflection-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  /* SUMMARY */
+  .summary-block{background:linear-gradient(135deg,var(--purple-pale) 0%,var(--purple-mid) 100%);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .summary-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;}
+  .summary-items{display:flex;flex-direction:column;gap:12px;}
+  .summary-item{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.7);border-radius:14px;padding:14px 18px;}
+  .summary-check{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .summary-check svg{width:11px;height:11px;}
+  .summary-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 1 · AI Tools for Educators</div>
+  <h1>Choosing What Works for You</h1>
+  <p class="hero-sub">A new AI tool launches every week. Some promise to grade faster, others to personalize learning — all claim to save hours. Not every tool is right for your classroom. Here's how to cut through the noise and choose wisely.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- WHY OVERWHELMING -->
+  <div class="section fade-in">
+    <h2>Why the Tool Landscape Feels Overwhelming</h2>
+    <p>The challenge isn't finding an AI tool — it's knowing which ones are actually worth your time. Here's what's driving the overwhelm:</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">‼️</div>
+        <div><div class="why-title">Sheer Volume</div><div class="why-desc">There are thousands of AI tools marketed specifically to educators — new ones launching constantly.</div></div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">😉</div>
+        <div><div class="why-title">Shiny Promises</div><div class="why-desc">Tools often overpromise dramatic results — "save 10 hours a week!" — while underdelivering in real classroom conditions.</div></div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🤖</div>
+        <div><div class="why-title">Rapid Change</div><div class="why-desc">Features update so fast that what worked (or didn't) last year may have completely changed — making it hard to rely on old reviews.</div></div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🆗</div>
+        <div><div class="why-title">Mixed Quality</div><div class="why-desc">Some tools are well-designed, research-informed, and reliable. Others are rushed to market and fall apart under real classroom use.</div></div>
+      </div>
+    </div>
+
+    <p>Instead of chasing every new app, the smarter move is to <mark>focus on what you actually need</mark> in your teaching practice — then evaluate tools against that standard.</p>
+  </div>
+
+  <!-- EVALUATION CHECKLIST -->
+  <div class="section fade-in">
+    <h2>Five Questions to Ask About Any AI Tool</h2>
+    <p>Use these filters before adopting any new tool. Click each question to see what a good answer looks like in practice:</p>
+
+    <div class="eval-checklist">
+      <div class="ec-label">🔍 Your Evaluation Framework</div>
+      <div class="ec-items">
+
+        <div class="ec-item" onclick="toggleEc(this)">
+          <div class="ec-q">
+            <div class="ec-num">1</div>
+            <div class="ec-q-text">Does this solve a real problem I actually face?</div>
+            <div class="ec-toggle">+</div>
+          </div>
+          <div class="ec-detail">
+            <div class="ec-example">If grading essays consumes hours each week, an AI feedback tool may genuinely help. But if you already have a strong system that works, adding a new tool may only create friction — not relief.</div>
+          </div>
+        </div>
+
+        <div class="ec-item" onclick="toggleEc(this)">
+          <div class="ec-q">
+            <div class="ec-num">2</div>
+            <div class="ec-q-text">How much control do I keep?</div>
+            <div class="ec-toggle">+</div>
+          </div>
+          <div class="ec-detail">
+            <div class="ec-example">Look for tools that let you edit, adapt, and personalize outputs. Be wary of tools that "decide" for you without giving you a meaningful way to review, override, or adjust the result.</div>
+          </div>
+        </div>
+
+        <div class="ec-item" onclick="toggleEc(this)">
+          <div class="ec-q">
+            <div class="ec-num">3</div>
+            <div class="ec-q-text">Is it safe for student data?</div>
+            <div class="ec-toggle">+</div>
+          </div>
+          <div class="ec-detail">
+            <div class="ec-example">Ask: Where is student information stored? Who has access to it? Does the tool meet FERPA and your district's privacy standards? If you can't get a clear answer, that's a red flag.</div>
+          </div>
+        </div>
+
+        <div class="ec-item" onclick="toggleEc(this)">
+          <div class="ec-q">
+            <div class="ec-num">4</div>
+            <div class="ec-q-text">Does it align with my teaching values?</div>
+            <div class="ec-toggle">+</div>
+          </div>
+          <div class="ec-detail">
+            <div class="ec-example">If your focus is on student creativity and original thinking, avoid tools that do too much of the cognitive work for students. Choose tools that enhance what you already value in your classroom culture.</div>
+          </div>
+        </div>
+
+        <div class="ec-item" onclick="toggleEc(this)">
+          <div class="ec-q">
+            <div class="ec-num">5</div>
+            <div class="ec-q-text">How easy is it to learn and actually use?</div>
+            <div class="ec-toggle">+</div>
+          </div>
+          <div class="ec-detail">
+            <div class="ec-example">A good tool saves time — it doesn't require hours of training before you see any benefit. If the learning curve costs more than the tool delivers, it's not the right fit right now.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote fade-in">
+    <p>You don't need every tool. You need the right tools, used wisely.</p>
+  </div>
+
+  <!-- TOOL CATEGORIES -->
+  <div class="section fade-in">
+    <h2>Categories of AI Tools for Educators</h2>
+    <p>Most AI tools fall into five broad categories. Knowing them helps you spot where a new tool might add value — or where it duplicates something you already have. Click each category to explore:</p>
+
+    <div class="categories-block">
+      <div class="cat-tabs">
+        <div class="cat-tab active" onclick="switchCat('content',this)">📝 Content</div>
+        <div class="cat-tab" onclick="switchCat('feedback',this)">💯 Feedback</div>
+        <div class="cat-tab" onclick="switchCat('learning',this)">🤓 Learning</div>
+        <div class="cat-tab" onclick="switchCat('comms',this)">💬 Comms</div>
+        <div class="cat-tab" onclick="switchCat('productivity',this)">⏰ Productivity</div>
+      </div>
+
+      <div class="cat-panel active" id="cat-content">
+        <div class="cat-icon">📝</div>
+        <div class="cat-title">Content Creation</div>
+        <div class="cat-desc">Tools that generate lesson plans, worksheets, discussion questions, quizzes, rubrics, and other instructional materials. Useful for getting a fast first draft — not for replacing your pedagogical judgment.</div>
+        <div class="cat-examples"><strong>Examples:</strong> MagicSchool AI, Diffit, Canva AI, TeachMatic</div>
+        <div class="cat-watch">Outputs need review. These tools don't know your students, your standards, or your classroom culture. Always edit before using.</div>
+      </div>
+
+      <div class="cat-panel" id="cat-feedback">
+        <div class="cat-icon">💯</div>
+        <div class="cat-title">Feedback & Assessment</div>
+        <div class="cat-desc">Tools that provide grading support, generate rubric-based feedback, offer instant guidance to students on writing or problem-solving, or analyze patterns in student work over time.</div>
+        <div class="cat-examples"><strong>Examples:</strong> Grammarly, Writable, Formative, Turnitin</div>
+        <div class="cat-watch">Feedback should always be reviewed before it reaches students. AI feedback on tone, content, or effort can miss context that only you can see.</div>
+      </div>
+
+      <div class="cat-panel" id="cat-learning">
+        <div class="cat-icon">🤓</div>
+        <div class="cat-title">Student Learning Support</div>
+        <div class="cat-desc">Tools that offer tutoring, reading assistance, adaptive practice, or personalized pathways for students. Can be especially powerful for independent practice or homework support outside class hours.</div>
+        <div class="cat-examples"><strong>Examples:</strong> Khan Academy AI, Khanmigo, IXL, Quizlet AI</div>
+        <div class="cat-watch">Watch for over-reliance — students may lean on AI help instead of developing independent thinking. Design tasks that require genuine cognitive effort.</div>
+      </div>
+
+      <div class="cat-panel" id="cat-comms">
+        <div class="cat-icon">💬</div>
+        <div class="cat-title">Communication</div>
+        <div class="cat-desc">Tools that help draft emails, newsletters, progress updates, translation messages, or sensitive conversations for families and colleagues. Saves significant time on routine communication without sacrificing clarity.</div>
+        <div class="cat-examples"><strong>Examples:</strong> ChatGPT, Remind AI features, Google Translate, SchoolStatus</div>
+        <div class="cat-watch">Never share personally identifiable student information with public AI tools. Always personalize and review before sending any family communication.</div>
+      </div>
+
+      <div class="cat-panel" id="cat-productivity">
+        <div class="cat-icon">⏰</div>
+        <div class="cat-title">Productivity</div>
+        <div class="cat-desc">Tools that summarize research, transcribe meetings, organize schedules, or synthesize large amounts of information so you can make faster, better-informed decisions without spending hours reading everything yourself.</div>
+        <div class="cat-examples"><strong>Examples:</strong> Otter.ai, Notion AI, Google Gemini, Microsoft Copilot</div>
+        <div class="cat-watch">Summaries can miss important nuance. Always verify key details from the original source before acting on an AI-generated summary.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAY IN CONTROL -->
+  <div class="section fade-in">
+    <h2>Staying in Control</h2>
+    <p>It's easy to let the excitement of "new" distract from the purpose of teaching. Here are four ways to stay grounded:</p>
+
+    <div class="control-list">
+      <div class="ctrl-item">
+        <div class="ctrl-icon">🌱</div>
+        <div><div class="ctrl-title">Start Small</div><div class="ctrl-desc">Try one tool at a time and evaluate its actual impact on your practice — not just how impressive the demo looked. Sustainable adoption beats jumping on every trend.</div></div>
+      </div>
+      <div class="ctrl-item">
+        <div class="ctrl-icon">🧪</div>
+        <div><div class="ctrl-title">Pilot, Don't Commit</div><div class="ctrl-desc">Use free trials or limited features before adopting anything school-wide. A tool that works for your context in a small test is worth far more than a promising brochure.</div></div>
+      </div>
+      <div class="ctrl-item">
+        <div class="ctrl-icon">🧠</div>
+        <div><div class="ctrl-title">Keep the Human Element</div><div class="ctrl-desc">Use AI for drafts, feedback, or suggestions — but make sure your professional judgment shapes the final product. You are still the decision-maker. The tool is an assistant.</div></div>
+      </div>
+      <div class="ctrl-item">
+        <div class="ctrl-icon">🤝</div>
+        <div><div class="ctrl-title">Collaborate with Colleagues</div><div class="ctrl-desc">Share your experiences — both wins and frustrations. A tool that feels clunky for one teacher might be transformative for another. Collective wisdom beats individual trial-and-error.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="section fade-in">
+    <div class="closing-block">
+      <h3>The AI Landscape Will Keep Changing — Your Role Won't</h3>
+      <p>New tools will keep arriving. Features will keep updating. By asking the right questions, you ensure AI <strong>serves your practice</strong> instead of distracting from it. The goal was never to use more AI — it was always to teach better.</p>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-block fade-in">
+    <div class="quiz-header">
+      <div class="quiz-icon-box">🧠</div>
+      <div class="quiz-title">Check Your Understanding</div>
+    </div>
+    <div class="quiz-q">An educator is evaluating a new AI grading tool. Which question is MOST important to ask before adopting it?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">A</div>Does it have the most advanced AI technology available?</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">B</div>Is it free to use indefinitely?</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,true)"><div class="quiz-opt-letter">C</div>Is it safe for student data and does it give me enough control to review and personalize outputs?</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">D</div>Is it being used by the most schools nationally?</div>
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="reflection-block fade-in">
+    <div class="reflection-title">Reflection Questions</div>
+    <div class="reflection-items">
+      <div class="reflection-item">
+        <div class="reflection-num">1</div>
+        <div class="reflection-text">What's one current challenge in your teaching that you genuinely wish AI could help with — and which category of tool might address it?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">2</div>
+        <div class="reflection-text">Have you ever tried an AI tool that overpromised but underdelivered? What did that experience teach you about evaluating tools more critically?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">3</div>
+        <div class="reflection-text">How do you balance genuine curiosity about new tools with the need to stay focused on your teaching goals — without getting pulled in too many directions?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-block fade-in">
+    <div class="summary-title">📌 What You Learned</div>
+    <div class="summary-items">
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">The AI tool landscape is overwhelming due to sheer volume, overpromising, rapid change, and mixed quality — not because choosing is actually that hard.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">Evaluate tools with five questions: Does it solve a real problem? Do I keep control? Is student data safe? Does it match my values? Is it easy to learn?</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">Most educator AI tools fall into five categories: Content Creation, Feedback & Assessment, Student Learning, Communication, and Productivity.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">Stay grounded by starting small, piloting before committing, keeping your professional judgment in the loop, and learning from colleagues.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">You don't need every tool — you need the right tools, chosen intentionally, that genuinely serve your teaching goals.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll',()=>{const el=document.documentElement;document.getElementById('progressBar').style.width=((el.scrollTop/(el.scrollHeight-el.clientHeight))*100)+'%';});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.12});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  function toggleEc(item){
+    const wasOpen=item.classList.contains('open');
+    document.querySelectorAll('.ec-item').forEach(i=>i.classList.remove('open'));
+    if(!wasOpen)item.classList.add('open');
+  }
+
+  function switchCat(id, tab){
+    document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.cat-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('cat-'+id).classList.add('active');
+  }
+
+  function answerQuiz(el,correct){
+    if(document.querySelector('.quiz-opt.correct,.quiz-opt.wrong'))return;
+    el.classList.add(correct?'correct':'wrong');
+    const fb=document.getElementById('quizFeedback');
+    fb.className='quiz-feedback '+(correct?'correct':'wrong');
+    fb.textContent=correct
+      ?'✅ Exactly right! Student data safety and maintaining professional control over outputs are the two most critical questions — no other feature matters if those aren\'t answered satisfactorily.'
+      :'❌ Not quite. Neither being the most advanced, free, or widely adopted tells you whether a tool is actually safe, useful, or right for your students. The most important questions are about data privacy and educator control.';
+  }
+</script>
+</body>
+</html>
