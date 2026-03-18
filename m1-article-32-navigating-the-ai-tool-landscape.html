@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navigating the AI Tool Landscape — AI in Business Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--accent:#C084FC;--red:#E53E3E;--red-pale:#FFF1F1;--green:#276749;--green-pale:#F0FFF4;--amber:#B45309;--amber-pale:#FFF7ED;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+  .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;transition:width 0.1s ease;}
+  .hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+  .lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+  .lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;display:inline-block;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,54px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-0.02em;}
+  .hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+  .hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+  .content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+  .section{padding:32px 0 0;}
+  h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;letter-spacing:-0.01em;line-height:1.2;}
+  p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+  mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+  /* TOOL EVALUATION SCORECARD */
+  .scorecard{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:22px;padding:28px;margin:24px 0;}
+  .sc-label{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .sc-label::after{content:'';flex:1;height:1px;background:var(--purple-mid);}
+  .sc-intro{font-size:14px;color:var(--gray-muted);margin-bottom:18px;line-height:1.6;}
+  .sc-checks{display:flex;flex-direction:column;gap:8px;}
+  .sc-check{display:flex;align-items:center;gap:12px;padding:11px 16px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:12px;cursor:pointer;transition:all 0.2s;font-size:14px;color:var(--gray-text);user-select:none;}
+  .sc-check:hover{border-color:var(--purple);}
+  .sc-check.checked{background:var(--green-pale);border-color:#86efac;}
+  .sc-check.checked .sc-box{background:var(--green);border-color:var(--green);}
+  .sc-check.checked .sc-box::after{content:'✓';color:white;font-size:11px;font-weight:700;}
+  .sc-box{width:22px;height:22px;border:2px solid var(--purple-mid);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+  .sc-score{margin-top:14px;padding:12px 16px;background:var(--purple-pale);border-radius:12px;font-size:14px;color:var(--purple-dark);font-weight:600;text-align:center;display:none;}
+  .sc-score.visible{display:block;}
+
+  /* NAV PILLS */
+  .concept-nav{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0;}
+  .cn-pill{display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:100px;border:1.5px solid var(--purple-mid);background:var(--white);font-size:12px;font-weight:700;color:var(--gray-muted);cursor:pointer;transition:all 0.2s;}
+  .cn-pill:hover{border-color:var(--purple);color:var(--purple);}
+  .cn-pill.active{background:var(--purple);border-color:var(--purple);color:white;}
+  .cn-num{width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0;}
+  .cn-pill.active .cn-num{background:rgba(255,255,255,0.25);}
+
+  /* TERM CARDS */
+  .terms-list{display:flex;flex-direction:column;gap:14px;margin:28px 0;}
+  .term-card{border:1.5px solid var(--purple-mid);border-radius:22px;overflow:hidden;transition:border-color 0.2s;scroll-margin-top:80px;}
+  .term-card:hover,.term-card.open{border-color:var(--purple);}
+  .term-header{display:flex;align-items:center;gap:14px;padding:20px 24px;background:var(--white);cursor:pointer;user-select:none;}
+  .term-icon{font-size:26px;flex-shrink:0;}
+  .term-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--purple-dark);flex:1;line-height:1.3;}
+  .term-toggle{width:28px;height:28px;background:var(--purple-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--purple);transition:transform 0.3s,background 0.2s;flex-shrink:0;}
+  .term-card.open .term-toggle{transform:rotate(45deg);background:var(--purple);color:white;}
+  .term-body{max-height:0;overflow:hidden;transition:max-height 0.45s ease;}
+  .term-card.open .term-body{max-height:800px;}
+  .term-inner{padding:0 24px 26px 70px;}
+  .term-definition{font-size:15px;line-height:1.8;color:var(--gray-text);margin-bottom:14px;}
+  .term-question{background:var(--amber-pale);border-left:3px solid #F59E0B;border-radius:0 12px 12px 0;padding:12px 16px;font-size:13.5px;line-height:1.65;color:var(--gray-text);margin-bottom:10px;}
+  .term-question::before{content:'❓ Ask yourself: ';font-weight:700;color:var(--amber);}
+  .term-watch{background:var(--red-pale);border-left:3px solid var(--red);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13.5px;line-height:1.65;color:var(--gray-text);}
+  .term-watch::before{content:'⚠️ Watch out for: ';font-weight:700;color:var(--red);}
+
+  /* PULL QUOTE */
+  .pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+  .pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+  .pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+  /* QUIZ */
+  .quiz-block{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:40px 0;}
+  .quiz-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+  .quiz-icon-box{width:44px;height:44px;background:var(--purple);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .quiz-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);}
+  .quiz-q{font-size:16px;font-weight:600;color:var(--gray-text);margin-bottom:14px;line-height:1.5;}
+  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .quiz-opt{display:flex;align-items:center;gap:13px;padding:14px 18px;background:var(--white);border:2px solid var(--purple-mid);border-radius:14px;cursor:pointer;font-size:15px;color:var(--gray-text);transition:all 0.2s;}
+  .quiz-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .quiz-opt.correct{border-color:var(--green);background:var(--green-pale);color:var(--green);}
+  .quiz-opt.wrong{border-color:var(--red);background:var(--red-pale);color:var(--red);}
+  .quiz-opt-letter{width:28px;height:28px;border-radius:50%;background:var(--purple-pale);border:1.5px solid var(--purple-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--purple);flex-shrink:0;}
+  .quiz-feedback{padding:14px 18px;border-radius:14px;font-size:15px;font-weight:500;display:none;line-height:1.6;}
+  .quiz-feedback.correct{background:var(--green-pale);color:var(--green);border:1.5px solid #86efac;display:block;}
+  .quiz-feedback.wrong{background:var(--red-pale);color:var(--red);border:1.5px solid #FCA5A5;display:block;}
+
+  /* REFLECTION */
+  .reflection-block{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .reflection-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+  .reflection-title::before{content:'✍️';font-size:24px;}
+  .reflection-items{display:flex;flex-direction:column;gap:14px;}
+  .reflection-item{display:flex;align-items:flex-start;gap:16px;background:var(--white);border-radius:16px;padding:18px 20px;border:1.5px solid var(--purple-mid);}
+  .reflection-num{min-width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .reflection-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  /* SUMMARY */
+  .summary-block{background:linear-gradient(135deg,var(--purple-pale) 0%,var(--purple-mid) 100%);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .summary-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;}
+  .summary-items{display:flex;flex-direction:column;gap:12px;}
+  .summary-item{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.7);border-radius:14px;padding:14px 18px;}
+  .summary-check{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .summary-check svg{width:11px;height:11px;}
+  .summary-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 1 · AI in Education</div>
+  <h1>Navigating the AI Tool Landscape</h1>
+  <p class="hero-sub">There are hundreds of AI tools competing for your attention. This section helps you cut through the noise — choosing tools that genuinely serve your students, protect privacy, and keep you in control.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- TOOL EVALUATION SCORECARD -->
+  <div class="section fade-in">
+    <h2>Before You Try Any AI Tool</h2>
+    <p>The eight concepts in this section give you a framework for evaluating any AI tool — whether it's pitched at a conference, recommended by a colleague, or pushed by your district. Use this quick checklist to see how ready you are to evaluate a tool critically:</p>
+
+    <div class="scorecard">
+      <div class="sc-label">🔍 Tool Evaluation Readiness Checklist</div>
+      <div class="sc-intro">Check off everything you know how to ask before adopting a new AI tool. See how many you can check:</div>
+      <div class="sc-checks" id="scorecardChecks">
+        <div class="sc-check" onclick="toggleCheck(this)"><div class="sc-box"></div>I can explain what specific problem this tool solves for my students or my practice.</div>
+        <div class="sc-check" onclick="toggleCheck(this)"><div class="sc-box"></div>I know whether this tool has been approved for student data privacy by my district.</div>
+        <div class="sc-check" onclick="toggleCheck(this)"><div class="sc-box"></div>I can describe how the tool's AI makes decisions and what data it uses.</div>
+        <div class="sc-check" onclick="toggleCheck(this)"><div class="sc-box"></div>I've considered whether all my students can access this tool — including those with disabilities or limited devices.</div>
+        <div class="sc-check" onclick="toggleCheck(this)"><div class="sc-box"></div>I know what I'll do if the tool makes an error or produces biased output.</div>
+        <div class="sc-check" onclick="toggleCheck(this)"><div class="sc-box"></div>I've thought about what my role is while the AI is assisting — not just after it outputs something.</div>
+        <div class="sc-check" onclick="toggleCheck(this)"><div class="sc-box"></div>I've tested the tool myself before introducing it to students.</div>
+        <div class="sc-check" onclick="toggleCheck(this)"><div class="sc-box"></div>I'm comfortable explaining to a parent or administrator exactly how this tool is being used.</div>
+      </div>
+      <div class="sc-score" id="scorecardScore"></div>
+    </div>
+  </div>
+
+  <!-- NAV PILLS -->
+  <div class="section fade-in">
+    <h2>Eight Concepts for Evaluating AI Tools</h2>
+    <p>Each concept below gives you a lens for evaluation — with a key question to ask yourself and a warning about what can go wrong. Click any pill to jump directly to a term:</p>
+
+    <div class="concept-nav">
+      <div class="cn-pill active" onclick="jumpTo('term-1',this)"><div class="cn-num">1</div>Purpose-Driven</div>
+      <div class="cn-pill" onclick="jumpTo('term-2',this)"><div class="cn-num">2</div>Transparency</div>
+      <div class="cn-pill" onclick="jumpTo('term-3',this)"><div class="cn-num">3</div>Data Privacy</div>
+      <div class="cn-pill" onclick="jumpTo('term-4',this)"><div class="cn-num">4</div>Usability</div>
+      <div class="cn-pill" onclick="jumpTo('term-5',this)"><div class="cn-num">5</div>Educator Agency</div>
+      <div class="cn-pill" onclick="jumpTo('term-6',this)"><div class="cn-num">6</div>Co-Pilot Approach</div>
+      <div class="cn-pill" onclick="jumpTo('term-7',this)"><div class="cn-num">7</div>Equity & Access</div>
+      <div class="cn-pill" onclick="jumpTo('term-8',this)"><div class="cn-num">8</div>Critical Evaluation</div>
+    </div>
+
+    <div class="terms-list">
+
+      <div class="term-card" id="term-1">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🎯</div>
+          <div class="term-title">Purpose-Driven Tool Use</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Choosing and using AI tools based on a clearly defined instructional need — not novelty, trend, or pressure. Purpose-driven educators start with a problem ("My students struggle to get feedback quickly enough") and then find tools that solve it. They don't start with a tool and invent a justification. This mindset keeps students at the center and prevents adoption fatigue.</div>
+          <div class="term-question">What specific problem does this tool solve for my students or my practice — and is this the best way to solve it?</div>
+          <div class="term-watch">Shiny object syndrome — adopting tools because they're new or hyped, without a clear connection to learning goals. Every new tool adds cognitive load for you and your students.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-2">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🔍</div>
+          <div class="term-title">Transparency</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">The degree to which an AI tool makes its processes, data sources, and decision-making visible and understandable to users. A transparent AI tool can explain (at least broadly) how it generates its outputs, what data it was trained on, and what its limitations are. Transparency matters in education because educators are accountable for the outputs — they need to understand the tool well enough to catch errors and explain its use to students and families.</div>
+          <div class="term-question">Can I explain to a parent or student how this tool works and where its outputs come from? Does the company publish documentation about its AI's limitations?</div>
+          <div class="term-watch">Black-box tools that give you outputs with no explanation. If you can't understand why a tool recommended something, you can't responsibly act on it — especially with students.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-3">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🔒</div>
+          <div class="term-title">Data Privacy</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">The protection of student and educator personal data when using AI tools. In the U.S., student data privacy is governed by laws like FERPA (for education records) and COPPA (for children under 13). Educators have a legal and ethical obligation to ensure that any AI tool used with students does not collect, store, or share data in ways that violate those protections — even if the tool is free and easy to use.</div>
+          <div class="term-question">Has this tool been reviewed and approved by my district for student data privacy? Does the tool store student inputs, and if so, how and for how long?</div>
+          <div class="term-watch">Free consumer AI tools that haven't been vetted for educational use. Many popular public tools store user inputs to train their models — meaning student work and information could be used in ways families haven't consented to.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-4">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">✋</div>
+          <div class="term-title">Usability (Ease of Use)</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">How intuitive, accessible, and practical a tool is for real educators and students in real classroom conditions. A powerful AI tool that requires extensive training, unreliable internet, or expensive hardware is not actually usable for most teachers. Usability considers the full context — the devices available in your school, the technical confidence of your students, and the time you realistically have to learn a new system.</div>
+          <div class="term-question">Can I learn this tool in under an hour? Will my students be able to use it without needing significant technical support? Does it work on the devices and bandwidth available in my classroom?</div>
+          <div class="term-watch">Tools that look great in a demo but require high technical skill or optimal conditions to function. If a tool creates more friction than it removes, it's not serving your students.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-5">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🔑</div>
+          <div class="term-title">Educator Agency</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">The principle that teachers maintain professional authority over all AI-assisted decisions. When evaluating tools, educator agency means asking: does this tool put me in control, or does it gradually shift decision-making to the algorithm? Tools that support agency give educators the ability to override, adjust, or reject AI suggestions. Tools that undermine agency make educators feel like operators of a system rather than professionals exercising judgment.</div>
+          <div class="term-question">Does this tool support my professional judgment, or does it make it harder to override or question its outputs? Who is ultimately accountable for what this tool produces?</div>
+          <div class="term-watch">Tools designed to automate educator decisions without meaningful human review. If a tool is making recommendations about students that you feel pressured to accept without questioning, your agency is being eroded.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-6">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🛩️</div>
+          <div class="term-title">Co-Pilot Approach</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">A model for AI use where the educator remains firmly in the pilot seat — directing the work, setting the destination, and making all final calls — while AI acts as a capable co-pilot that handles routine tasks and surfaces information. The co-pilot approach explicitly rejects the idea of AI "flying the plane" autonomously in an educational setting. It's a mental model for healthy, agentic AI integration: you lead, AI assists.</div>
+          <div class="term-question">Am I using this tool as an assistant that supports my decisions — or has it started making decisions I'm just approving automatically?</div>
+          <div class="term-watch">Automation creep — the gradual slide from reviewing AI outputs to rubber-stamping them. The co-pilot becomes the pilot without anyone noticing. Regular reflection on your actual usage patterns is essential.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-7">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">⚖️</div>
+          <div class="term-title">Equity and Accessibility</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">The principle that AI tools must work for all students — regardless of disability status, language background, device access, or socioeconomic context. Equity in AI tool selection means evaluating whether a tool creates or exacerbates gaps. Accessibility means ensuring that students who use assistive technology, have limited internet, or are learning in a second language can meaningfully engage with the tool.</div>
+          <div class="term-question">Does this tool work for my students with IEPs or 504s? Does it support multiple languages? Can students access it on older devices or with limited bandwidth?</div>
+          <div class="term-watch">AI tools that were designed primarily for well-resourced, English-speaking, neurotypical users. Using inequitable tools in a diverse classroom can unintentionally reinforce the same disparities educators are working to address.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-8">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🧪</div>
+          <div class="term-title">Critical Evaluation</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">The ongoing practice of examining AI tools and their outputs with a questioning, evidence-based mindset — rather than accepting them at face value. Critical evaluation means testing tools before deployment, reviewing AI-generated outputs before sharing them, questioning the assumptions built into a tool's design, and regularly asking whether a tool is still serving its original purpose. It's a professional habit, not a one-time event.</div>
+          <div class="term-question">Have I tested this tool's outputs for accuracy, bias, and appropriateness before using them with students? Am I still evaluating it regularly, or did I stop after the first month?</div>
+          <div class="term-watch">The "set it and forget it" trap — adopting a tool, integrating it into your workflow, and then never revisiting whether it's still accurate, appropriate, or better than alternatives that have emerged since.</div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote fade-in">
+    <p>The best tool is never the most powerful one — it's the one that solves your specific problem without creating new ones.</p>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-block fade-in">
+    <div class="quiz-header">
+      <div class="quiz-icon-box">🧠</div>
+      <div class="quiz-title">Check Your Understanding</div>
+    </div>
+    <div class="quiz-q">A teacher adopts a free AI feedback tool for student writing because a colleague raved about it. Two months later, she realizes student inputs are being stored and possibly used to train the AI's model. Which concept did she fail to apply before adoption?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">A</div>Co-Pilot Approach — she should have stayed more involved in reviewing the feedback.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">B</div>Usability — the tool was too difficult for her students to use.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,true)"><div class="quiz-opt-letter">C</div>Data Privacy — she didn't verify how the tool handles student data before adopting it.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">D</div>Transparency — she couldn't explain how the tool generated its feedback.</div>
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="reflection-block fade-in">
+    <div class="reflection-title">Reflection Questions</div>
+    <div class="reflection-items">
+      <div class="reflection-item">
+        <div class="reflection-num">1</div>
+        <div class="reflection-text">Think about an AI tool you currently use or have considered using. How many of the eight concepts could you confidently address right now for that tool?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">2</div>
+        <div class="reflection-text">Which concept do you think is most overlooked when schools and educators adopt AI tools quickly? What's the cost of skipping it?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">3</div>
+        <div class="reflection-text">How would you explain the co-pilot approach to a colleague who feels like they're either fully on board with AI or fully resistant to it? Is there a middle ground they're missing?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-block fade-in">
+    <div class="summary-title">📌 Eight Lenses for Evaluating Any AI Tool</div>
+    <div class="summary-items">
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Purpose-Driven</strong> — Start with a clear instructional problem, then find a tool. Not the other way around.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Transparency</strong> — You should be able to explain how a tool works and defend its outputs to anyone who asks.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Data Privacy</strong> — Never use an unvetted tool with student data. FERPA compliance is non-negotiable.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Usability</strong> — If it doesn't work in real classroom conditions, it doesn't work. Full stop.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Educator Agency</strong> — You must always be able to override, question, and reject any AI suggestion.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Co-Pilot Approach</strong> — You're the pilot. AI assists. Watch for automation creep turning that around.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Equity & Accessibility</strong> — If a tool doesn't work for all your students, it doesn't belong in your classroom.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Critical Evaluation</strong> — Adopt tools carefully, test them continuously, and never stop asking whether they're still working.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll',()=>{const el=document.documentElement;document.getElementById('progressBar').style.width=((el.scrollTop/(el.scrollHeight-el.clientHeight))*100)+'%';});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.12});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  function toggleCheck(el){
+    el.classList.toggle('checked');
+    const checks=document.querySelectorAll('.sc-check');
+    const count=[...checks].filter(c=>c.classList.contains('checked')).length;
+    const score=document.getElementById('scorecardScore');
+    if(count===0){score.classList.remove('visible');return;}
+    score.classList.add('visible');
+    const msgs=['Keep reading — this section will fill in the gaps!','Good start — a few more concepts to explore.','You\'re getting there — check out the terms below to sharpen your toolkit.','Strong foundation — now deepen each one with the definitions below.','Solid! You\'re thinking critically about AI tools.','Very strong — you\'re well-prepared to evaluate AI tools responsibly.','Excellent — you\'re ready to be a resource for colleagues.','Perfect score — you\'re thinking like an expert AI evaluator! 🎉'];
+    score.textContent=`${count} / 8 checked — ${msgs[count-1]}`;
+  }
+
+  function jumpTo(id, pill){
+    document.querySelectorAll('.cn-pill').forEach(p=>p.classList.remove('active'));
+    if(pill)pill.classList.add('active');
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.classList.add('open');
+    setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50);
+  }
+
+  function toggleTerm(card){
+    const wasOpen=card.classList.contains('open');
+    document.querySelectorAll('.term-card').forEach(c=>c.classList.remove('open'));
+    if(!wasOpen)card.classList.add('open');
+  }
+
+  function answerQuiz(el,correct){
+    if(document.querySelector('.quiz-opt.correct,.quiz-opt.wrong'))return;
+    el.classList.add(correct?'correct':'wrong');
+    const fb=document.getElementById('quizFeedback');
+    fb.className='quiz-feedback '+(correct?'correct':'wrong');
+    fb.textContent=correct
+      ?'✅ Exactly right! Data Privacy requires verifying how any tool handles student data before adoption — not after. Free consumer AI tools often store user inputs in ways that violate FERPA protections.'
+      :'❌ Not quite. While other concepts are relevant, the core issue here is Data Privacy — the teacher needed to verify how the tool stores and uses student data before introducing it in her classroom.';
+  }
+</script>
+</body>
+</html>
