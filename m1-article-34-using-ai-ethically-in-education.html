@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Using AI Ethically in Education — AI in Business Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--accent:#C084FC;--red:#E53E3E;--red-pale:#FFF1F1;--green:#276749;--green-pale:#F0FFF4;--amber:#B45309;--amber-pale:#FFF7ED;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+  .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;transition:width 0.1s ease;}
+  .hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+  .lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+  .lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;display:inline-block;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,54px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-0.02em;}
+  .hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+  .hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+  .content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+  .section{padding:32px 0 0;}
+  h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;letter-spacing:-0.01em;line-height:1.2;}
+  p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+  mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+  /* CONSCIENCE CALLOUT */
+  .conscience-block{background:linear-gradient(135deg,var(--purple-dark) 0%,var(--purple) 100%);border-radius:20px;padding:28px 32px;margin:24px 0;color:white;position:relative;overflow:hidden;}
+  .conscience-block::before{content:'🧭';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:64px;opacity:0.15;}
+  .conscience-block p{font-size:16px;line-height:1.75;color:rgba(255,255,255,0.92);margin:0;}
+  .conscience-block strong{color:#C084FC;}
+
+  /* ETHICS FRAMEWORK — 4 pillars visual */
+  .framework-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:24px 0;}
+  @media(max-width:600px){.framework-grid{grid-template-columns:1fr 1fr;}}
+  .fw-card{border-radius:16px;padding:18px 14px;text-align:center;}
+  .fw-1{background:var(--purple-pale);border:1.5px solid var(--purple-mid);}
+  .fw-2{background:var(--green-pale);border:1.5px solid #86efac;}
+  .fw-3{background:var(--red-pale);border:1.5px solid #FCA5A5;}
+  .fw-4{background:var(--amber-pale);border:1.5px solid #FCD34D;}
+  .fw-icon{font-size:26px;margin-bottom:8px;}
+  .fw-label{font-size:12px;font-weight:700;color:var(--purple-dark);line-height:1.3;}
+
+  /* NAV PILLS */
+  .concept-nav{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0;}
+  .cn-pill{display:flex;align-items:center;gap:7px;padding:9px 15px;border-radius:100px;border:1.5px solid var(--purple-mid);background:var(--white);font-size:12px;font-weight:700;color:var(--gray-muted);cursor:pointer;transition:all 0.2s;}
+  .cn-pill:hover{border-color:var(--purple);color:var(--purple);}
+  .cn-pill.active{background:var(--purple);border-color:var(--purple);color:white;}
+
+  /* TERM CARDS — with ethical strength meter */
+  .terms-list{display:flex;flex-direction:column;gap:14px;margin:28px 0;}
+  .term-card{border:1.5px solid var(--purple-mid);border-radius:22px;overflow:hidden;transition:border-color 0.2s;scroll-margin-top:80px;}
+  .term-card:hover,.term-card.open{border-color:var(--purple);}
+  .term-header{display:flex;align-items:center;gap:14px;padding:20px 24px;background:var(--white);cursor:pointer;user-select:none;}
+  .term-icon{font-size:26px;flex-shrink:0;}
+  .term-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--purple-dark);flex:1;line-height:1.3;}
+  .term-toggle{width:28px;height:28px;background:var(--purple-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--purple);transition:transform 0.3s,background 0.2s;flex-shrink:0;}
+  .term-card.open .term-toggle{transform:rotate(45deg);background:var(--purple);color:white;}
+  .term-body{max-height:0;overflow:hidden;transition:max-height 0.45s ease;}
+  .term-card.open .term-body{max-height:700px;}
+  .term-inner{padding:0 24px 26px 70px;}
+  .term-definition{font-size:15px;line-height:1.8;color:var(--gray-text);margin-bottom:14px;}
+  .term-red-flag{background:var(--red-pale);border-left:3px solid var(--red);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13.5px;line-height:1.65;color:var(--gray-text);margin-bottom:10px;}
+  .term-red-flag::before{content:'🚩 Red flag to watch for: ';font-weight:700;color:var(--red);}
+  .term-action{background:var(--green-pale);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13.5px;line-height:1.65;color:var(--gray-text);}
+  .term-action::before{content:'✅ Educator response: ';font-weight:700;color:var(--green);}
+
+  /* ETHICAL CHECKLIST — interactive self-audit */
+  .audit-block{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:22px;padding:28px;margin:28px 0;}
+  .ab-label{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .ab-label::after{content:'';flex:1;height:1px;background:var(--purple-mid);}
+  .ab-items{display:flex;flex-direction:column;gap:10px;}
+  .ab-item{display:flex;align-items:center;gap:14px;padding:13px 16px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;cursor:pointer;transition:all 0.2s;}
+  .ab-item:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .ab-item.checked{background:var(--purple-pale);border-color:var(--purple);}
+  .ab-item.checked .ab-box{background:var(--purple);border-color:var(--purple);}
+  .ab-item.checked .ab-box::after{content:'✓';color:white;font-size:11px;font-weight:700;}
+  .ab-box{width:22px;height:22px;border:2px solid var(--purple-mid);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+  .ab-text{font-size:14px;line-height:1.6;color:var(--gray-text);}
+  .ab-score{margin-top:14px;padding:12px 16px;background:var(--white);border-radius:12px;border:1.5px solid var(--purple-mid);font-size:14px;color:var(--purple-dark);font-weight:600;text-align:center;display:none;}
+  .ab-score.visible{display:block;}
+
+  /* PULL QUOTE */
+  .pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+  .pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+  .pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+  /* QUIZ */
+  .quiz-block{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:40px 0;}
+  .quiz-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+  .quiz-icon-box{width:44px;height:44px;background:var(--purple);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .quiz-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);}
+  .quiz-q{font-size:16px;font-weight:600;color:var(--gray-text);margin-bottom:14px;line-height:1.5;}
+  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .quiz-opt{display:flex;align-items:center;gap:13px;padding:14px 18px;background:var(--white);border:2px solid var(--purple-mid);border-radius:14px;cursor:pointer;font-size:15px;color:var(--gray-text);transition:all 0.2s;}
+  .quiz-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .quiz-opt.correct{border-color:var(--green);background:var(--green-pale);color:var(--green);}
+  .quiz-opt.wrong{border-color:var(--red);background:var(--red-pale);color:var(--red);}
+  .quiz-opt-letter{width:28px;height:28px;border-radius:50%;background:var(--purple-pale);border:1.5px solid var(--purple-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--purple);flex-shrink:0;}
+  .quiz-feedback{padding:14px 18px;border-radius:14px;font-size:15px;font-weight:500;display:none;line-height:1.6;}
+  .quiz-feedback.correct{background:var(--green-pale);color:var(--green);border:1.5px solid #86efac;display:block;}
+  .quiz-feedback.wrong{background:var(--red-pale);color:var(--red);border:1.5px solid #FCA5A5;display:block;}
+
+  /* REFLECTION */
+  .reflection-block{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .reflection-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+  .reflection-title::before{content:'✍️';font-size:24px;}
+  .reflection-items{display:flex;flex-direction:column;gap:14px;}
+  .reflection-item{display:flex;align-items:flex-start;gap:16px;background:var(--white);border-radius:16px;padding:18px 20px;border:1.5px solid var(--purple-mid);}
+  .reflection-num{min-width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .reflection-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  /* SUMMARY */
+  .summary-block{background:linear-gradient(135deg,var(--purple-pale) 0%,var(--purple-mid) 100%);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .summary-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;}
+  .summary-items{display:flex;flex-direction:column;gap:12px;}
+  .summary-item{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.7);border-radius:14px;padding:14px 18px;}
+  .summary-check{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .summary-check svg{width:11px;height:11px;}
+  .summary-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 1 · Ethical AI</div>
+  <h1>Using AI Ethically in Education</h1>
+  <p class="hero-sub">Before we bring any AI tool into our classrooms, we need more than convenience — we need conscience. These eight terms help you evaluate and use AI responsibly, fairly, and with full awareness of what's at stake.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- CONSCIENCE CALLOUT -->
+  <div class="section fade-in">
+    <div class="conscience-block">
+      <p>Ethical AI use is not a checklist — it's a <strong>professional commitment</strong>. It means protecting students from harm they can't always see, promoting fairness in systems that aren't always transparent, and staying true to our values even when a tool is convenient, popular, or mandated from above.</p>
+    </div>
+
+    <div class="framework-grid" style="margin-top:24px;">
+      <div class="fw-card fw-1"><div class="fw-icon">⚖️</div><div class="fw-label">Fairness & Accountability</div></div>
+      <div class="fw-card fw-2"><div class="fw-icon">🔍</div><div class="fw-label">Transparency & Explainability</div></div>
+      <div class="fw-card fw-3"><div class="fw-icon">🛡️</div><div class="fw-label">Protecting Against Bias & Harm</div></div>
+      <div class="fw-card fw-4"><div class="fw-icon">🧠</div><div class="fw-label">Informed Use & Conscience</div></div>
+    </div>
+
+    <p style="margin-top:16px;">These four pillars run through all eight terms below. Use the pills to jump to any concept:</p>
+
+    <div class="concept-nav">
+      <div class="cn-pill active" onclick="jumpTo('term-1',this)">Ethical AI</div>
+      <div class="cn-pill" onclick="jumpTo('term-2',this)">Fairness</div>
+      <div class="cn-pill" onclick="jumpTo('term-3',this)">Bias</div>
+      <div class="cn-pill" onclick="jumpTo('term-4',this)">Transparency</div>
+      <div class="cn-pill" onclick="jumpTo('term-5',this)">Black Box</div>
+      <div class="cn-pill" onclick="jumpTo('term-6',this)">Accountability</div>
+      <div class="cn-pill" onclick="jumpTo('term-7',this)">Explainability</div>
+      <div class="cn-pill" onclick="jumpTo('term-8',this)">Informed Use</div>
+    </div>
+  </div>
+
+  <!-- TERMS -->
+  <div class="section fade-in">
+    <div class="terms-list">
+
+      <div class="term-card" id="term-1">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">⚖️</div>
+          <div class="term-title">Ethical AI</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Ethical AI refers to the design, deployment, and use of artificial intelligence systems that respect human rights, promote fairness, protect privacy, maintain transparency, and avoid causing harm. In education, ethical AI means choosing tools that serve students' genuine learning needs — not just institutional efficiency — and using those tools in ways that align with professional values and student wellbeing.</div>
+          <div class="term-red-flag">An AI tool that promises to "solve" complex student challenges without transparency about how it works — or that collects student data without clear privacy protections — is a signal that ethical questions aren't being taken seriously.</div>
+          <div class="term-action">Before adopting any AI tool, ask: Who benefits from this? Who might be harmed? What are the long-term implications for students? If the company can't answer those questions clearly, that's your answer.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-2">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🌍</div>
+          <div class="term-title">Fairness</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Fairness in AI means that a system produces consistent, equitable outcomes across different groups of people — regardless of race, gender, language, socioeconomic background, or disability status. A "fair" AI tool doesn't just work well on average; it works well for every student in your classroom. Fairness is an active goal, not a default — it requires intentional design, diverse training data, and ongoing monitoring.</div>
+          <div class="term-red-flag">If an AI tool performs noticeably better for some student groups than others — for example, providing more accurate feedback on essays written in Standard American English than in other dialects — that tool has a fairness problem.</div>
+          <div class="term-action">Test AI tools with diverse student samples before full adoption. Watch for patterns where specific groups consistently receive lower scores, fewer recommendations, or less useful feedback — and flag these to your administration.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-3">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">📊</div>
+          <div class="term-title">Bias</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">AI bias occurs when a system's outputs systematically favor or disadvantage a particular group — not through intentional programming, but because its training data encoded existing social inequalities. Bias can appear in how AI evaluates writing, recommends learning paths, flags behavioral concerns, or predicts academic outcomes. Crucially, biased AI outputs can feel authoritative and objective — making them harder to challenge than an individual human's prejudice.</div>
+          <div class="term-red-flag">An AI system that generates lower academic performance predictions for students from certain zip codes, or that flags Black and Latino students' behavior at higher rates, is demonstrating harmful bias — even if no human explicitly programmed that outcome.</div>
+          <div class="term-action">Never treat AI predictions or scores as final truth. Always apply your own professional judgment, especially for high-stakes decisions. Question outputs that surprise you — and document patterns that seem unfair.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-4">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🔍</div>
+          <div class="term-title">Transparency</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Transparency in AI means that users — including educators, students, and families — can understand, at an appropriate level of detail, how an AI system works, what data it uses, and how it reaches its outputs. A transparent AI tool doesn't hide its logic. It communicates its limitations honestly and gives users enough information to make informed decisions about whether and how to rely on its outputs.</div>
+          <div class="term-red-flag">An AI vendor that refuses to explain how their scoring algorithm works, cites "proprietary technology" when asked about data use, or makes it difficult to appeal or override their system's decisions — is not operating with transparency.</div>
+          <div class="term-action">Ask every AI vendor: What data do you use? How does your system make decisions? What are its known limitations? If their answers are vague, evasive, or dismissive, that's information too.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-5">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">📦</div>
+          <div class="term-title">Black Box</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">A "black box" AI system is one where the internal logic — how it arrives at a decision or output — is hidden or too complex for humans to interpret or audit. You feed information in, you get a result out, but you can't see or understand the process in between. Many sophisticated AI systems, including deep learning models, operate as black boxes. In education, this is a serious concern: if you can't understand why an AI scored a student a certain way, you can't defend it, challenge it, or learn from it.</div>
+          <div class="term-red-flag">Any AI system used to make decisions about student placement, discipline, or assessment that cannot explain its reasoning is a black box — and a liability. If you can't explain it to a parent, you shouldn't be using it.</div>
+          <div class="term-action">Require any AI tool used in high-stakes decisions to provide human-readable explanations for its outputs. If a tool can't explain its reasoning in terms you and families can understand, escalate that concern before adopting it.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-6">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🏛️</div>
+          <div class="term-title">Accountability</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Accountability in AI means that specific people or organizations are responsible for the outcomes produced by an AI system — and can be held to account when those outcomes cause harm. In education, accountability requires clarity: Who approved this tool? Who is responsible if it produces biased results? Who can a family appeal to if AI contributed to an unfair decision about their child? Accountability doesn't disappear just because a machine made the recommendation.</div>
+          <div class="term-red-flag">When AI vendors claim "the algorithm decided" — or when schools adopt AI tools without clear policies about who is responsible for their outcomes — accountability has broken down. Harm can happen without anyone being held responsible.</div>
+          <div class="term-action">Know your school's AI governance policies. If your district adopts an AI tool without clarity on who is accountable for its outcomes, advocate for that clarity before implementation. Document every case where AI outputs affected a student — positive or negative.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-7">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">💬</div>
+          <div class="term-title">Explainability</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Explainability refers to an AI system's ability to communicate, in plain human language, why it produced a particular output. An explainable AI system doesn't just give you a score or a recommendation — it tells you what factors led to that outcome, so you can evaluate whether those factors are appropriate, fair, and accurate. Explainability is closely related to transparency but focuses specifically on the communication of individual decisions.</div>
+          <div class="term-red-flag">An AI essay-scoring tool that gives a student a 67 without explaining what specifically was weak — or a behavior prediction tool that flags a student as "high risk" without articulating which data points drove that designation — lacks explainability.</div>
+          <div class="term-action">Prioritize AI tools that provide human-readable explanations for their outputs. Use those explanations as a starting point for your own professional assessment — not as a final judgment. An AI that can't explain itself shouldn't be trusted with consequential decisions.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-8">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🧠</div>
+          <div class="term-title">Informed Use</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Informed use means that educators who adopt AI tools understand what those tools do, how they work, what their limitations are, and what risks they carry — before and during deployment. It's the opposite of adopting AI tools because they're popular, free, or recommended by a vendor without independent evaluation. Informed use requires ongoing learning, not a one-time orientation. As AI tools evolve, so must the educator's understanding of them.</div>
+          <div class="term-red-flag">Adopting an AI tool because "everyone's using it" or because a vendor's demo looked impressive — without reviewing privacy policies, understanding the underlying data, or evaluating its impact on your specific student population — is uninformed use.</div>
+          <div class="term-action">Before adopting any AI tool: read the privacy policy (or ask your district's technology officer to), research independent reviews or studies on its effectiveness, understand what student data it collects, and pilot it with a small group before full deployment. Informed use protects students.</div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ETHICAL SELF-AUDIT -->
+  <div class="section fade-in">
+    <h2>Ethical AI Self-Audit</h2>
+    <p>Use this checklist to evaluate any AI tool before bringing it into your classroom. Check off each question you can confidently say "yes" to:</p>
+
+    <div class="audit-block">
+      <div class="ab-label">🧭 Before You Use Any AI Tool with Students</div>
+      <div class="ab-items" id="auditItems">
+        <div class="ab-item" onclick="toggleAudit(this)"><div class="ab-box"></div><div class="ab-text">I understand what this tool does and how it reaches its outputs.</div></div>
+        <div class="ab-item" onclick="toggleAudit(this)"><div class="ab-box"></div><div class="ab-text">The tool has been vetted by my district for student data privacy compliance.</div></div>
+        <div class="ab-item" onclick="toggleAudit(this)"><div class="ab-box"></div><div class="ab-text">I know who is accountable if this tool produces harmful or unfair results.</div></div>
+        <div class="ab-item" onclick="toggleAudit(this)"><div class="ab-box"></div><div class="ab-text">I can explain to students and families how and why I'm using this tool.</div></div>
+        <div class="ab-item" onclick="toggleAudit(this)"><div class="ab-box"></div><div class="ab-text">I have considered whether this tool works equitably for all my students.</div></div>
+        <div class="ab-item" onclick="toggleAudit(this)"><div class="ab-box"></div><div class="ab-text">I will review all AI outputs before they affect any student decision.</div></div>
+      </div>
+      <div class="ab-score" id="auditScore"></div>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote fade-in">
+    <p>Ethical AI use is not about avoiding technology — it's about being the kind of professional who asks the right questions before saying yes.</p>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-block fade-in">
+    <div class="quiz-header">
+      <div class="quiz-icon-box">🧠</div>
+      <div class="quiz-title">Check Your Understanding</div>
+    </div>
+    <div class="quiz-q">A school purchases an AI-powered behavior prediction tool. When a parent asks why their child was flagged as "high risk," the vendor says the reasoning is proprietary and cannot be shared. Which two concepts does this situation most directly violate?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">A</div>Informed Use and Fairness</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">B</div>Ethical AI and Bias</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,true)"><div class="quiz-opt-letter">C</div>Transparency and Explainability</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">D</div>Accountability and Fairness</div>
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="reflection-block fade-in">
+    <div class="reflection-title">Reflection Questions</div>
+    <div class="reflection-items">
+      <div class="reflection-item">
+        <div class="reflection-num">1</div>
+        <div class="reflection-text">Think of an AI tool you've used or seen used in a school. How would you evaluate it using the eight concepts from this article? What would you want to know before recommending it?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">2</div>
+        <div class="reflection-text">What does "informed use" look like in your current school context — and what barriers make it harder for educators to be truly informed before adopting new tools?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">3</div>
+        <div class="reflection-text">If a parent asked you to explain how an AI tool you use affects their child, how would you respond? What would that conversation reveal about how well you understand the tool?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-block fade-in">
+    <div class="summary-title">📌 Eight Concepts to Remember</div>
+    <div class="summary-items">
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Ethical AI</strong> — AI that respects human rights, promotes fairness, protects privacy, and avoids harm. The question is always: who benefits, and who might be harmed?</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Fairness</strong> — AI that works equitably across all student groups, not just well on average. Fairness requires active design and ongoing monitoring.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Bias</strong> — Unfair outcomes baked into AI systems through skewed training data. Biased AI outputs can feel authoritative — making them harder to challenge than human prejudice.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Transparency</strong> — Honest communication about how an AI system works, what data it uses, and what its limitations are. Vague answers are a warning sign.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Black Box</strong> — An AI system whose internal logic is hidden. If you can't explain an AI's reasoning to a parent, you shouldn't be using it for consequential decisions.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Accountability</strong> — Clear human responsibility for AI outcomes. "The algorithm decided" is never an acceptable answer when a student has been harmed.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Explainability</strong> — An AI's ability to communicate in plain language why it produced a specific output. No explanation = no basis for trust or challenge.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Informed Use</strong> — Understanding a tool's function, limitations, and risks before deploying it. Adoption without understanding is not a professional standard.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll',()=>{const el=document.documentElement;document.getElementById('progressBar').style.width=((el.scrollTop/(el.scrollHeight-el.clientHeight))*100)+'%';});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.12});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  function jumpTo(id, pill){
+    document.querySelectorAll('.cn-pill').forEach(p=>p.classList.remove('active'));
+    if(pill)pill.classList.add('active');
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.classList.add('open');
+    setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50);
+  }
+
+  function toggleTerm(card){
+    const wasOpen=card.classList.contains('open');
+    document.querySelectorAll('.term-card').forEach(c=>c.classList.remove('open'));
+    if(!wasOpen)card.classList.add('open');
+  }
+
+  function toggleAudit(item){
+    item.classList.toggle('checked');
+    const total=document.querySelectorAll('.ab-item').length;
+    const checked=document.querySelectorAll('.ab-item.checked').length;
+    const score=document.getElementById('auditScore');
+    if(checked===0){score.classList.remove('visible');return;}
+    score.classList.add('visible');
+    const msgs=['Keep going — each question you can answer yes to strengthens your practice.','Getting there — a few more checks and you\'ll have a solid foundation.','Good progress — most criteria are met. Review the remaining ones.','Strong foundation — just one or two gaps left to address.','Nearly there — one final check to complete the audit.','✅ Full audit passed! You have a strong ethical foundation for using this tool responsibly.'];
+    score.textContent=`${checked}/${total} criteria met. ${msgs[checked-1]}`;
+  }
+
+  function answerQuiz(el,correct){
+    if(document.querySelector('.quiz-opt.correct,.quiz-opt.wrong'))return;
+    el.classList.add(correct?'correct':'wrong');
+    const fb=document.getElementById('quizFeedback');
+    fb.className='quiz-feedback '+(correct?'correct':'wrong');
+    fb.textContent=correct
+      ?'✅ Exactly right! When a vendor refuses to explain how their system reached a decision — citing proprietary technology — they are violating both Transparency (hiding how the system works) and Explainability (refusing to communicate the reasoning behind a specific output). These are non-negotiable in any tool affecting students.'
+      :'❌ Not quite. The core issue here is that the vendor is hiding how the system works (Transparency) and refusing to explain the reasoning behind a specific decision (Explainability). Those are the two concepts most directly violated — though accountability concerns are also present.';
+  }
+</script>
+</body>
+</html>
