@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 101: Key Terms You Need to Know — AI in Business Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--accent:#C084FC;--red:#E53E3E;--red-pale:#FFF1F1;--green:#276749;--green-pale:#F0FFF4;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+  .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;transition:width 0.1s ease;}
+  .hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+  .lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+  .lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;display:inline-block;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-0.02em;}
+  .hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+  .hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+  .content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+  .section{padding:32px 0 0;}
+  h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;letter-spacing:-0.01em;line-height:1.2;}
+  p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+  mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+  /* SEARCH BAR */
+  .search-wrap{position:relative;margin:24px 0 8px;}
+  .search-input{width:100%;padding:14px 18px 14px 48px;border:2px solid var(--purple-mid);border-radius:16px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--gray-text);background:var(--white);outline:none;transition:border-color 0.2s;}
+  .search-input:focus{border-color:var(--purple);}
+  .search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:18px;pointer-events:none;}
+  .search-count{font-size:13px;color:var(--gray-muted);margin-bottom:20px;min-height:20px;}
+
+  /* ALPHABET FILTER */
+  .alpha-filter{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 20px;}
+  .af-btn{padding:6px 12px;border-radius:8px;border:1.5px solid var(--purple-mid);background:var(--white);font-size:12px;font-weight:700;color:var(--gray-muted);cursor:pointer;transition:all 0.15s;}
+  .af-btn:hover{border-color:var(--purple);color:var(--purple);}
+  .af-btn.active{background:var(--purple);border-color:var(--purple);color:white;}
+
+  /* GLOSSARY ACCORDION */
+  .glossary{display:flex;flex-direction:column;gap:10px;margin:0;}
+  .gl-item{border:1.5px solid var(--purple-mid);border-radius:18px;overflow:hidden;transition:border-color 0.2s;}
+  .gl-item:hover{border-color:var(--purple);}
+  .gl-item.open{border-color:var(--purple);}
+  .gl-item.hidden{display:none;}
+  .gl-header{display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--white);cursor:pointer;user-select:none;}
+  .gl-letter{width:36px;height:36px;background:var(--purple-pale);border:1.5px solid var(--purple-mid);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:var(--purple-dark);flex-shrink:0;transition:all 0.2s;}
+  .gl-item.open .gl-letter{background:var(--purple);border-color:var(--purple);color:white;}
+  .gl-term{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--purple-dark);flex:1;}
+  .gl-tag{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px;flex-shrink:0;}
+  .tag-core{background:var(--purple-pale);color:var(--purple);}
+  .tag-tool{background:#FFF7ED;color:#B45309;}
+  .tag-concept{background:var(--green-pale);color:var(--green);}
+  .tag-ethics{background:var(--red-pale);color:var(--red);}
+  .gl-toggle{width:28px;height:28px;background:var(--purple-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--purple);transition:transform 0.3s,background 0.2s;flex-shrink:0;}
+  .gl-item.open .gl-toggle{transform:rotate(45deg);background:var(--purple);color:white;}
+  .gl-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}
+  .gl-item.open .gl-body{max-height:400px;}
+  .gl-inner{padding:0 20px 20px 70px;}
+  .gl-definition{font-size:15px;line-height:1.75;color:var(--gray-text);margin-bottom:12px;}
+  .gl-analogy{background:var(--purple-pale);border-left:3px solid var(--purple);border-radius:0 10px 10px 0;padding:10px 14px;font-size:13.5px;color:var(--purple-dark);font-style:italic;line-height:1.6;}
+  .gl-analogy::before{content:'💡 Think of it like: ';font-style:normal;font-weight:700;}
+
+  /* TAG LEGEND */
+  .tag-legend{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px;}
+  .tl-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-muted);}
+  .tl-dot{width:8px;height:8px;border-radius:50%;}
+
+  /* PULL QUOTE */
+  .pull-quote{margin:32px 0 20px;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+  .pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+  .pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+  /* QUIZ */
+  .quiz-block{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:40px 0;}
+  .quiz-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+  .quiz-icon-box{width:44px;height:44px;background:var(--purple);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .quiz-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);}
+  .quiz-q{font-size:16px;font-weight:600;color:var(--gray-text);margin-bottom:14px;line-height:1.5;}
+  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .quiz-opt{display:flex;align-items:center;gap:13px;padding:14px 18px;background:var(--white);border:2px solid var(--purple-mid);border-radius:14px;cursor:pointer;font-size:15px;color:var(--gray-text);transition:all 0.2s;}
+  .quiz-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .quiz-opt.correct{border-color:var(--green);background:var(--green-pale);color:var(--green);}
+  .quiz-opt.wrong{border-color:var(--red);background:var(--red-pale);color:var(--red);}
+  .quiz-opt-letter{width:28px;height:28px;border-radius:50%;background:var(--purple-pale);border:1.5px solid var(--purple-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--purple);flex-shrink:0;}
+  .quiz-feedback{padding:14px 18px;border-radius:14px;font-size:15px;font-weight:500;display:none;line-height:1.6;}
+  .quiz-feedback.correct{background:var(--green-pale);color:var(--green);border:1.5px solid #86efac;display:block;}
+  .quiz-feedback.wrong{background:var(--red-pale);color:var(--red);border:1.5px solid #FCA5A5;display:block;}
+
+  /* SUMMARY */
+  .summary-block{background:linear-gradient(135deg,var(--purple-pale) 0%,var(--purple-mid) 100%);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .summary-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;}
+  .summary-items{display:flex;flex-direction:column;gap:12px;}
+  .summary-item{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.7);border-radius:14px;padding:14px 18px;}
+  .summary-check{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .summary-check svg{width:11px;height:11px;}
+  .summary-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  .no-results{display:none;padding:32px;text-align:center;color:var(--gray-muted);font-size:15px;}
+  .no-results.visible{display:block;}
+
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 1 · AI Fundamentals</div>
+  <h1>AI 101: Key Terms You Need to Know</h1>
+  <p class="hero-sub">Before you can fully understand how AI works in business, school, and everyday life, you need a foundation of the core vocabulary. This is your reference guide — searchable, interactive, and built to stick.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- INTRO -->
+  <div class="section fade-in">
+    <p>AI comes with its own language — and like any language, the more familiar you are with the vocabulary, the more confidently you can think, talk, and make decisions in that space. Use the search bar or browse by letter to explore every key term.</p>
+  </div>
+
+  <!-- GLOSSARY -->
+  <div class="section fade-in">
+    <h2>The AI Glossary</h2>
+
+    <!-- TAG LEGEND -->
+    <div class="tag-legend">
+      <div class="tl-item"><div class="tl-dot" style="background:var(--purple);"></div><span style="background:var(--purple-pale);color:var(--purple);padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700;">Core Concept</span></div>
+      <div class="tl-item"><div class="tl-dot" style="background:#B45309;"></div><span style="background:#FFF7ED;color:#B45309;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700;">Tool / Product</span></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--green);"></div><span style="background:var(--green-pale);color:var(--green);padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700;">Technical</span></div>
+      <div class="tl-item"><div class="tl-dot" style="background:var(--red);"></div><span style="background:var(--red-pale);color:var(--red);padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700;">Ethics</span></div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search-wrap">
+      <div class="search-icon">🔍</div>
+      <input class="search-input" id="searchInput" placeholder="Search any term…" oninput="filterGlossary()" autocomplete="off">
+    </div>
+    <div class="search-count" id="searchCount"></div>
+
+    <!-- ALPHABET FILTER -->
+    <div class="alpha-filter" id="alphaFilter">
+      <div class="af-btn active" onclick="filterAlpha('all',this)">All</div>
+      <div class="af-btn" onclick="filterAlpha('A',this)">A</div>
+      <div class="af-btn" onclick="filterAlpha('B',this)">B</div>
+      <div class="af-btn" onclick="filterAlpha('C',this)">C</div>
+      <div class="af-btn" onclick="filterAlpha('D',this)">D</div>
+      <div class="af-btn" onclick="filterAlpha('G',this)">G</div>
+      <div class="af-btn" onclick="filterAlpha('H',this)">H</div>
+      <div class="af-btn" onclick="filterAlpha('L',this)">L</div>
+      <div class="af-btn" onclick="filterAlpha('M',this)">M</div>
+      <div class="af-btn" onclick="filterAlpha('N',this)">N</div>
+      <div class="af-btn" onclick="filterAlpha('P',this)">P</div>
+      <div class="af-btn" onclick="filterAlpha('T',this)">T</div>
+    </div>
+
+    <!-- GLOSSARY ITEMS -->
+    <div class="glossary" id="glossary">
+
+      <div class="gl-item" data-term="Artificial Intelligence" data-letter="A">
+        <div class="gl-header" onclick="toggleGl(this.parentElement)">
+          <div class="gl-letter">A</div>
+          <div class="gl-term">Artificial Intelligence (AI)</div>
+          <div class="gl-tag tag-core">Core Concept</div>
+          <div class="gl-toggle">+</div>
+        </div>
+        <div class="gl-body"><div class="gl-inner">
+          <div class="gl-definition">The ability of computers or machines to perform tasks that typically require human intelligence — like solving problems, recognizing speech, understanding language, or making decisions.</div>
+          <div class="gl-analogy">a very capable assistant that can learn, adapt, and help with complex tasks — but only does what it's been designed and trained to do.</div>
+        </div></div>
+      </div>
+
+      <div class="gl-item" data-term="Algorithm" data-letter="A">
+        <div class="gl-header" onclick="toggleGl(this.parentElement)">
+          <div class="gl-letter">A</div>
+          <div class="gl-term">Algorithm</div>
+          <div class="gl-tag tag-concept">Technical</div>
+          <div class="gl-toggle">+</div>
+        </div>
+        <div class="gl-body"><div class="gl-inner">
+          <div class="gl-definition">Step-by-step instructions or rules that guide how an AI system processes information, learns, and makes decisions. Algorithms are the "recipes" behind everything AI does.</div>
+          <div class="gl-analogy">a recipe — it lists every step in order, and following it correctly produces a predictable result every time.</div>
+        </div></div>
+      </div>
+
+      <div class="gl-item" data-term="Automation" data-letter="A">
+        <div class="gl-header" onclick="toggleGl(this.parentElement)">
+          <div class="gl-letter">A</div>
+          <div class="gl-term">Automation</div>
+          <div class="gl-tag tag-core">Core Concept</div>
+          <div class="gl-toggle">+</div>
+        </div>
+        <div class="gl-body"><div class="gl-inner">
+          <div class="gl-definition">When tasks are completed automatically by a system or machine without direct human input. In school and business, this could include grading quizzes, organizing files, sending reminders, or generating reports.</div>
+          <div class="gl-analogy">a dishwasher — you load it and walk away. It handles the repetitive task so you can focus on things that actually need your attention.</div>
+        </div></div>
+      </div>
+
+      <div class="gl-item" data-term="Bias" data-letter="B">
+        <div class="gl-header" onclick="toggleGl(this.parentElement)">
+          <div class="gl-letter">B</div>
+          <div class="gl-term">Bias (in AI)</div>
+          <div class="gl-tag tag-ethics">Ethics</div>
+          <div class="gl-toggle">+</div>
+        </div>
+        <div class="gl-body"><div class="gl-inner">
+          <div class="gl-definition">When an AI system produces unfair or skewed results because of imbalanced or incomplete training data. Bias in AI can lead to discrimination or inaccurate outcomes, especially for underrepresented groups.</div>
+          <div class="gl-analogy">a scale that was calibrated wrong — it gives you a number, but that number doesn't reflect reality accurately.</div>
+        </div></div>
+      </div>
+
+      <div class="gl-item" data-term="ChatGPT" data-letter="C">
+        <div class="gl-header" onclick="toggleGl(this.parentElement)">
+          <div class="gl-letter">C</div>
+          <div class="gl-term">ChatGPT</div>
+          <div class="gl-tag tag-tool">Tool / Product</div>
+          <div class="gl-toggle">+</div>
+        </div>
+        <div class="gl-body"><div class="gl-inner">
+          <div class="gl-definition">A conversational AI tool developed by OpenAI that can answer questions, write essays, summarize text, generate code, and much more. It's one of the most widely used examples of generative AI available to the public.</div>
+          <div class="gl-analogy">a very knowledgeable (but sometimes overconfident) study partner who can help you think through problems — but needs to be fact-checked.</div>
+        </div></div>
+      </div>
+
+      <div class="gl-item" data-term="Data" data-letter="D">
+        <div class="gl-header" onclick="toggleGl(this.parentElement)">
+          <div class="gl-letter">D</div>
+          <div class="gl-term">Data</div>
+          <div class="gl-tag tag-core">Core Concept</div>
+          <div class="gl-toggle">+</div>
+        </div>
+        <div class="gl-body"><div class="gl-inner">
+          <div class="gl-definition">Information that AI uses to learn and make decisions. Data can include text, images, numbers, audio, and more. The more high-quality data an AI system has access to, the more accurate and useful it becomes.</div>
+          <div class="gl-analogy">the food an AI eats. Feed it good, diverse, nutritious data — and it grows smart. Feed it junk or limited data — and its thinking will reflect that.</div>
+        </div></div>
+      </div>
+
+      <div class="gl-item" data-term="Generative AI" data-letter="G">
+        <div class="gl-header" onclick="toggleGl(this.parentElement)">
+          <div class="gl-letter">G</div>
+          <div class="gl-term">Generative AI</div>
+          <div class="gl-tag tag-core">Core Concept</div>
+          <div class="gl-toggle">+</div>
+        </div>
+        <div class="gl-body"><div class="gl-inner">
+          <div class="gl-definition">A form of AI that can create new content — text, images, audio, video, or code — based on patterns it has learned from existing data. Tools like ChatGPT and AI image generators are examples of generative AI.</div>
+          <div class="gl-analogy">a creative intern who has read everything and can produce a first draft of almost anything — but still needs a human to review, edit, and take responsibility for the output.</div>
+        </div></div>
+      </div>
+
+      <div class="gl-item" data-term="Hallucination" data-letter="H">
+        <div class="gl-header" onclick="toggleGl(this.parentElement)">
+          <div class="gl-letter">H</div>
+          <div class="gl-term">Hallucination</div>
+          <div class="gl-tag tag-ethics">Ethics</div>
+          <div class="gl-toggle">+</div>
+        </div>
+        <div class="gl-body"><div class="gl-inner">
+          <div class="gl-definition">When an AI generates information that sounds confident and plausible but is factually incorrect or completely made up. This is a known limitation of language models like ChatGPT — they can invent citations, statistics, or events that don't exist.</div>
+          <div class="gl-analogy">a student who didn't study but still writes a full confident-sounding essay — it looks believable until you fact-check it.</div>
+        </div></div>
+      </div>
+
+      <div class="gl-item" data-term="Large Language Model LLM" data-letter="L">
+        <div class="gl-header" onclick="toggleGl(this.parentElement)">
+          <div class="gl-letter">L</div>
+          <div class="gl-term">Large Language Model (LLM)</div>
+          <div class="gl-tag tag-concept">Technical</div>
+          <div class="gl-toggle">+</div>
+        </div>
+        <div class="gl-body"><div class="gl-inner">
+          <div class="gl-definition">A type of AI trained on massive amounts of text data that can understand and generate human language. LLMs are the technology behind tools like ChatGPT, Claude, and Google Gemini.</div>
+          <div class="gl-analogy">someone who has read billions of books, articles, and websites and can now hold a fluent conversation on almost any topic — though they don't actually "understand" things the way humans do.</div>
+        </div></div>
+      </div>
+
+      <div class="gl-item" data-term="Machine Learning" data-letter="M">
+        <div class="gl-header" onclick="toggleGl(this.parentElement)">
+          <div class="gl-letter">M</div>
+          <div class="gl-term">Machine Learning</div>
+          <div class="gl-tag tag-concept">Technical</div>
+          <div class="gl-toggle">+</div>
+        </div>
+        <div class="gl-body"><div class="gl-inner">
+          <div class="gl-definition">A type of AI where systems learn from data and improve over time without being explicitly programmed for every situation. The more data the system sees, the better it gets at its task.</div>
+          <div class="gl-analogy">a student getting better at a sport through practice — nobody told them every possible move, but they learned from experience and got smarter about it over time.</div>
+        </div></div>
+      </div>
+
+      <div class="gl-item" data-term="Natural Language Processing NLP" data-letter="N">
+        <div class="gl-header" onclick="toggleGl(this.parentElement)">
+          <div class="gl-letter">N</div>
+          <div class="gl-term">Natural Language Processing (NLP)</div>
+          <div class="gl-tag tag-concept">Technical</div>
+          <div class="gl-toggle">+</div>
+        </div>
+        <div class="gl-body"><div class="gl-inner">
+          <div class="gl-definition">The branch of AI focused on helping computers understand, interpret, and generate human language — both spoken and written. NLP powers chatbots, voice assistants, translation tools, and grammar checkers.</div>
+          <div class="gl-analogy">a universal translator — it bridges the gap between the way humans naturally speak and write, and the way computers process information.</div>
+        </div></div>
+      </div>
+
+      <div class="gl-item" data-term="Patterns" data-letter="P">
+        <div class="gl-header" onclick="toggleGl(this.parentElement)">
+          <div class="gl-letter">P</div>
+          <div class="gl-term">Patterns</div>
+          <div class="gl-tag tag-core">Core Concept</div>
+          <div class="gl-toggle">+</div>
+        </div>
+        <div class="gl-body"><div class="gl-inner">
+          <div class="gl-definition">Trends or repeated relationships in data that AI systems detect and use to make predictions or decisions — for example, spotting grammatical errors in writing, or identifying which students are likely to struggle with a concept.</div>
+          <div class="gl-analogy">noticing that every time you eat a certain food you feel tired — once you spot the pattern, you can predict and act on it. AI does this at massive scale.</div>
+        </div></div>
+      </div>
+
+      <div class="gl-item" data-term="Prompt" data-letter="P">
+        <div class="gl-header" onclick="toggleGl(this.parentElement)">
+          <div class="gl-letter">P</div>
+          <div class="gl-term">Prompt</div>
+          <div class="gl-tag tag-core">Core Concept</div>
+          <div class="gl-toggle">+</div>
+        </div>
+        <div class="gl-body"><div class="gl-inner">
+          <div class="gl-definition">The input or instruction you give to an AI tool — the question, command, or description that tells it what to do. Writing clear, specific prompts is one of the most important skills for using AI effectively.</div>
+          <div class="gl-analogy">the brief you give a contractor. Vague instructions produce vague results. Detailed, specific instructions produce exactly what you need.</div>
+        </div></div>
+      </div>
+
+      <div class="gl-item" data-term="Training Data" data-letter="T">
+        <div class="gl-header" onclick="toggleGl(this.parentElement)">
+          <div class="gl-letter">T</div>
+          <div class="gl-term">Training Data</div>
+          <div class="gl-tag tag-concept">Technical</div>
+          <div class="gl-toggle">+</div>
+        </div>
+        <div class="gl-body"><div class="gl-inner">
+          <div class="gl-definition">The dataset used to teach an AI system how to perform a task. An AI learns by analyzing patterns in its training data — which means the quality, diversity, and accuracy of that data directly shapes how the AI behaves.</div>
+          <div class="gl-analogy">the curriculum a student learns from. If the textbooks are biased, incomplete, or outdated, the student's understanding will reflect that — no matter how hard they studied.</div>
+        </div></div>
+      </div>
+
+    </div><!-- /glossary -->
+
+    <div class="no-results" id="noResults">No terms match your search. Try a different keyword.</div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote fade-in">
+    <p>Understanding AI starts with knowing its language — once you have the vocabulary, the concepts click into place.</p>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-block fade-in">
+    <div class="quiz-header">
+      <div class="quiz-icon-box">🧠</div>
+      <div class="quiz-title">Check Your Understanding</div>
+    </div>
+    <div class="quiz-q">An AI tool generates a detailed, confident-sounding citation for a book — but the book doesn't actually exist. What is this called?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">A</div>Automation — the AI automatically created a reference.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">B</div>Machine Learning — the AI learned how citations are formatted.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,true)"><div class="quiz-opt-letter">C</div>Hallucination — the AI generated plausible but false information.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">D</div>Bias — the AI favored one type of source over others.</div>
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-block fade-in">
+    <div class="summary-title">📌 Terms to Remember</div>
+    <div class="summary-items">
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>AI</strong> — machines performing tasks that require human-level thinking, powered by data and algorithms.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Machine Learning</strong> — AI that improves through experience with data, not just fixed instructions.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Generative AI</strong> — AI that creates new content (text, images, audio) from patterns in training data.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Hallucination</strong> — when AI confidently produces false or invented information that sounds real.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Prompt</strong> — the instruction you give AI. Better prompts produce better, more useful results.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll',()=>{const el=document.documentElement;document.getElementById('progressBar').style.width=((el.scrollTop/(el.scrollHeight-el.clientHeight))*100)+'%';});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.12});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  function toggleGl(item){
+    const wasOpen=item.classList.contains('open');
+    document.querySelectorAll('.gl-item').forEach(i=>i.classList.remove('open'));
+    if(!wasOpen)item.classList.add('open');
+  }
+
+  let currentAlpha = 'all';
+
+  function filterAlpha(letter, btn) {
+    currentAlpha = letter;
+    document.querySelectorAll('.af-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('searchInput').value = '';
+    applyFilters();
+  }
+
+  function filterGlossary() {
+    currentAlpha = 'all';
+    document.querySelectorAll('.af-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelector('.af-btn').classList.add('active');
+    applyFilters();
+  }
+
+  function applyFilters() {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    const items = document.querySelectorAll('.gl-item');
+    let visible = 0;
+    items.forEach(item => {
+      const term = item.getAttribute('data-term').toLowerCase();
+      const letter = item.getAttribute('data-letter');
+      const innerText = item.querySelector('.gl-definition').textContent.toLowerCase();
+      const matchSearch = !query || term.includes(query) || innerText.includes(query);
+      const matchAlpha = currentAlpha === 'all' || letter === currentAlpha;
+      if (matchSearch && matchAlpha) {
+        item.classList.remove('hidden');
+        visible++;
+      } else {
+        item.classList.add('hidden');
+        item.classList.remove('open');
+      }
+    });
+    const count = document.getElementById('searchCount');
+    const noRes = document.getElementById('noResults');
+    if (query) {
+      count.textContent = visible === 0 ? '' : `Showing ${visible} term${visible !== 1 ? 's' : ''} matching "${query}"`;
+    } else {
+      count.textContent = '';
+    }
+    noRes.classList.toggle('visible', visible === 0);
+  }
+
+  function answerQuiz(el,correct){
+    if(document.querySelector('.quiz-opt.correct,.quiz-opt.wrong'))return;
+    el.classList.add(correct?'correct':'wrong');
+    const fb=document.getElementById('quizFeedback');
+    fb.className='quiz-feedback '+(correct?'correct':'wrong');
+    fb.textContent=correct
+      ?'✅ Correct! Hallucination is when an AI generates plausible-sounding but false information — like a citation for a book that was never written. Always verify AI-generated sources.'
+      :'❌ Not quite. This is an example of hallucination — AI producing confident but completely fabricated information. It\'s one of the most important limitations to understand when using AI tools.';
+  }
+</script>
+</body>
+</html>
