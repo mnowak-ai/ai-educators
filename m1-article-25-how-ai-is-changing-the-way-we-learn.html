@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How AI is Changing the Way We Learn — AI in Business Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--accent:#C084FC;--red:#E53E3E;--red-pale:#FFF1F1;--green:#276749;--green-pale:#F0FFF4;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+  .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;transition:width 0.1s ease;}
+  .hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+  .lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+  .lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;display:inline-block;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-0.02em;}
+  .hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+  .hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+  .content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+  .section{padding:32px 0 0;}
+  h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;letter-spacing:-0.01em;line-height:1.2;}
+  p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+  mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+  /* BIG QUESTIONS NAV */
+  .questions-nav{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+  .qn-item{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:16px;cursor:pointer;transition:all 0.2s;text-decoration:none;}
+  .qn-item:hover{background:var(--purple-pale);border-color:var(--purple);}
+  .qn-num{width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .qn-text{font-size:15px;font-weight:600;color:var(--purple-dark);}
+  .qn-arrow{margin-left:auto;font-size:18px;color:var(--purple);}
+
+  /* WHAT IS AI — 3 green example cards */
+  .ai-examples{display:flex;flex-direction:column;gap:10px;margin:20px 0;}
+  .ai-ex{display:flex;align-items:flex-start;gap:12px;padding:14px 18px;background:var(--green-pale);border:1.5px solid #86efac;border-radius:14px;font-size:15px;color:var(--gray-text);}
+  .ai-ex-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+
+  /* WHY IT MATTERS — scenario cards with emoji highlight */
+  .scenario-stack{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+  .sc-card{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:18px;padding:18px 20px;display:flex;align-items:flex-start;gap:14px;}
+  .sc-icon{font-size:26px;flex-shrink:0;margin-top:2px;}
+  .sc-content{}
+  .sc-scenario{font-size:13px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;}
+  .sc-desc{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  /* BACKPACK ANALOGY CALLOUT */
+  .backpack-block{background:var(--purple-pale);border:1.5px solid var(--purple-mid);border-radius:20px;padding:26px 28px;margin:24px 0;display:flex;align-items:flex-start;gap:18px;}
+  .bb-icon{font-size:44px;flex-shrink:0;}
+  .bb-content h3{font-family:'Fraunces',serif;font-size:19px;font-weight:700;color:var(--purple-dark);margin-bottom:8px;}
+  .bb-content p{font-size:15px;line-height:1.7;color:var(--gray-text);margin:0;}
+
+  /* IS AI PERFECT — balanced split */
+  .balance-split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
+  @media(max-width:560px){.balance-split{grid-template-columns:1fr;}}
+  .bs-can{background:var(--green-pale);border:1.5px solid #86efac;border-radius:20px;padding:22px 20px;}
+  .bs-cant{background:var(--red-pale);border:1.5px solid #FCA5A5;border-radius:20px;padding:22px 20px;}
+  .bs-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:14px;}
+  .badge-can{background:#bbf7d0;color:var(--green);}
+  .badge-cant{background:#fecaca;color:var(--red);}
+  .bs-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.65;color:var(--gray-text);margin-bottom:10px;}
+  .bs-dot{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:11px;font-weight:700;}
+  .dot-g{background:var(--green);color:white;}
+  .dot-r{background:var(--red);color:white;}
+
+  /* HOW TO THINK — numbered mindset cards */
+  .mindset-list{display:flex;flex-direction:column;gap:14px;margin:24px 0;}
+  .ms-item{display:flex;align-items:flex-start;gap:16px;padding:18px 20px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:18px;}
+  .ms-num{min-width:36px;height:36px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white;flex-shrink:0;}
+  .ms-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+  .ms-desc{font-size:14px;line-height:1.65;color:var(--gray-muted);}
+
+  /* PULL QUOTE */
+  .pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+  .pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+  .pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+  /* QUIZ */
+  .quiz-block{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:40px 0;}
+  .quiz-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+  .quiz-icon-box{width:44px;height:44px;background:var(--purple);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .quiz-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);}
+  .quiz-q{font-size:16px;font-weight:600;color:var(--gray-text);margin-bottom:14px;line-height:1.5;}
+  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .quiz-opt{display:flex;align-items:center;gap:13px;padding:14px 18px;background:var(--white);border:2px solid var(--purple-mid);border-radius:14px;cursor:pointer;font-size:15px;color:var(--gray-text);transition:all 0.2s;}
+  .quiz-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .quiz-opt.correct{border-color:var(--green);background:var(--green-pale);color:var(--green);}
+  .quiz-opt.wrong{border-color:var(--red);background:var(--red-pale);color:var(--red);}
+  .quiz-opt-letter{width:28px;height:28px;border-radius:50%;background:var(--purple-pale);border:1.5px solid var(--purple-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--purple);flex-shrink:0;}
+  .quiz-feedback{padding:14px 18px;border-radius:14px;font-size:15px;font-weight:500;display:none;line-height:1.6;}
+  .quiz-feedback.correct{background:var(--green-pale);color:var(--green);border:1.5px solid #86efac;display:block;}
+  .quiz-feedback.wrong{background:var(--red-pale);color:var(--red);border:1.5px solid #FCA5A5;display:block;}
+
+  /* REFLECTION */
+  .reflection-block{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .reflection-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+  .reflection-title::before{content:'✍️';font-size:24px;}
+  .reflection-items{display:flex;flex-direction:column;gap:14px;}
+  .reflection-item{display:flex;align-items:flex-start;gap:16px;background:var(--white);border-radius:16px;padding:18px 20px;border:1.5px solid var(--purple-mid);}
+  .reflection-num{min-width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .reflection-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  /* SUMMARY */
+  .summary-block{background:linear-gradient(135deg,var(--purple-pale) 0%,var(--purple-mid) 100%);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .summary-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;}
+  .summary-items{display:flex;flex-direction:column;gap:12px;}
+  .summary-item{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.7);border-radius:14px;padding:14px 18px;}
+  .summary-check{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .summary-check svg{width:11px;height:11px;}
+  .summary-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 1 · Introduction to AI in School</div>
+  <h1>How AI is Changing the Way We Learn</h1>
+  <p class="hero-sub">AI isn't just robots and self-driving cars — it's quietly becoming part of everyday school life. As a student, there are four big questions worth asking about it.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- BIG QUESTIONS NAVIGATION -->
+  <div class="section fade-in">
+    <h2>Four Questions Every Student Should Ask</h2>
+    <p>Before diving in, here's a map of what this article covers. These are the questions that matter most as AI enters the classroom:</p>
+
+    <div class="questions-nav">
+      <div class="qn-item">
+        <div class="qn-num">1</div>
+        <div class="qn-text">What is AI in school?</div>
+        <div class="qn-arrow">↓</div>
+      </div>
+      <div class="qn-item">
+        <div class="qn-num">2</div>
+        <div class="qn-text">Why does this matter for me?</div>
+        <div class="qn-arrow">↓</div>
+      </div>
+      <div class="qn-item">
+        <div class="qn-num">3</div>
+        <div class="qn-text">Is AI perfect?</div>
+        <div class="qn-arrow">↓</div>
+      </div>
+      <div class="qn-item">
+        <div class="qn-num">4</div>
+        <div class="qn-text">How should I think about AI in school?</div>
+        <div class="qn-arrow">↓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: What is AI in school -->
+  <div class="section fade-in">
+    <h2>1. What is AI in School?</h2>
+    <p>At its core, AI is technology that allows computers to <mark>"think" or "learn" from data</mark>. Instead of following rigid step-by-step instructions, AI can recognize patterns and make predictions. In school, this shows up in ways you might already recognize:</p>
+
+    <div class="ai-examples">
+      <div class="ai-ex"><div class="ai-ex-icon">✅</div>Apps that help you practice math problems by automatically adjusting the difficulty based on how you're doing.</div>
+      <div class="ai-ex"><div class="ai-ex-icon">✅</div>Writing tools that check your grammar and style, giving you instant feedback without waiting for a teacher to grade it.</div>
+      <div class="ai-ex"><div class="ai-ex-icon">✅</div>AI tutors that can answer your questions 24/7 — even at 11pm the night before a test.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Why it matters -->
+  <div class="section fade-in">
+    <h2>2. Why Does This Matter for You?</h2>
+    <p>Think about how you currently study. Maybe you spend hours flipping through flashcards or rereading the same notes. AI can make that process smarter — not just faster. Here's what that looks like in practice:</p>
+
+    <div class="scenario-stack">
+      <div class="sc-card">
+        <div class="sc-icon">📲</div>
+        <div class="sc-content">
+          <div class="sc-scenario">Flashcard Study</div>
+          <div class="sc-desc">An AI-powered flashcard app notices which cards you struggle with and shows them more often — so you spend your time on what actually needs work, not what you already know.</div>
+        </div>
+      </div>
+      <div class="sc-card">
+        <div class="sc-icon">💡</div>
+        <div class="sc-content">
+          <div class="sc-scenario">Essay Writing</div>
+          <div class="sc-desc">An AI writing tool highlights sentences that are unclear and suggests specific ways to improve them — like a writing coach available any time you open your laptop.</div>
+        </div>
+      </div>
+      <div class="sc-card">
+        <div class="sc-icon">🧬</div>
+        <div class="sc-content">
+          <div class="sc-scenario">Hard Subjects</div>
+          <div class="sc-desc">If biology or chemistry feels overwhelming, an AI tool can break down tough concepts into smaller, easier steps — at exactly the pace that works for you.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="backpack-block">
+      <div class="bb-icon">🎒</div>
+      <div class="bb-content">
+        <h3>AI as a Tool in Your Backpack</h3>
+        <p>Instead of replacing teachers, AI is like having an extra set of tools available to you — ones that can personalize learning based on who you are and how you learn best. Your teacher provides the direction. AI helps you get there.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote fade-in">
+    <p>The goal is not to let AI do the work for you — but to use it as a real partner in your learning.</p>
+  </div>
+
+  <!-- SECTION 3: Is AI perfect -->
+  <div class="section fade-in">
+    <h2>3. Is AI Perfect?</h2>
+    <p>No — and understanding both what AI can and can't do is what makes you a smart user of it:</p>
+
+    <div class="balance-split">
+      <div class="bs-can">
+        <div class="bs-badge badge-can">✅ AI Can</div>
+        <div class="bs-item"><div class="bs-dot dot-g">✓</div>Save time on repetitive tasks like flashcard drilling or grammar checks</div>
+        <div class="bs-item"><div class="bs-dot dot-g">✓</div>Reduce stress by giving you instant, judgment-free feedback</div>
+        <div class="bs-item"><div class="bs-dot dot-g">✓</div>Personalize practice to your specific weak spots</div>
+        <div class="bs-item"><div class="bs-dot dot-g">✓</div>Be available at any hour when no one else is</div>
+      </div>
+      <div class="bs-cant">
+        <div class="bs-badge badge-cant">⚠️ AI Can't</div>
+        <div class="bs-item"><div class="bs-dot dot-r">✗</div>Replace genuine creativity and original thinking</div>
+        <div class="bs-item"><div class="bs-dot dot-r">✗</div>Always be right — it makes mistakes and can confidently give wrong answers</div>
+        <div class="bs-item"><div class="bs-dot dot-r">✗</div>Understand your personal context the way a teacher who knows you can</div>
+        <div class="bs-item"><div class="bs-dot dot-r">✗</div>Build the real understanding that comes from wrestling with hard ideas yourself</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: How to think about it -->
+  <div class="section fade-in">
+    <h2>4. How Should I Think About AI in School?</h2>
+    <p>Here are four mindsets that will help you get the most out of AI — while making sure you're still the one doing the real learning:</p>
+
+    <div class="mindset-list">
+      <div class="ms-item">
+        <div class="ms-num">1</div>
+        <div>
+          <div class="ms-title">Use it as a partner, not a shortcut</div>
+          <div class="ms-desc">AI works best when you engage with it actively — asking it to explain, challenge you, or give feedback. Using it to skip the work entirely defeats the purpose.</div>
+        </div>
+      </div>
+      <div class="ms-item">
+        <div class="ms-num">2</div>
+        <div>
+          <div class="ms-title">Always check what it tells you</div>
+          <div class="ms-desc">AI can be wrong with confidence. Treat its answers as a starting point, not a final word — and verify anything that matters.</div>
+        </div>
+      </div>
+      <div class="ms-item">
+        <div class="ms-num">3</div>
+        <div>
+          <div class="ms-title">Stay curious — AI is a tool, you're the thinker</div>
+          <div class="ms-desc">Critical thinking, creativity, and curiosity are uniquely human. AI can support those skills but will never replace them.</div>
+        </div>
+      </div>
+      <div class="ms-item">
+        <div class="ms-num">4</div>
+        <div>
+          <div class="ms-title">Follow your school's guidelines</div>
+          <div class="ms-desc">Different teachers and assignments have different rules about AI use. When in doubt, ask — and be transparent about how you used it.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-block fade-in">
+    <div class="quiz-header">
+      <div class="quiz-icon-box">🧠</div>
+      <div class="quiz-title">Check Your Understanding</div>
+    </div>
+    <div class="quiz-q">What is the most accurate way to describe AI's role in school?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">A</div>AI replaces teachers by providing all the instruction and feedback students need.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">B</div>AI is too unreliable to use in school and should be avoided entirely.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,true)"><div class="quiz-opt-letter">C</div>AI is a personalized learning tool that can support students — but can't replace critical thinking or creativity.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">D</div>AI is only useful for students who already struggle with schoolwork.</div>
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="reflection-block fade-in">
+    <div class="reflection-title">Ask Yourself</div>
+    <div class="reflection-items">
+      <div class="reflection-item">
+        <div class="reflection-num">1</div>
+        <div class="reflection-text">Have you already used AI tools in school or at home — like Grammarly, Quizlet, or ChatGPT? How did it help? Did it understand you fully the first time?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">2</div>
+        <div class="reflection-text">If you had an AI tutor available at any time of day, what subject would you use it for most — and why that one?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">3</div>
+        <div class="reflection-text">What's one specific way you think AI could make school less stressful for students — without making learning too easy or replacing real thinking?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-block fade-in">
+    <div class="summary-title">📌 What You Learned</div>
+    <div class="summary-items">
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">AI in school means tools that recognize patterns, adapt to your progress, and give instant feedback — not just robots or chatbots.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">AI personalizes your learning experience — showing you what you need to work on and adjusting to how you learn best.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">AI can save time and reduce stress — but it makes mistakes, can't replace creativity, and isn't a substitute for real understanding.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">The smartest way to use AI is as a partner — actively engaging with it rather than letting it do the thinking for you.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">Curiosity, critical thinking, and creativity are yours alone — AI supports them, but it can never replace them.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll',()=>{const el=document.documentElement;document.getElementById('progressBar').style.width=((el.scrollTop/(el.scrollHeight-el.clientHeight))*100)+'%';});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.12});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+  function answerQuiz(el,correct){
+    if(document.querySelector('.quiz-opt.correct,.quiz-opt.wrong'))return;
+    el.classList.add(correct?'correct':'wrong');
+    const fb=document.getElementById('quizFeedback');
+    fb.className='quiz-feedback '+(correct?'correct':'wrong');
+    fb.textContent=correct
+      ?'✅ Exactly right! AI is a powerful personalized learning tool — but it works best when you stay in charge of your own thinking, creativity, and curiosity.'
+      :'❌ Not quite. AI doesn\'t replace teachers or real thinking — and it\'s not too unreliable to be useful either. The key is using it as a smart partner while staying the one doing the actual learning.';
+  }
+</script>
+</body>
+</html>
