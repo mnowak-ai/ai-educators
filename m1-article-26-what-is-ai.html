@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What is AI? — AI in Business Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--accent:#C084FC;--red:#E53E3E;--red-pale:#FFF1F1;--green:#276749;--green-pale:#F0FFF4;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+  .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;transition:width 0.1s ease;}
+  .hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+  .lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+  .lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;display:inline-block;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-0.02em;}
+  .hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:620px;}
+  .hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+  .content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+  .section{padding:32px 0 0;}
+  h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;letter-spacing:-0.01em;line-height:1.2;}
+  p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+  mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+  /* MYTH BUSTERS — 3 common misconceptions cleared */
+  .myths-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;}
+  @media(max-width:580px){.myths-row{grid-template-columns:1fr;}}
+  .myth-card{border-radius:18px;overflow:hidden;}
+  .myth-top{background:var(--red-pale);border:1.5px solid #FCA5A5;padding:14px 16px;display:flex;align-items:flex-start;gap:10px;}
+  .myth-top-icon{font-size:18px;flex-shrink:0;}
+  .myth-top-text{font-size:13px;font-weight:700;color:var(--red);line-height:1.4;}
+  .myth-bottom{background:var(--green-pale);border:1.5px solid #86efac;border-top:none;padding:14px 16px;display:flex;align-items:flex-start;gap:10px;}
+  .myth-bottom-icon{font-size:16px;flex-shrink:0;}
+  .myth-bottom-text{font-size:13px;color:var(--gray-text);line-height:1.5;}
+
+  /* DEFINITION BREAKDOWN */
+  .def-block{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:22px;padding:28px;margin:24px 0;}
+  .def-label{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .def-label::after{content:'';flex:1;height:1px;background:var(--purple-mid);}
+  .def-words{display:flex;gap:0;align-items:stretch;border-radius:14px;overflow:hidden;margin-bottom:16px;}
+  .def-word{flex:1;padding:18px 14px;text-align:center;}
+  .dw-1{background:var(--purple-dark);}
+  .dw-2{background:var(--purple);}
+  .def-word-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:6px;}
+  .def-word-main{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:white;margin-bottom:4px;}
+  .def-word-sub{font-size:12px;color:rgba(255,255,255,0.75);line-height:1.4;}
+  .def-summary{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  /* HOW AI WORKS — 3 capability cards */
+  .capability-list{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+  .cap-item{display:flex;align-items:flex-start;gap:14px;padding:16px 20px;background:var(--purple-pale);border:1.5px solid var(--purple-mid);border-radius:16px;}
+  .cap-icon{font-size:26px;flex-shrink:0;}
+  .cap-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+  .cap-example{font-size:13.5px;line-height:1.65;color:var(--gray-muted);}
+  .cap-example em{color:var(--purple-dark);font-style:normal;font-weight:600;}
+
+  /* EVERYDAY AI — interactive guess-reveal grid */
+  .everyday-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+  @media(max-width:560px){.everyday-grid{grid-template-columns:1fr;}}
+  .eg-card{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:18px;padding:18px 18px;cursor:pointer;transition:all 0.2s;}
+  .eg-card:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .eg-card.revealed{background:var(--purple);border-color:var(--purple);}
+  .eg-card.revealed .eg-title,.eg-card.revealed .eg-question{color:white;}
+  .eg-card.revealed .eg-answer{display:block;}
+  .eg-card.revealed .eg-question{display:none;}
+  .eg-top{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+  .eg-icon{font-size:26px;flex-shrink:0;}
+  .eg-title{font-size:14px;font-weight:700;color:var(--purple-dark);transition:color 0.2s;}
+  .eg-question{font-size:13px;color:var(--gray-muted);line-height:1.55;}
+  .eg-answer{display:none;font-size:13px;color:rgba(255,255,255,0.9);line-height:1.6;}
+  .eg-hint{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple);margin-top:4px;text-align:center;}
+  .eg-card.revealed .eg-hint{display:none;}
+
+  /* WHY IT MATTERS — stat bubbles */
+  .stat-bubbles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+  @media(max-width:560px){.stat-bubbles{grid-template-columns:1fr;}}
+  .stat-bub{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:20px;padding:22px 16px;text-align:center;}
+  .stat-num{font-family:'Fraunces',serif;font-size:32px;font-weight:900;color:var(--purple-dark);line-height:1;margin-bottom:8px;}
+  .stat-desc{font-size:13px;line-height:1.55;color:var(--gray-muted);}
+
+  /* PULL QUOTE */
+  .pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+  .pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+  .pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+  /* QUIZ */
+  .quiz-block{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:40px 0;}
+  .quiz-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+  .quiz-icon-box{width:44px;height:44px;background:var(--purple);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .quiz-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);}
+  .quiz-q{font-size:16px;font-weight:600;color:var(--gray-text);margin-bottom:14px;line-height:1.5;}
+  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .quiz-opt{display:flex;align-items:center;gap:13px;padding:14px 18px;background:var(--white);border:2px solid var(--purple-mid);border-radius:14px;cursor:pointer;font-size:15px;color:var(--gray-text);transition:all 0.2s;}
+  .quiz-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .quiz-opt.correct{border-color:var(--green);background:var(--green-pale);color:var(--green);}
+  .quiz-opt.wrong{border-color:var(--red);background:var(--red-pale);color:var(--red);}
+  .quiz-opt-letter{width:28px;height:28px;border-radius:50%;background:var(--purple-pale);border:1.5px solid var(--purple-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--purple);flex-shrink:0;}
+  .quiz-feedback{padding:14px 18px;border-radius:14px;font-size:15px;font-weight:500;display:none;line-height:1.6;}
+  .quiz-feedback.correct{background:var(--green-pale);color:var(--green);border:1.5px solid #86efac;display:block;}
+  .quiz-feedback.wrong{background:var(--red-pale);color:var(--red);border:1.5px solid #FCA5A5;display:block;}
+
+  /* REFLECTION */
+  .reflection-block{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .reflection-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+  .reflection-title::before{content:'✍️';font-size:24px;}
+  .reflection-items{display:flex;flex-direction:column;gap:14px;}
+  .reflection-item{display:flex;align-items:flex-start;gap:16px;background:var(--white);border-radius:16px;padding:18px 20px;border:1.5px solid var(--purple-mid);}
+  .reflection-num{min-width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .reflection-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  /* SUMMARY */
+  .summary-block{background:linear-gradient(135deg,var(--purple-pale) 0%,var(--purple-mid) 100%);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .summary-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;}
+  .summary-items{display:flex;flex-direction:column;gap:12px;}
+  .summary-item{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.7);border-radius:14px;padding:14px 18px;}
+  .summary-check{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .summary-check svg{width:11px;height:11px;}
+  .summary-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 1 · AI Fundamentals</div>
+  <h1>What is AI?</h1>
+  <p class="hero-sub">You've heard the term "Artificial Intelligence" more times than you can count. But is it just robots? Computers? Science fiction? Let's break it down into clear, simple terms — starting with what AI actually is and isn't.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- MYTH BUSTERS -->
+  <div class="section fade-in">
+    <h2>First, Let's Clear Up Some Myths</h2>
+    <p>A lot of what people imagine when they hear "AI" comes from movies and TV. Here's what AI <em>isn't</em> — and what it actually is:</p>
+
+    <div class="myths-row">
+      <div class="myth-card">
+        <div class="myth-top"><div class="myth-top-icon">❌</div><div class="myth-top-text">Myth: AI is all about humanoid robots that think like people.</div></div>
+        <div class="myth-bottom"><div class="myth-bottom-icon">✅</div><div class="myth-bottom-text">Reality: Most AI is invisible software running inside apps and devices you already use.</div></div>
+      </div>
+      <div class="myth-card">
+        <div class="myth-top"><div class="myth-top-icon">❌</div><div class="myth-top-text">Myth: AI is a new technology that just arrived.</div></div>
+        <div class="myth-bottom"><div class="myth-bottom-icon">✅</div><div class="myth-bottom-text">Reality: AI research started in the 1950s — the technology is decades old, now more powerful than ever.</div></div>
+      </div>
+      <div class="myth-card">
+        <div class="myth-top"><div class="myth-top-icon">❌</div><div class="myth-top-text">Myth: AI thinks and feels the way humans do.</div></div>
+        <div class="myth-bottom"><div class="myth-bottom-icon">✅</div><div class="myth-bottom-text">Reality: AI processes patterns in data extremely fast — but it has no feelings, opinions, or self-awareness.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEFINITION BLOCK -->
+  <div class="section fade-in">
+    <h2>The Basics: What Does "Artificial Intelligence" Actually Mean?</h2>
+
+    <div class="def-block">
+      <div class="def-label">🧩 Breaking Down the Name</div>
+      <div class="def-words">
+        <div class="def-word dw-1">
+          <div class="def-word-label">Word 1</div>
+          <div class="def-word-main">Artificial</div>
+          <div class="def-word-sub">Made by humans, not found in nature</div>
+        </div>
+        <div class="def-word dw-2">
+          <div class="def-word-label">Word 2</div>
+          <div class="def-word-main">Intelligence</div>
+          <div class="def-word-sub">The ability to learn, reason, and solve problems</div>
+        </div>
+      </div>
+      <div class="def-summary">Put it together: <strong>Artificial Intelligence is when machines are designed to perform tasks that normally require human-level thinking</strong> — like recognizing patterns, understanding language, and making decisions.</div>
+    </div>
+
+    <p>The key difference from regular computer programs: AI doesn't just follow a fixed set of instructions. It <mark>learns from data</mark> and gets better over time, adjusting its behavior based on what it's seen before.</p>
+  </div>
+
+  <!-- HOW AI WORKS -->
+  <div class="section fade-in">
+    <h2>Three Things AI Can Do</h2>
+    <p>AI handles three core abilities that show up in almost everything it does. Each one comes with a real example you'll recognize:</p>
+
+    <div class="capability-list">
+      <div class="cap-item">
+        <div class="cap-icon">⭐️</div>
+        <div>
+          <div class="cap-title">Recognize Patterns</div>
+          <div class="cap-example">AI studies millions of examples until it can identify what something is. <em>Example: Your phone analyzing your face to unlock — even in different lighting.</em></div>
+        </div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">⭐️</div>
+        <div>
+          <div class="cap-title">Understand Language</div>
+          <div class="cap-example">AI processes words and context to figure out what you mean — not just what you literally typed. <em>Example: A chatbot understanding "I'm starving" means you want food recommendations, not a biology lesson.</em></div>
+        </div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-icon">⭐️</div>
+        <div>
+          <div class="cap-title">Make Decisions</div>
+          <div class="cap-example">AI weighs many inputs at once and picks an action or recommendation. <em>Example: Google Maps comparing dozens of routes in milliseconds to suggest the fastest one right now.</em></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVERYDAY AI — interactive reveal -->
+  <div class="section fade-in">
+    <h2>Everyday Examples of AI</h2>
+    <p>AI isn't some far-off, futuristic idea — it's already all around you. Tap or click each card to reveal the AI working behind the scenes:</p>
+
+    <div class="everyday-grid">
+      <div class="eg-card" onclick="revealCard(this)">
+        <div class="eg-top"><div class="eg-icon">👍</div><div class="eg-title">Social Media</div></div>
+        <div class="eg-question">Why do you always see content you like, even from accounts you don't follow?</div>
+        <div class="eg-answer">AI analyzes what you watch, like, and share to predict what will keep you engaged — then fills your feed with it. Every scroll is AI-powered.</div>
+        <div class="eg-hint">Tap to reveal →</div>
+      </div>
+      <div class="eg-card" onclick="revealCard(this)">
+        <div class="eg-top"><div class="eg-icon">📺</div><div class="eg-title">Streaming Services</div></div>
+        <div class="eg-question">How does Netflix always seem to know what you want to watch next?</div>
+        <div class="eg-answer">Netflix and Spotify use AI to compare your listening and watching history to millions of other users with similar tastes — then surface things you're most likely to love.</div>
+        <div class="eg-hint">Tap to reveal →</div>
+      </div>
+      <div class="eg-card" onclick="revealCard(this)">
+        <div class="eg-top"><div class="eg-icon">👾</div><div class="eg-title">Video Games</div></div>
+        <div class="eg-question">How do computer-controlled opponents make intelligent moves against you?</div>
+        <div class="eg-answer">The "NPCs" and computer opponents in games use AI to react to your moves, adapt their strategy, and make the game feel challenging — not just random.</div>
+        <div class="eg-hint">Tap to reveal →</div>
+      </div>
+      <div class="eg-card" onclick="revealCard(this)">
+        <div class="eg-top"><div class="eg-icon">📱</div><div class="eg-title">Voice Assistants</div></div>
+        <div class="eg-question">How can Siri or Alexa understand what you're saying even with background noise?</div>
+        <div class="eg-answer">Voice assistants use AI to convert your speech into text, understand the meaning behind your words in context, and generate a helpful response — all in under a second.</div>
+        <div class="eg-hint">Tap to reveal →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote fade-in">
+    <p>AI isn't just in labs and movies. It's in your pocket, on your feed, and in your earbuds — right now.</p>
+  </div>
+
+  <!-- WHY IT MATTERS -->
+  <div class="section fade-in">
+    <h2>Why It Matters</h2>
+    <p>Understanding AI is important because it's shaping the world you're growing up in — faster than any technology in history. Here's just a glimpse of the scale:</p>
+
+    <div class="stat-bubbles">
+      <div class="stat-bub">
+        <div class="stat-num">77%</div>
+        <div class="stat-desc">of people use at least one AI-powered device or service every single day</div>
+      </div>
+      <div class="stat-bub">
+        <div class="stat-num">$15T</div>
+        <div class="stat-desc">estimated amount AI could add to the global economy by 2030</div>
+      </div>
+      <div class="stat-bub">
+        <div class="stat-num">85M</div>
+        <div class="stat-desc">jobs expected to be transformed or created by AI in the next decade</div>
+      </div>
+    </div>
+
+    <p>Jobs, schools, healthcare, and government are all being shaped by AI. The more you understand it, the more you can <mark>use it responsibly</mark> — and maybe even help build what comes next.</p>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-block fade-in">
+    <div class="quiz-header">
+      <div class="quiz-icon-box">🧠</div>
+      <div class="quiz-title">Check Your Understanding</div>
+    </div>
+    <div class="quiz-q">What makes AI different from a regular computer program?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">A</div>AI always requires a physical robot body to operate.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">B</div>AI only works on the internet and needs a constant connection to function.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,true)"><div class="quiz-opt-letter">C</div>AI learns from patterns in data and improves over time, rather than just following fixed instructions.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">D</div>AI thinks and feels exactly the way humans do, just faster.</div>
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="reflection-block fade-in">
+    <div class="reflection-title">Reflection Questions</div>
+    <div class="reflection-items">
+      <div class="reflection-item">
+        <div class="reflection-num">1</div>
+        <div class="reflection-text">Which example of AI do you use most often in your daily life — and did you realize it was AI before reading this?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">2</div>
+        <div class="reflection-text">Do you think AI makes life easier, harder, or a bit of both? Give a specific example that supports your answer.</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">3</div>
+        <div class="reflection-text">If you could design an AI specifically to help with something at school, what would it do — and what problem would it solve for you?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-block fade-in">
+    <div class="summary-title">📌 What You Learned</div>
+    <div class="summary-items">
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">AI is not robots or science fiction — it's software that learns from data to recognize patterns, understand language, and make decisions.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">AI doesn't think or feel like humans — it processes information quickly and improves through pattern recognition.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">AI is already in your daily life — social media feeds, streaming recommendations, games, and voice assistants all use it.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">AI is reshaping jobs, schools, and healthcare — understanding it now gives you a real advantage for the future.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll',()=>{const el=document.documentElement;document.getElementById('progressBar').style.width=((el.scrollTop/(el.scrollHeight-el.clientHeight))*100)+'%';});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.12});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  function revealCard(card){
+    card.classList.toggle('revealed');
+  }
+
+  function answerQuiz(el,correct){
+    if(document.querySelector('.quiz-opt.correct,.quiz-opt.wrong'))return;
+    el.classList.add(correct?'correct':'wrong');
+    const fb=document.getElementById('quizFeedback');
+    fb.className='quiz-feedback '+(correct?'correct':'wrong');
+    fb.textContent=correct
+      ?'✅ Exactly right! The defining feature of AI is that it learns from data and improves over time — rather than just executing the same fixed instructions every time.'
+      :'❌ Not quite. AI doesn\'t require a physical body, doesn\'t need the internet to work in all cases, and doesn\'t feel emotions. What makes it special is its ability to learn from patterns in data.';
+  }
+</script>
+</body>
+</html>
