@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Privacy & AI in Education — AI in Business Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--accent:#C084FC;--red:#E53E3E;--red-pale:#FFF1F1;--green:#276749;--green-pale:#F0FFF4;--amber:#B45309;--amber-pale:#FFF7ED;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+  .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;transition:width 0.1s ease;}
+  .hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+  .lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+  .lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;display:inline-block;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,54px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-0.02em;}
+  .hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+  .hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+  .content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+  .section{padding:32px 0 0;}
+  h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;letter-spacing:-0.01em;line-height:1.2;}
+  p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+  mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+  /* LAW COVERAGE BADGES */
+  .law-badges{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0;}
+  .law-badge{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;flex:1;min-width:160px;}
+  .lb-ferpa{background:#EFF6FF;border:1.5px solid #93C5FD;}
+  .lb-coppa{background:var(--green-pale);border:1.5px solid #86efac;}
+  .lb-gdpr{background:var(--amber-pale);border:1.5px solid #FCD34D;}
+  .law-badge-icon{font-size:22px;flex-shrink:0;}
+  .law-badge-label{font-size:12px;font-weight:700;color:var(--purple-dark);line-height:1.3;}
+  .law-badge-sub{font-size:11px;color:var(--gray-muted);line-height:1.3;}
+
+  /* NAV PILLS */
+  .concept-nav{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0;}
+  .cn-pill{display:flex;align-items:center;gap:7px;padding:9px 15px;border-radius:100px;border:1.5px solid var(--purple-mid);background:var(--white);font-size:12px;font-weight:700;color:var(--gray-muted);cursor:pointer;transition:all 0.2s;}
+  .cn-pill:hover{border-color:var(--purple);color:var(--purple);}
+  .cn-pill.active{background:var(--purple);border-color:var(--purple);color:white;}
+
+  /* TERM CARDS */
+  .terms-list{display:flex;flex-direction:column;gap:14px;margin:28px 0;}
+  .term-card{border:1.5px solid var(--purple-mid);border-radius:22px;overflow:hidden;transition:border-color 0.2s;scroll-margin-top:80px;}
+  .term-card:hover,.term-card.open{border-color:var(--purple);}
+  .term-header{display:flex;align-items:center;gap:14px;padding:20px 24px;background:var(--white);cursor:pointer;user-select:none;}
+  .term-icon{font-size:26px;flex-shrink:0;}
+  .term-type{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px;flex-shrink:0;}
+  .type-law{background:#EFF6FF;color:#1D4ED8;}
+  .type-principle{background:var(--purple-pale);color:var(--purple);}
+  .type-practice{background:var(--green-pale);color:var(--green);}
+  .term-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--purple-dark);flex:1;line-height:1.3;}
+  .term-toggle{width:28px;height:28px;background:var(--purple-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--purple);transition:transform 0.3s,background 0.2s;flex-shrink:0;}
+  .term-card.open .term-toggle{transform:rotate(45deg);background:var(--purple);color:white;}
+  .term-body{max-height:0;overflow:hidden;transition:max-height 0.45s ease;}
+  .term-card.open .term-body{max-height:800px;}
+  .term-inner{padding:0 24px 26px 70px;}
+  .term-definition{font-size:15px;line-height:1.8;color:var(--gray-text);margin-bottom:14px;}
+  .term-scope{background:#EFF6FF;border-left:3px solid #3B82F6;border-radius:0 12px 12px 0;padding:12px 16px;font-size:13.5px;line-height:1.65;color:var(--gray-text);margin-bottom:10px;}
+  .term-scope::before{content:'📋 Scope & coverage: ';font-weight:700;color:#1D4ED8;}
+  .term-violation{background:var(--red-pale);border-left:3px solid var(--red);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13.5px;line-height:1.65;color:var(--gray-text);margin-bottom:10px;}
+  .term-violation::before{content:'🚩 Common violation to avoid: ';font-weight:700;color:var(--red);}
+  .term-action{background:var(--green-pale);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13.5px;line-height:1.65;color:var(--gray-text);}
+  .term-action::before{content:'✅ Educator action: ';font-weight:700;color:var(--green);}
+
+  /* DO / DON'T SCENARIO — interactive switcher */
+  .scenario-block{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:22px;padding:28px;margin:28px 0;}
+  .sb-label{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .sb-label::after{content:'';flex:1;height:1px;background:var(--purple-mid);}
+  .sb-toggle{display:flex;gap:0;border-radius:12px;overflow:hidden;border:1.5px solid var(--purple-mid);width:fit-content;margin-bottom:16px;}
+  .sb-btn{padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;border:none;background:var(--white);color:var(--gray-muted);transition:all 0.2s;}
+  .sb-btn:first-child{border-right:1.5px solid var(--purple-mid);}
+  .sb-btn.active.ok{background:var(--green);color:white;}
+  .sb-btn.active.no{background:var(--red);color:white;}
+  .sb-scene{display:none;border-radius:14px;padding:16px 18px;font-size:14px;line-height:1.7;color:var(--gray-text);}
+  .sb-scene.active{display:block;}
+  .scene-ok{background:var(--green-pale);border:1.5px solid #86efac;}
+  .scene-no{background:var(--red-pale);border:1.5px solid #FCA5A5;}
+  .scene-label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;}
+  .scene-ok .scene-label{color:var(--green);}
+  .scene-no .scene-label{color:var(--red);}
+
+  /* STEWARDSHIP PRINCIPLES */
+  .stewardship-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;}
+  @media(max-width:580px){.stewardship-row{grid-template-columns:1fr;}}
+  .sp-card{background:var(--purple-pale);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px 16px;text-align:center;}
+  .sp-icon{font-size:28px;margin-bottom:10px;}
+  .sp-title{font-size:13px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+  .sp-desc{font-size:12px;line-height:1.55;color:var(--gray-muted);}
+
+  /* PULL QUOTE */
+  .pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+  .pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+  .pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+  /* QUIZ */
+  .quiz-block{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:40px 0;}
+  .quiz-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+  .quiz-icon-box{width:44px;height:44px;background:var(--purple);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .quiz-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);}
+  .quiz-q{font-size:16px;font-weight:600;color:var(--gray-text);margin-bottom:14px;line-height:1.5;}
+  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .quiz-opt{display:flex;align-items:center;gap:13px;padding:14px 18px;background:var(--white);border:2px solid var(--purple-mid);border-radius:14px;cursor:pointer;font-size:15px;color:var(--gray-text);transition:all 0.2s;}
+  .quiz-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .quiz-opt.correct{border-color:var(--green);background:var(--green-pale);color:var(--green);}
+  .quiz-opt.wrong{border-color:var(--red);background:var(--red-pale);color:var(--red);}
+  .quiz-opt-letter{width:28px;height:28px;border-radius:50%;background:var(--purple-pale);border:1.5px solid var(--purple-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--purple);flex-shrink:0;}
+  .quiz-feedback{padding:14px 18px;border-radius:14px;font-size:15px;font-weight:500;display:none;line-height:1.6;}
+  .quiz-feedback.correct{background:var(--green-pale);color:var(--green);border:1.5px solid #86efac;display:block;}
+  .quiz-feedback.wrong{background:var(--red-pale);color:var(--red);border:1.5px solid #FCA5A5;display:block;}
+
+  /* REFLECTION */
+  .reflection-block{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .reflection-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+  .reflection-title::before{content:'✍️';font-size:24px;}
+  .reflection-items{display:flex;flex-direction:column;gap:14px;}
+  .reflection-item{display:flex;align-items:flex-start;gap:16px;background:var(--white);border-radius:16px;padding:18px 20px;border:1.5px solid var(--purple-mid);}
+  .reflection-num{min-width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .reflection-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  /* SUMMARY */
+  .summary-block{background:linear-gradient(135deg,var(--purple-pale) 0%,var(--purple-mid) 100%);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .summary-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;}
+  .summary-items{display:flex;flex-direction:column;gap:12px;}
+  .summary-item{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.7);border-radius:14px;padding:14px 18px;}
+  .summary-check{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .summary-check svg{width:11px;height:11px;}
+  .summary-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 1 · Data Privacy & AI</div>
+  <h1>Data Privacy & AI in Education</h1>
+  <p class="hero-sub">As AI tools become more common in classrooms, educators must be proactive stewards of student data. These eight key terms help you navigate privacy laws and ethical practices with clarity and confidence.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- LAW OVERVIEW -->
+  <div class="section fade-in">
+    <h2>Three Laws Every Educator Should Know</h2>
+    <p>Before exploring all eight terms, here's a quick map of the three primary privacy laws that govern student data in the United States and beyond:</p>
+
+    <div class="law-badges">
+      <div class="law-badge lb-ferpa">
+        <div class="law-badge-icon">🏛️</div>
+        <div><div class="law-badge-label">FERPA</div><div class="law-badge-sub">U.S. federal law · All ages · Protects education records</div></div>
+      </div>
+      <div class="law-badge lb-coppa">
+        <div class="law-badge-icon">🧒</div>
+        <div><div class="law-badge-label">COPPA</div><div class="law-badge-sub">U.S. federal law · Under 13 · Governs online data collection</div></div>
+      </div>
+      <div class="law-badge lb-gdpr">
+        <div class="law-badge-icon">🇪🇺</div>
+        <div><div class="law-badge-label">GDPR</div><div class="law-badge-sub">European Union · All ages · Strictest global privacy standard</div></div>
+      </div>
+    </div>
+
+    <p>Use the navigation below to explore all eight terms in detail — including scope, common violations, and what you can do as an educator:</p>
+
+    <div class="concept-nav">
+      <div class="cn-pill active" onclick="jumpTo('term-1',this)">Data Privacy</div>
+      <div class="cn-pill" onclick="jumpTo('term-2',this)">FERPA</div>
+      <div class="cn-pill" onclick="jumpTo('term-3',this)">COPPA</div>
+      <div class="cn-pill" onclick="jumpTo('term-4',this)">GDPR</div>
+      <div class="cn-pill" onclick="jumpTo('term-5',this)">Informed Consent</div>
+      <div class="cn-pill" onclick="jumpTo('term-6',this)">Data Minimization</div>
+      <div class="cn-pill" onclick="jumpTo('term-7',this)">Vendor Compliance</div>
+      <div class="cn-pill" onclick="jumpTo('term-8',this)">Ethical Data Use</div>
+    </div>
+  </div>
+
+  <!-- TERMS -->
+  <div class="section fade-in">
+    <div class="terms-list">
+
+      <div class="term-card" id="term-1">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🔒</div>
+          <div class="term-title">Data Privacy</div>
+          <div class="term-type type-principle">Principle</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Data privacy is a student's right to control how their personal information is collected, stored, shared, and used by institutions and technology platforms. In an educational context, student data includes academic records, behavioral notes, learning patterns, assessment results, and even metadata like how long a student spends on a task. Educators are not just users of student data — they are stewards of it, responsible for protecting it with the same care they would want applied to their own personal information.</div>
+          <div class="term-scope">Data privacy applies to any information that could identify a student — directly (name, ID number) or indirectly (combined data points that reveal identity). It covers physical records, digital files, AI-generated insights, and data collected by third-party tools.</div>
+          <div class="term-violation">Using a public AI tool (like a standard ChatGPT interface) to generate feedback on student work and pasting in identifying details — names, grades, behavioral history — without understanding that data may be retained and used by the platform.</div>
+          <div class="term-action">Treat student data with the same care you'd want applied to your own. Before using any tool that touches student information, ask: Is this district-approved? What data does it collect? Who has access? How long is it retained?</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-2">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🏛️</div>
+          <div class="term-title">FERPA — Family Educational Rights and Privacy Act</div>
+          <div class="term-type type-law">U.S. Federal Law</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">FERPA is a U.S. federal law enacted in 1974 that grants parents and eligible students (those 18 and older) the right to access, review, and request corrections to educational records — and restricts schools from disclosing those records without consent. FERPA applies to any school that receives federal funding, which includes virtually all public schools and many private institutions.</div>
+          <div class="term-scope">Covers "education records" — any records directly related to a student maintained by the school or its agents. This includes grades, transcripts, disciplinary records, attendance, financial aid, and increasingly, data generated by educational technology platforms used in school.</div>
+          <div class="term-violation">Sharing a student's name, grade, or behavior details with an AI vendor whose data privacy practices haven't been vetted by your district — or sharing student records in a staff meeting where unauthorized personnel are present.</div>
+          <div class="term-action">Know what your district considers an "education record" under FERPA. When an AI vendor asks to access student data, verify your district has a signed data sharing agreement (DSA) with them that complies with FERPA before sharing any information.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-3">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🧒</div>
+          <div class="term-title">COPPA — Children's Online Privacy Protection Act</div>
+          <div class="term-type type-law">U.S. Federal Law</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">COPPA is a U.S. federal law that restricts the collection of personal data from children under 13 years old by commercial websites and online services. It requires parental consent before any personal information is collected, used, or disclosed about a child under 13. In a school context, COPPA compliance is critical any time students use apps, platforms, or AI tools that collect personal data — even something as simple as an email address or login profile.</div>
+          <div class="term-scope">Applies to commercial operators of websites and online services directed to children under 13, or operators with actual knowledge they are collecting data from children under 13. Schools can act as intermediaries and provide consent on behalf of parents for educational tools — but only within specific legal limits.</div>
+          <div class="term-violation">Assigning students under 13 to create accounts on an AI tool or platform without verifying that the platform is COPPA-compliant or that appropriate parental consent (or school-provided consent) has been secured.</div>
+          <div class="term-action">Before having students under 13 use any digital tool, verify it is COPPA-compliant. Check your district's approved vendor list, and never assume an app is safe for younger students just because it doesn't ask for a credit card.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-4">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🇪🇺</div>
+          <div class="term-title">GDPR — General Data Protection Regulation</div>
+          <div class="term-type type-law">EU Regulation</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">The GDPR is the European Union's comprehensive data protection regulation, enforced since 2018. It establishes strict rights for individuals over their personal data — including the right to access it, correct it, delete it ("the right to be forgotten"), and restrict its processing. Though it applies to EU residents, its impact is global: any organization that handles data of EU citizens must comply. Many U.S. states have modeled their own privacy laws on GDPR principles, making it the de facto global standard for data protection.</div>
+          <div class="term-scope">Applies to all personal data of EU residents, regardless of where the organization processing that data is located. For U.S. educators, GDPR matters when using international platforms, tools with EU-based data servers, or serving students who are EU citizens.</div>
+          <div class="term-violation">Using an AI platform that stores user data on EU servers without understanding whether your use complies with GDPR — or being unaware that a student's EU citizenship gives them specific data rights that differ from U.S. students.</div>
+          <div class="term-action">Familiarize yourself with the core principles of GDPR — especially data minimization, purpose limitation, and individual rights — as they represent best-practice standards that benefit all students, not just EU citizens. Ask your district's privacy officer whether the tools you use are GDPR-aligned.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-5">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">📋</div>
+          <div class="term-title">Informed Consent</div>
+          <div class="term-type type-principle">Principle</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Informed consent means that students and families genuinely understand what data an AI tool collects, how it will be used, who will have access, and what their rights are — before agreeing to use the tool. True informed consent is not a 47-page terms of service document. It's a clear, age-appropriate, honest explanation followed by a meaningful choice. For students under 18, consent typically requires parental or guardian approval, and for students under 13, COPPA requires parental consent for data collection.</div>
+          <div class="term-scope">Applies any time student data will be collected, processed, or shared — including when students create accounts, submit work to AI platforms, participate in AI-driven assessments, or interact with EdTech tools that log their behavior.</div>
+          <div class="term-violation">Telling students to "just create an account" or click "accept" on a platform's terms without explaining what they're agreeing to — or assuming that because a tool is "educational," families automatically consent to data collection.</div>
+          <div class="term-action">When introducing any AI tool to students, explain plainly: what it collects, how you'll use the data, and how families can ask questions or opt out. Create space for real questions — informed consent isn't a signature, it's an understanding.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-6">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">📉</div>
+          <div class="term-title">Data Minimization</div>
+          <div class="term-type type-principle">Principle</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Data minimization is the principle that only the minimum amount of student data necessary for a specific, defined purpose should be collected, used, or retained. In other words: don't collect it if you don't need it; don't keep it longer than necessary; and don't use it for anything beyond the purpose students consented to. This principle protects students from data being repurposed, sold, or exploited beyond the original educational use.</div>
+          <div class="term-scope">A core principle in GDPR and increasingly reflected in U.S. state privacy laws. Applies to both the tools you choose (does this platform collect more data than it needs?) and how you use them (am I sharing more student information than the task requires?).</div>
+          <div class="term-violation">Using an AI feedback tool that requires students to input their full name, grade level, school ID, and home zip code — when only a student pseudonym would be sufficient for the tool to function.</div>
+          <div class="term-action">Ask vendors: what data do you require, what do you optionally collect, and why? Prefer tools that function with minimal identifying information. When entering student info into any platform, share only what is genuinely necessary — nothing more.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-7">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🏢</div>
+          <div class="term-title">Vendor Compliance</div>
+          <div class="term-type type-practice">Practice</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Vendor compliance refers to the process of verifying that EdTech companies and AI tool providers meet the legal and ethical standards required to handle student data safely — including FERPA, COPPA, state privacy laws, and district-specific requirements. Schools that share student data with a vendor are legally responsible for ensuring that vendor has agreed to handle that data appropriately through a signed Data Sharing Agreement (DSA) or Data Processing Agreement (DPA).</div>
+          <div class="term-scope">Applies any time a third-party tool or platform will access, store, or process student data on the school's behalf. Includes free tools — "free" often means the data is the product. Compliance must be verified before deployment, not discovered after a breach.</div>
+          <div class="term-violation">Recommending or requiring students to use an AI tool that has not been approved by your district — assuming that because it's free, popular, or "educational" it must be safe — without any formal vetting of its data practices.</div>
+          <div class="term-action">Only use tools from your district's approved vendor list for anything that involves student data. If you want to pilot a new tool, work through your district's vetting process first. This protects you, your students, and your school from legal liability.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-8">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">💡</div>
+          <div class="term-title">Ethical Data Use</div>
+          <div class="term-type type-practice">Practice</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Ethical data use goes beyond legal compliance — it asks whether using a student's data in a particular way is truly in that student's best interest, regardless of whether it's technically permitted. It means treating data as something entrusted to you, not owned by you. It means questioning whether AI-generated insights about students might be weaponized against them. And it means refusing to let data collection become surveillance, or let "personalization" become manipulation.</div>
+          <div class="term-scope">Applies to every decision involving student data — from which tools you adopt to how you interpret AI insights to what you share with colleagues, administrators, or families. Legal compliance sets a floor; ethics sets the ceiling you should be reaching for.</div>
+          <div class="term-violation">Using AI-generated behavioral predictions to stigmatize a student in team meetings, or sharing AI-generated performance insights with people who don't have a legitimate educational need for that information — even if those actions are technically legal.</div>
+          <div class="term-action">Before using any student data — especially AI-generated insights — ask: Is this in the student's best interest? Would this student be comfortable knowing I'm using their data this way? Could this data be used against them? If any answer is uncertain, proceed with greater care or don't proceed at all.</div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCENARIO SWITCHER -->
+  <div class="section fade-in">
+    <h2>Can You Spot the Difference?</h2>
+    <p>Use the buttons to compare a privacy-violating scenario with a responsible alternative for the same task:</p>
+
+    <div class="scenario-block">
+      <div class="sb-label">📋 Scenario: Getting AI Feedback on Student Writing</div>
+      <div class="sb-toggle">
+        <div class="sb-btn no active" id="btn-no" onclick="switchScene('no')">❌ Privacy Violation</div>
+        <div class="sb-btn ok" id="btn-ok" onclick="switchScene('ok')">✅ Responsible Practice</div>
+      </div>
+      <div class="sb-scene scene-no active" id="scene-no">
+        <div class="scene-label">❌ What NOT to do</div>
+        A teacher copies and pastes a student's full essay — including their name, grade level, school name, and IEP accommodations — into a public version of ChatGPT to generate feedback. The teacher doesn't realize the platform may use that submission to train future AI models, and that the student's private information is now stored by a third party without parental consent or district approval.
+      </div>
+      <div class="sb-scene scene-ok" id="scene-ok">
+        <div class="scene-label">✅ What TO do instead</div>
+        The teacher uses a district-approved AI feedback tool that has a signed Data Sharing Agreement with the school. Before pasting any content, the teacher removes the student's name and any identifying information. The AI provides structural and grammar feedback, which the teacher then reviews and personalizes before returning it to the student. Student data stays protected. Teacher judgment stays central.
+      </div>
+    </div>
+  </div>
+
+  <!-- STEWARDSHIP PRINCIPLES -->
+  <div class="section fade-in">
+    <h2>Three Principles of Data Stewardship</h2>
+    <div class="stewardship-row">
+      <div class="sp-card"><div class="sp-icon">🛡️</div><div class="sp-title">Protect It</div><div class="sp-desc">Treat student data like something precious and irreplaceable — because it is. Once data is exposed, it can't be unexposed.</div></div>
+      <div class="sp-card"><div class="sp-icon">🎯</div><div class="sp-title">Use It Purposefully</div><div class="sp-desc">Only collect and use data for a clear, legitimate educational purpose. Curiosity is not a purpose. Convenience is not a justification.</div></div>
+      <div class="sp-card"><div class="sp-icon">💬</div><div class="sp-title">Be Transparent</div><div class="sp-desc">Students and families deserve to know what data you're collecting, why, and how. Honesty builds trust — and trust makes learning possible.</div></div>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote fade-in">
+    <p>Educators who understand data privacy don't just follow rules — they earn trust. And trust is what makes safe learning possible.</p>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-block fade-in">
+    <div class="quiz-header">
+      <div class="quiz-icon-box">🧠</div>
+      <div class="quiz-title">Check Your Understanding</div>
+    </div>
+    <div class="quiz-q">A teacher wants to use a free AI writing tool to help generate feedback on student essays. What is the most important first step before asking students to submit work to the platform?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">A</div>Check if the tool has good reviews from other teachers online.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">B</div>Try it yourself first to see if the feedback quality is good enough.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,true)"><div class="quiz-opt-letter">C</div>Verify the tool is on the district's approved vendor list and has a signed data sharing agreement before any student data is submitted.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">D</div>Get permission from the principal to use a new tool in the classroom.</div>
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="reflection-block fade-in">
+    <div class="reflection-title">Reflection Questions</div>
+    <div class="reflection-items">
+      <div class="reflection-item">
+        <div class="reflection-num">1</div>
+        <div class="reflection-text">Think about the digital tools students in your school currently use. How many of them have you personally verified for FERPA or COPPA compliance? What would you need to do to find out?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">2</div>
+        <div class="reflection-text">What would truly informed consent look like for your specific students and families — especially those who may have limited English proficiency or lower digital literacy?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">3</div>
+        <div class="reflection-text">Where do you see the tension between "legal compliance" and "ethical data use" in your school's current technology practices? What would you advocate for?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-block fade-in">
+    <div class="summary-title">📌 Eight Terms to Remember</div>
+    <div class="summary-items">
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Data Privacy</strong> — Students' right to control their information. Educators are data stewards, not data owners.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>FERPA</strong> — U.S. federal law protecting education records. Sharing student data requires consent or a compliant data sharing agreement.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>COPPA</strong> — Requires parental consent before collecting data from children under 13. Verify compliance before any student under 13 creates an account.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>GDPR</strong> — The EU's comprehensive data protection standard — and the global best-practice benchmark for student privacy rights.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Informed Consent</strong> — A genuine, age-appropriate explanation and meaningful choice — not a "click accept" wall of legal text.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Data Minimization</strong> — Collect only what's necessary. Don't share more student information than the task requires.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Vendor Compliance</strong> — Only use district-approved tools with signed data agreements. "Free" and "educational" are not the same as "safe."</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Ethical Data Use</strong> — Legal compliance sets a floor. Ethics asks whether using student data this way is truly in their best interest.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll',()=>{const el=document.documentElement;document.getElementById('progressBar').style.width=((el.scrollTop/(el.scrollHeight-el.clientHeight))*100)+'%';});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.12});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  function jumpTo(id, pill){
+    document.querySelectorAll('.cn-pill').forEach(p=>p.classList.remove('active'));
+    if(pill)pill.classList.add('active');
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.classList.add('open');
+    setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50);
+  }
+
+  function toggleTerm(card){
+    const wasOpen=card.classList.contains('open');
+    document.querySelectorAll('.term-card').forEach(c=>c.classList.remove('open'));
+    if(!wasOpen)card.classList.add('open');
+  }
+
+  function switchScene(which){
+    document.querySelectorAll('.sb-scene').forEach(s=>s.classList.remove('active'));
+    document.querySelectorAll('.sb-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById('scene-'+which).classList.add('active');
+    document.getElementById('btn-'+which).classList.add('active');
+  }
+
+  function answerQuiz(el,correct){
+    if(document.querySelector('.quiz-opt.correct,.quiz-opt.wrong'))return;
+    el.classList.add(correct?'correct':'wrong');
+    const fb=document.getElementById('quizFeedback');
+    fb.className='quiz-feedback '+(correct?'correct':'wrong');
+    fb.textContent=correct
+      ?'✅ Exactly right! Vendor compliance is the non-negotiable first step. Before any student data touches a platform, the district must have vetted it and established a signed data sharing agreement. No approval = no use, regardless of quality or reputation.'
+      :'❌ Not quite. While peer reviews and trial use have their place, neither protects student data. The required first step is verifying that the tool has been approved by your district and has a legally binding data sharing agreement — before a single student submits a single piece of work.';
+  }
+</script>
+</body>
+</html>
