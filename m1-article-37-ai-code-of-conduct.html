@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creating and Living by an AI Code of Conduct — AI in Business Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--accent:#C084FC;--red:#E53E3E;--red-pale:#FFF1F1;--green:#276749;--green-pale:#F0FFF4;--amber:#B45309;--amber-pale:#FFF7ED;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+  .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;transition:width 0.1s ease;}
+  .hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+  .lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+  .lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;display:inline-block;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,54px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-0.02em;}
+  .hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+  .hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+  .content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+  .section{padding:32px 0 0;}
+  h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;letter-spacing:-0.01em;line-height:1.2;}
+  p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+  mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+  /* CODE OF CONDUCT ANATOMY */
+  .anatomy-block{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:22px;padding:26px;margin:24px 0;}
+  .ab-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--purple-dark);margin-bottom:16px;}
+  .anatomy-layers{display:flex;flex-direction:column;gap:8px;}
+  .al-item{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:14px;}
+  .al-1{background:var(--purple);color:white;}
+  .al-2{background:#6B21A8;color:white;}
+  .al-3{background:var(--accent);color:white;}
+  .al-4{background:var(--purple-pale);color:var(--purple-dark);border:1.5px solid var(--purple-mid);}
+  .al-5{background:var(--green-pale);color:var(--green);border:1.5px solid #86efac;}
+  .al-6{background:var(--amber-pale);color:var(--amber);border:1.5px solid #FCD34D;}
+  .al-7{background:var(--red-pale);color:var(--red);border:1.5px solid #FCA5A5;}
+  .al-8{background:var(--gray-soft);color:var(--gray-text);border:1.5px solid var(--purple-mid);}
+  .al-icon{font-size:18px;flex-shrink:0;}
+  .al-label{font-size:13px;font-weight:700;line-height:1.3;}
+  .al-sub{font-size:11px;opacity:0.75;margin-top:1px;}
+
+  /* NAV PILLS */
+  .concept-nav{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0;}
+  .cn-pill{padding:9px 15px;border-radius:100px;border:1.5px solid var(--purple-mid);background:var(--white);font-size:12px;font-weight:700;color:var(--gray-muted);cursor:pointer;transition:all 0.2s;}
+  .cn-pill:hover{border-color:var(--purple);color:var(--purple);}
+  .cn-pill.active{background:var(--purple);border-color:var(--purple);color:white;}
+
+  /* TERM CARDS */
+  .terms-list{display:flex;flex-direction:column;gap:14px;margin:28px 0;}
+  .term-card{border:1.5px solid var(--purple-mid);border-radius:22px;overflow:hidden;transition:border-color 0.2s;scroll-margin-top:80px;}
+  .term-card:hover,.term-card.open{border-color:var(--purple);}
+  .term-header{display:flex;align-items:center;gap:14px;padding:20px 24px;background:var(--white);cursor:pointer;user-select:none;}
+  .term-icon{font-size:26px;flex-shrink:0;}
+  .term-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--purple-dark);flex:1;line-height:1.3;}
+  .term-toggle{width:28px;height:28px;background:var(--purple-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--purple);transition:transform 0.3s,background 0.2s;flex-shrink:0;}
+  .term-card.open .term-toggle{transform:rotate(45deg);background:var(--purple);color:white;}
+  .term-body{max-height:0;overflow:hidden;transition:max-height 0.45s ease;}
+  .term-card.open .term-body{max-height:800px;}
+  .term-inner{padding:0 24px 26px 70px;}
+  .term-definition{font-size:15px;line-height:1.8;color:var(--gray-text);margin-bottom:14px;}
+  .term-weak{background:var(--red-pale);border-left:3px solid var(--red);border-radius:0 12px 12px 0;padding:12px 16px;margin-bottom:10px;font-size:13.5px;line-height:1.65;color:var(--gray-text);}
+  .term-weak::before{content:'⚠️ Without this: ';font-weight:700;color:var(--red);}
+  .term-strong{background:var(--green-pale);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13.5px;line-height:1.65;color:var(--gray-text);}
+  .term-strong::before{content:'✅ With this in place: ';font-weight:700;color:var(--green);}
+
+  /* CODE BUILDER — sample clause generator */
+  .builder-block{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:22px;padding:28px;margin:28px 0;}
+  .bb-label{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .bb-label::after{content:'';flex:1;height:1px;background:var(--purple-mid);}
+  .bb-note{font-size:14px;color:var(--gray-muted);margin-bottom:16px;line-height:1.6;}
+  .bb-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+  .bb-tab{padding:8px 16px;border-radius:100px;border:1.5px solid var(--purple-mid);background:var(--white);font-size:12px;font-weight:700;color:var(--gray-muted);cursor:pointer;transition:all 0.2s;}
+  .bb-tab.active{background:var(--purple);border-color:var(--purple);color:white;}
+  .bb-panel{display:none;}
+  .bb-panel.active{display:block;}
+  .bb-clause{background:var(--white);border:1.5px solid var(--purple-mid);border-radius:16px;padding:20px;font-size:14px;line-height:1.8;color:var(--gray-text);font-style:italic;}
+  .bb-clause strong{color:var(--purple-dark);font-style:normal;}
+
+  /* PULL QUOTE */
+  .pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+  .pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+  .pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+  /* QUIZ */
+  .quiz-block{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:40px 0;}
+  .quiz-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+  .quiz-icon-box{width:44px;height:44px;background:var(--purple);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .quiz-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);}
+  .quiz-q{font-size:16px;font-weight:600;color:var(--gray-text);margin-bottom:14px;line-height:1.5;}
+  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .quiz-opt{display:flex;align-items:center;gap:13px;padding:14px 18px;background:var(--white);border:2px solid var(--purple-mid);border-radius:14px;cursor:pointer;font-size:15px;color:var(--gray-text);transition:all 0.2s;}
+  .quiz-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .quiz-opt.correct{border-color:var(--green);background:var(--green-pale);color:var(--green);}
+  .quiz-opt.wrong{border-color:var(--red);background:var(--red-pale);color:var(--red);}
+  .quiz-opt-letter{width:28px;height:28px;border-radius:50%;background:var(--purple-pale);border:1.5px solid var(--purple-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--purple);flex-shrink:0;}
+  .quiz-feedback{padding:14px 18px;border-radius:14px;font-size:15px;font-weight:500;display:none;line-height:1.6;}
+  .quiz-feedback.correct{background:var(--green-pale);color:var(--green);border:1.5px solid #86efac;display:block;}
+  .quiz-feedback.wrong{background:var(--red-pale);color:var(--red);border:1.5px solid #FCA5A5;display:block;}
+
+  /* REFLECTION */
+  .reflection-block{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .reflection-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+  .reflection-title::before{content:'✍️';font-size:24px;}
+  .reflection-items{display:flex;flex-direction:column;gap:14px;}
+  .reflection-item{display:flex;align-items:flex-start;gap:16px;background:var(--white);border-radius:16px;padding:18px 20px;border:1.5px solid var(--purple-mid);}
+  .reflection-num{min-width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .reflection-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  /* SUMMARY */
+  .summary-block{background:linear-gradient(135deg,var(--purple-pale) 0%,var(--purple-mid) 100%);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .summary-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;}
+  .summary-items{display:flex;flex-direction:column;gap:12px;}
+  .summary-item{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.7);border-radius:14px;padding:14px 18px;}
+  .summary-check{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .summary-check svg{width:11px;height:11px;}
+  .summary-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 1 · AI Policy & Governance</div>
+  <h1>Creating and Living by an AI Code of Conduct</h1>
+  <p class="hero-sub">An AI Code of Conduct isn't just paperwork — it's a living document that helps schools use AI ethically, consistently, and in a way everyone can stand behind. These eight terms help educators build and sustain one.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- ANATOMY OF A CODE -->
+  <div class="section fade-in">
+    <h2>What a Strong AI Code of Conduct Looks Like</h2>
+    <p>A school's AI Code of Conduct is more than a list of rules — it's a layered document that brings together values, policies, people, and processes. Here's how the eight components stack together:</p>
+
+    <div class="anatomy-block">
+      <div class="ab-title">🏗️ Anatomy of an AI Code of Conduct</div>
+      <div class="anatomy-layers">
+        <div class="al-item al-1"><div class="al-icon">📜</div><div><div class="al-label">AI Code of Conduct</div><div class="al-sub">The overarching document — the whole structure</div></div></div>
+        <div class="al-item al-2"><div class="al-icon">⭐</div><div><div class="al-label">Core Principles</div><div class="al-sub">The values and ethical commitments that anchor everything else</div></div></div>
+        <div class="al-item al-3"><div class="al-icon">📋</div><div><div class="al-label">Practical Policies</div><div class="al-sub">The specific, actionable rules that translate principles into day-to-day decisions</div></div></div>
+        <div class="al-item al-4"><div class="al-icon">🔍</div><div><div class="al-label">Evaluation Process</div><div class="al-sub">How the school monitors AI use and assesses whether the code is working</div></div></div>
+        <div class="al-item al-5"><div class="al-icon">🎓</div><div><div class="al-label">Staff Training</div><div class="al-sub">How educators learn to understand, apply, and advocate within the code</div></div></div>
+        <div class="al-item al-6"><div class="al-icon">👨‍👩‍👧</div><div><div class="al-label">Family Involvement</div><div class="al-sub">How families are informed, consulted, and empowered to engage with AI decisions</div></div></div>
+        <div class="al-item al-7"><div class="al-icon">🚨</div><div><div class="al-label">Reporting & Redress</div><div class="al-sub">What happens when something goes wrong — and how it gets fixed</div></div></div>
+        <div class="al-item al-8"><div class="al-icon">🤝</div><div><div class="al-label">Collaborative Development</div><div class="al-sub">Who built the code — and whether the people it affects had a genuine voice</div></div></div>
+      </div>
+    </div>
+
+    <div class="concept-nav">
+      <div class="cn-pill active" onclick="jumpTo('term-1',this)">AI Code of Conduct</div>
+      <div class="cn-pill" onclick="jumpTo('term-2',this)">Core Principles</div>
+      <div class="cn-pill" onclick="jumpTo('term-3',this)">Practical Policies</div>
+      <div class="cn-pill" onclick="jumpTo('term-4',this)">Evaluation Process</div>
+      <div class="cn-pill" onclick="jumpTo('term-5',this)">Staff Training</div>
+      <div class="cn-pill" onclick="jumpTo('term-6',this)">Family Involvement</div>
+      <div class="cn-pill" onclick="jumpTo('term-7',this)">Reporting & Redress</div>
+      <div class="cn-pill" onclick="jumpTo('term-8',this)">Collaborative Development</div>
+    </div>
+  </div>
+
+  <!-- TERMS -->
+  <div class="section fade-in">
+    <div class="terms-list">
+
+      <div class="term-card" id="term-1">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">📜</div>
+          <div class="term-title">AI Code of Conduct</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">An AI Code of Conduct is a formal, school- or district-wide document that establishes shared expectations, ethical principles, and operational guidelines for how AI tools are used by educators, students, and staff. It provides a consistent framework for decision-making, ensures accountability, and communicates to families and the community how the school approaches AI responsibly. Unlike a simple policy memo, a genuine code of conduct is developed collaboratively, revisited regularly, and actively taught — not just filed away.</div>
+          <div class="term-weak">Schools using AI tools without a code of conduct operate inconsistently — different teachers making different decisions, families unaware of what tools their children are using, and no clear process when something goes wrong.</div>
+          <div class="term-strong">Everyone — educators, students, families — knows what the rules are, what's expected, and what recourse exists. AI use becomes consistent, transparent, and aligned with shared values.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-2">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">⭐</div>
+          <div class="term-title">Core Principles</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Core principles are the foundational values and ethical commitments that anchor an AI Code of Conduct. They are the "why" behind every specific policy — the non-negotiables that guide decision-making when a specific rule doesn't address a new situation. Common core principles for AI in education include: student wellbeing first, equity and non-discrimination, transparency and honesty, human oversight, protection of student privacy, and respect for professional educator judgment. Without clear core principles, a code of conduct becomes a list of arbitrary rules with no coherent rationale.</div>
+          <div class="term-weak">Policies get applied inconsistently when they aren't grounded in shared values. Educators follow the letter of a rule but miss its spirit — or dismiss rules that seem arbitrary rather than principled.</div>
+          <div class="term-strong">When a new AI situation arises that no specific policy addresses, educators can reason from core principles to make sound, consistent decisions — even without a rule for every scenario.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-3">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">📋</div>
+          <div class="term-title">Practical Policies</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Practical policies are the specific, operational rules that translate core principles into concrete day-to-day decisions. They answer questions like: Which AI tools are approved for classroom use? What student data can be entered into AI platforms? How must AI-generated content be disclosed? What happens when a student submits AI-generated work as their own? Good practical policies are specific enough to be actionable, flexible enough to accommodate legitimate variation, and clear enough that educators don't have to guess what's expected.</div>
+          <div class="term-weak">Without practical policies, well-intentioned principles don't translate to consistent behavior. Each educator makes different calls, creating confusion for students and families — and potential inequity across classrooms.</div>
+          <div class="term-strong">Educators can make fast, confident decisions because the expectations are clear. Students know what's expected of them. Families know what tools are in use and under what conditions.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-4">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🔍</div>
+          <div class="term-title">Evaluation Process</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">An evaluation process is the structured mechanism by which a school or district regularly assesses whether its AI tools and policies are working as intended — whether they're achieving educational goals, protecting student rights, producing equitable outcomes, and remaining aligned with evolving legal standards and community values. A meaningful evaluation process is scheduled, documented, includes diverse stakeholder input, and results in concrete decisions — either to continue, modify, or discontinue a tool or practice.</div>
+          <div class="term-weak">Without evaluation, schools assume everything is working until a crisis reveals it isn't. Problems compound quietly, harming students who had no way to flag that something was wrong.</div>
+          <div class="term-strong">Issues are identified early, before they escalate. The code of conduct evolves with the technology and with the community's changing needs — remaining a living document rather than a static artifact.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-5">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🎓</div>
+          <div class="term-title">Staff Training</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Staff training in the context of an AI Code of Conduct refers to the ongoing, structured professional learning that equips educators to understand the code, apply it in practice, critically evaluate AI tools, and advocate for its principles in their school. Effective staff training isn't a one-time orientation — it's iterative, responsive to emerging AI developments, and connected to real classroom scenarios. It builds both technical literacy and ethical judgment, so educators can navigate situations the code may not have explicitly anticipated.</div>
+          <div class="term-weak">A code of conduct that educators haven't been trained to understand is effectively no code at all. Policies get misapplied, ignored, or unknown — and students and families bear the consequences.</div>
+          <div class="term-strong">Educators implement the code consistently, recognize when a new situation calls for a principled response, and feel confident advocating for their students' rights when AI tools produce problematic outcomes.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-6">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">👨‍👩‍👧</div>
+          <div class="term-title">Family Involvement</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Family involvement in an AI Code of Conduct means actively informing families about how AI is being used with their children, seeking their input during development and review, and creating genuine pathways for families to ask questions, raise concerns, and opt out of specific uses when appropriate. It goes beyond a single notification letter. Meaningful family involvement recognizes that families — especially from marginalized communities who may have experienced technological harm — bring essential perspectives that should shape how AI is used in schools.</div>
+          <div class="term-weak">Families are left in the dark about what AI tools their children are using. When concerns arise, they don't know who to contact or whether anyone is listening. Trust in the school erodes.</div>
+          <div class="term-strong">Families are partners in AI governance. They understand what tools are in use, trust that their concerns will be heard, and feel empowered to engage with AI decisions that affect their children.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-7">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🚨</div>
+          <div class="term-title">Reporting and Redress Mechanism</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">A reporting and redress mechanism is the formal process through which students, families, and educators can raise concerns about AI use — including suspected bias, privacy violations, harmful outputs, or policy violations — and receive a meaningful response. "Reporting" is the pathway to flag a concern. "Redress" is the corrective action that follows. An effective mechanism is accessible (easy to use, in multiple languages if needed), safe (no fear of retaliation), timely (concerns are addressed promptly), and consequential (reports actually result in review and change when warranted).</div>
+          <div class="term-weak">Harm from AI tools goes unaddressed because there's no clear way to report it. Students and families who experience problems simply absorb them — or lose trust in the institution entirely.</div>
+          <div class="term-strong">Problems surface quickly, are taken seriously, and result in concrete responses. The community trusts that the school will act when something goes wrong — rather than defending the tool at the expense of the student.</div>
+        </div></div>
+      </div>
+
+      <div class="term-card" id="term-8">
+        <div class="term-header" onclick="toggleTerm(this.parentElement)">
+          <div class="term-icon">🤝</div>
+          <div class="term-title">Collaborative Development</div>
+          <div class="term-toggle">+</div>
+        </div>
+        <div class="term-body"><div class="term-inner">
+          <div class="term-definition">Collaborative development means that a school's AI Code of Conduct was built with meaningful input from the people it governs and affects — educators, students, families, support staff, and community members — rather than being written in isolation by administrators or technology officers and handed down. The process of collaborative development is itself a form of trust-building: when people see their concerns reflected in a code, they're more likely to understand it, support it, and hold each other accountable to it. A code imposed from above is a policy. A code built together is a commitment.</div>
+          <div class="term-weak">A code written by a small team without community input reflects the priorities and blind spots of that team — not the community it serves. It feels like a mandate rather than a shared commitment, and compliance is shallow.</div>
+          <div class="term-strong">The code reflects the actual concerns, values, and realities of the people it serves. Educators, families, and students feel ownership over it — making genuine compliance and advocacy far more likely.</div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CODE BUILDER — sample clauses -->
+  <div class="section fade-in">
+    <h2>See It in Writing: Sample Code Clauses</h2>
+    <p>Each component of a code of conduct needs to be written clearly. Explore sample language for each section below:</p>
+
+    <div class="builder-block">
+      <div class="bb-label">📝 Sample Clause Language</div>
+      <div class="bb-note">These are illustrative examples — real code language should be developed collaboratively with your specific community's values and context in mind.</div>
+      <div class="bb-tabs">
+        <div class="bb-tab active" onclick="switchClause('principles',this)">Core Principles</div>
+        <div class="bb-tab" onclick="switchClause('policies',this)">Practical Policies</div>
+        <div class="bb-tab" onclick="switchClause('redress',this)">Reporting & Redress</div>
+        <div class="bb-tab" onclick="switchClause('family',this)">Family Rights</div>
+      </div>
+      <div class="bb-panel active" id="clause-principles">
+        <div class="bb-clause">"<strong>Student Wellbeing First:</strong> Every decision about AI tool adoption and use will prioritize the physical, emotional, academic, and social wellbeing of our students above efficiency, cost, or convenience. If a tool poses unacceptable risks to student wellbeing — even if it offers benefits — it will not be used."</div>
+      </div>
+      <div class="bb-panel" id="clause-policies">
+        <div class="bb-clause">"<strong>Approved Tool List:</strong> Only AI tools that have completed the district's vetting process — including privacy review, bias assessment, and educator piloting — may be used with students. Educators who wish to pilot a new AI tool must submit a proposal to their department head before use begins. No AI tool may be introduced to students without prior approval."</div>
+      </div>
+      <div class="bb-panel" id="clause-redress">
+        <div class="bb-clause">"<strong>Raising Concerns:</strong> Any student, family member, or staff member who believes an AI tool has produced a harmful, biased, or inappropriate outcome may submit a concern through [the district's reporting portal / their building principal / the designated AI liaison]. All concerns will receive a written acknowledgment within five school days and a substantive response within 30 days. Concerns submitted in good faith will not result in any adverse action against the person reporting."</div>
+      </div>
+      <div class="bb-panel" id="clause-family">
+        <div class="bb-clause">"<strong>Family Rights:</strong> Families have the right to (1) be informed about which AI tools are being used with their child and for what purpose; (2) access a plain-language explanation of how any AI tool works and what data it collects; (3) request that their child be opted out of specific AI tools when no equivalent alternative is available; and (4) submit concerns about AI use through the district's reporting mechanism. These rights apply regardless of language background, disability status, or immigration status."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote fade-in">
+    <p>A code imposed from above is a policy. A code built together is a commitment — and commitments are what actually change culture.</p>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-block fade-in">
+    <div class="quiz-header">
+      <div class="quiz-icon-box">🧠</div>
+      <div class="quiz-title">Check Your Understanding</div>
+    </div>
+    <div class="quiz-q">A school has an AI Code of Conduct, but it was written entirely by the district technology team — without input from teachers, students, or families. Which concept did this process most directly violate — and what is the likely consequence?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">A</div>Staff Training — educators weren't taught how to follow the code before it was implemented.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">B</div>Practical Policies — the code doesn't contain specific enough rules for day-to-day decisions.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,true)"><div class="quiz-opt-letter">C</div>Collaborative Development — the code reflects one team's priorities rather than the community's, leading to shallow compliance and low trust.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">D</div>Evaluation Process — there's no mechanism to review whether the code is working over time.</div>
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="reflection-block fade-in">
+    <div class="reflection-title">Reflection Questions</div>
+    <div class="reflection-items">
+      <div class="reflection-item">
+        <div class="reflection-num">1</div>
+        <div class="reflection-text">Does your school or district currently have an AI Code of Conduct? If yes — how was it developed, and do you feel it reflects your classroom reality? If no — what would need to happen to create one?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">2</div>
+        <div class="reflection-text">Think about a family you've worked with who might be skeptical of or unfamiliar with AI tools. How would you explain your school's approach to AI in a way that feels accessible and trustworthy to them?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">3</div>
+        <div class="reflection-text">If a student or family came to you with a concern about an AI tool — and your school had no formal reporting mechanism — what would you do? What does that gap reveal about your school's current AI governance?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-block fade-in">
+    <div class="summary-title">📌 Eight Concepts to Remember</div>
+    <div class="summary-items">
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>AI Code of Conduct</strong> — A living, school-wide document that establishes shared principles, policies, and accountability for AI use. Not a memo — a commitment.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Core Principles</strong> — The foundational values that anchor the code — student wellbeing, equity, transparency, and educator judgment. The "why" behind every rule.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Practical Policies</strong> — Specific, actionable rules that translate principles into day-to-day decisions. Clear enough to act on; flexible enough to accommodate reality.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Evaluation Process</strong> — Scheduled, documented review of whether the code and its tools are working. What isn't measured doesn't improve.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Staff Training</strong> — Ongoing professional learning that equips educators to apply the code, not just know it exists. Principles require practice to become culture.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Family Involvement</strong> — Informing, consulting, and empowering families — not just notifying them. Families are partners in AI governance, not audiences.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Reporting & Redress</strong> — A safe, accessible, timely process for flagging concerns and getting a meaningful response. No mechanism = no accountability.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text"><strong>Collaborative Development</strong> — The code was built with, not for, the community. Ownership creates compliance. Imposition creates resentment.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll',()=>{const el=document.documentElement;document.getElementById('progressBar').style.width=((el.scrollTop/(el.scrollHeight-el.clientHeight))*100)+'%';});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.12});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  function jumpTo(id, pill){
+    document.querySelectorAll('.cn-pill').forEach(p=>p.classList.remove('active'));
+    if(pill)pill.classList.add('active');
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.classList.add('open');
+    setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50);
+  }
+
+  function toggleTerm(card){
+    const wasOpen=card.classList.contains('open');
+    document.querySelectorAll('.term-card').forEach(c=>c.classList.remove('open'));
+    if(!wasOpen)card.classList.add('open');
+  }
+
+  function switchClause(id, tab){
+    document.querySelectorAll('.bb-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.bb-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('clause-'+id).classList.add('active');
+  }
+
+  function answerQuiz(el,correct){
+    if(document.querySelector('.quiz-opt.correct,.quiz-opt.wrong'))return;
+    el.classList.add(correct?'correct':'wrong');
+    const fb=document.getElementById('quizFeedback');
+    fb.className='quiz-feedback '+(correct?'correct':'wrong');
+    fb.textContent=correct
+      ?'✅ Exactly right! Collaborative Development means the code is built with meaningful input from everyone it affects. When that process is skipped, the code reflects a narrow set of priorities — and people who weren\'t consulted often don\'t feel ownership over it. The result is surface-level compliance rather than genuine cultural commitment.'
+      :'❌ Not quite. The core issue here is Collaborative Development — the code was built by one team without involving the educators, students, and families it governs. That process failure undermines trust and produces shallow compliance, regardless of how good the policies themselves might be.';
+  }
+</script>
+</body>
+</html>
