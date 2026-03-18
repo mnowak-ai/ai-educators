@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leading with Intention in the AI Era — AI in Business Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--accent:#C084FC;--red:#E53E3E;--red-pale:#FFF1F1;--green:#276749;--green-pale:#F0FFF4;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+  .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;transition:width 0.1s ease;}
+  .hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+  .lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+  .lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;display:inline-block;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,54px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-0.02em;}
+  .hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+  .hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+  .content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+  .section{padding:32px 0 0;}
+  h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;letter-spacing:-0.01em;line-height:1.2;}
+  p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+  mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+  /* TIMELINE OF CHANGE */
+  .change-timeline{display:flex;gap:0;align-items:center;margin:24px 0;overflow-x:auto;padding-bottom:4px;}
+  .ct-item{display:flex;flex-direction:column;align-items:center;flex:1;min-width:80px;}
+  .ct-dot{width:40px;height:40px;background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:all 0.2s;}
+  .ct-item.current .ct-dot{background:var(--purple);border-color:var(--purple);}
+  .ct-label{font-size:11px;font-weight:600;color:var(--gray-muted);text-align:center;margin-top:8px;line-height:1.3;}
+  .ct-item.current .ct-label{color:var(--purple-dark);font-weight:700;}
+  .ct-line{flex:1;height:2px;background:var(--purple-mid);min-width:16px;}
+
+  /* SHIFT CARDS — 4 classroom changes */
+  .shifts-list{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+  .shift-item{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:18px 20px;background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:18px;align-items:flex-start;}
+  .shift-num{width:36px;height:36px;background:var(--purple);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white;flex-shrink:0;}
+  .shift-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+  .shift-desc{font-size:14px;line-height:1.65;color:var(--gray-muted);}
+
+  /* HUMAN SIDE — 3 pillar cards */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0;}
+  @media(max-width:600px){.pillars{grid-template-columns:1fr;}}
+  .pillar-card{border-radius:22px;padding:24px 20px;text-align:center;transition:transform 0.2s;}
+  .pillar-card:hover{transform:translateY(-4px);}
+  .pc-ethics{background:var(--purple-pale);border:1.5px solid var(--purple-mid);}
+  .pc-equity{background:var(--green-pale);border:1.5px solid #86efac;}
+  .pc-vision{background:#FFF7ED;border:1.5px solid #FCD34D;}
+  .pillar-icon{font-size:36px;margin-bottom:12px;}
+  .pillar-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--purple-dark);margin-bottom:10px;}
+  .pillar-points{display:flex;flex-direction:column;gap:7px;text-align:left;}
+  .pillar-point{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.55;color:var(--gray-text);}
+  .pp-dot{width:6px;height:6px;border-radius:50%;background:var(--purple);flex-shrink:0;margin-top:5px;}
+  .pc-equity .pp-dot{background:var(--green);}
+  .pc-vision .pp-dot{background:#B45309;}
+
+  /* INTENTIONAL QUESTIONS — interactive checklist */
+  .intention-block{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:22px;padding:28px;margin:24px 0;}
+  .ib-label{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .ib-label::after{content:'';flex:1;height:1px;background:var(--purple-mid);}
+  .ib-questions{display:flex;flex-direction:column;gap:10px;}
+  .ib-q{display:flex;align-items:center;gap:14px;padding:13px 16px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;cursor:pointer;transition:all 0.2s;}
+  .ib-q:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .ib-q.checked{background:var(--purple-pale);border-color:var(--purple);}
+  .ib-q.checked .ib-box{background:var(--purple);border-color:var(--purple);}
+  .ib-q.checked .ib-box::after{content:'✓';color:white;font-size:11px;font-weight:700;}
+  .ib-box{width:22px;height:22px;border:2px solid var(--purple-mid);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
+  .ib-text{font-size:14px;line-height:1.6;color:var(--gray-text);}
+  .ib-note{font-size:13px;color:var(--gray-muted);margin-top:12px;line-height:1.6;font-style:italic;}
+
+  /* FUTURE SKILLS — horizontal 3 strip */
+  .future-skills{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;}
+  @media(max-width:580px){.future-skills{grid-template-columns:1fr;}}
+  .fs-card{background:var(--purple-pale);border:1.5px solid var(--purple-mid);border-radius:16px;padding:18px 16px;text-align:center;}
+  .fs-icon{font-size:28px;margin-bottom:10px;}
+  .fs-label{font-size:13px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+  .fs-desc{font-size:12px;line-height:1.55;color:var(--gray-muted);}
+
+  /* CLOSING DECLARATION */
+  .closing-block{background:linear-gradient(135deg,var(--purple-dark) 0%,var(--purple) 100%);border-radius:24px;padding:36px 32px;margin:32px 0;color:white;text-align:center;position:relative;overflow:hidden;}
+  .closing-block::before{content:'📚';position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:80px;opacity:0.1;}
+  .closing-block::after{content:'💡';position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:80px;opacity:0.1;}
+  .closing-block p:first-child{font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:14px;}
+  .closing-block p:last-child{font-size:17px;line-height:1.75;color:rgba(255,255,255,0.88);max-width:520px;margin:0 auto;}
+  .closing-block strong{color:#C084FC;}
+
+  /* PULL QUOTE */
+  .pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+  .pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+  .pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+  /* QUIZ */
+  .quiz-block{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:40px 0;}
+  .quiz-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+  .quiz-icon-box{width:44px;height:44px;background:var(--purple);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .quiz-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);}
+  .quiz-q{font-size:16px;font-weight:600;color:var(--gray-text);margin-bottom:14px;line-height:1.5;}
+  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .quiz-opt{display:flex;align-items:center;gap:13px;padding:14px 18px;background:var(--white);border:2px solid var(--purple-mid);border-radius:14px;cursor:pointer;font-size:15px;color:var(--gray-text);transition:all 0.2s;}
+  .quiz-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .quiz-opt.correct{border-color:var(--green);background:var(--green-pale);color:var(--green);}
+  .quiz-opt.wrong{border-color:var(--red);background:var(--red-pale);color:var(--red);}
+  .quiz-opt-letter{width:28px;height:28px;border-radius:50%;background:var(--purple-pale);border:1.5px solid var(--purple-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--purple);flex-shrink:0;}
+  .quiz-feedback{padding:14px 18px;border-radius:14px;font-size:15px;font-weight:500;display:none;line-height:1.6;}
+  .quiz-feedback.correct{background:var(--green-pale);color:var(--green);border:1.5px solid #86efac;display:block;}
+  .quiz-feedback.wrong{background:var(--red-pale);color:var(--red);border:1.5px solid #FCA5A5;display:block;}
+
+  /* REFLECTION */
+  .reflection-block{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .reflection-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+  .reflection-title::before{content:'✍️';font-size:24px;}
+  .reflection-items{display:flex;flex-direction:column;gap:14px;}
+  .reflection-item{display:flex;align-items:flex-start;gap:16px;background:var(--white);border-radius:16px;padding:18px 20px;border:1.5px solid var(--purple-mid);}
+  .reflection-num{min-width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .reflection-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  /* SUMMARY */
+  .summary-block{background:linear-gradient(135deg,var(--purple-pale) 0%,var(--purple-mid) 100%);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .summary-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;}
+  .summary-items{display:flex;flex-direction:column;gap:12px;}
+  .summary-item{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.7);border-radius:14px;padding:14px 18px;}
+  .summary-check{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .summary-check svg{width:11px;height:11px;}
+  .summary-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 1 · AI in Education</div>
+  <h1>Leading with Intention in the AI Era</h1>
+  <p class="hero-sub">Education has always been shaped by change. The real question isn't just what AI tools we use — it's how we use them: wisely, fairly, and with the long-term needs of students at the center.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- TIMELINE OF CHANGE -->
+  <div class="section fade-in">
+    <h2>Education Has Always Evolved</h2>
+    <p>Every era brings tools that transform the classroom. AI is the latest — and arguably the most significant. Understanding this history helps us approach the moment with perspective rather than panic:</p>
+
+    <div class="change-timeline">
+      <div class="ct-item">
+        <div class="ct-dot">📰</div>
+        <div class="ct-label">Printing Press</div>
+      </div>
+      <div class="ct-line"></div>
+      <div class="ct-item">
+        <div class="ct-dot">🖊️</div>
+        <div class="ct-label">Chalkboard</div>
+      </div>
+      <div class="ct-line"></div>
+      <div class="ct-item">
+        <div class="ct-dot">📽️</div>
+        <div class="ct-label">Projector</div>
+      </div>
+      <div class="ct-line"></div>
+      <div class="ct-item">
+        <div class="ct-dot">💻</div>
+        <div class="ct-label">Internet</div>
+      </div>
+      <div class="ct-line"></div>
+      <div class="ct-item current">
+        <div class="ct-dot">🤖</div>
+        <div class="ct-label">Artificial Intelligence</div>
+      </div>
+    </div>
+
+    <p>Each of these tools reshaped how students accessed information and how teachers taught. None of them replaced educators. AI is no different — but it does require intentional leadership to navigate well.</p>
+  </div>
+
+  <!-- SHIFT CARDS -->
+  <div class="section fade-in">
+    <h2>More Than Tools: A Shift in Teaching</h2>
+    <p>AI doesn't just automate tasks — it <mark>reshapes the classroom dynamic</mark> in ways that require thoughtful responses from educators:</p>
+
+    <div class="shifts-list">
+      <div class="shift-item">
+        <div class="shift-num">1</div>
+        <div><div class="shift-title">Information Access</div><div class="shift-desc">Students can now ask AI for instant explanations, summaries, and examples — which changes what "knowing something" means and how we assess it.</div></div>
+      </div>
+      <div class="shift-item">
+        <div class="shift-num">2</div>
+        <div><div class="shift-title">Equity Questions</div><div class="shift-desc">Students with access to AI outside of school may gain advantages over peers who don't — widening existing gaps unless educators actively address it.</div></div>
+      </div>
+      <div class="shift-item">
+        <div class="shift-num">3</div>
+        <div><div class="shift-title">Assessment</div><div class="shift-desc">Traditional "show your work" models are challenged by tools that can solve problems instantly — requiring new approaches to demonstrating genuine understanding.</div></div>
+      </div>
+      <div class="shift-item">
+        <div class="shift-num">4</div>
+        <div><div class="shift-title">Teacher Identity</div><div class="shift-desc">The educator's role is shifting from content deliverer to guide for learning, ethics, and critical thinking — a deeper and more human responsibility.</div></div>
+      </div>
+    </div>
+
+    <p>This isn't just a technological shift — it's a <mark>cultural and professional one</mark> that asks educators to lead with clarity and intention.</p>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote fade-in">
+    <p>The question isn't just what AI we use — it's how we use it: wisely, fairly, and with students' long-term needs at the center.</p>
+  </div>
+
+  <!-- HUMAN SIDE — 3 pillars -->
+  <div class="section fade-in">
+    <h2>The Human Side of AI in Education</h2>
+    <p>Leading with intention means anchoring your practice in three enduring values — regardless of what tools come and go:</p>
+
+    <div class="pillars">
+      <div class="pillar-card pc-ethics">
+        <div class="pillar-icon">😇</div>
+        <div class="pillar-title">Ethics</div>
+        <div class="pillar-points">
+          <div class="pillar-point"><div class="pp-dot"></div>Model responsible AI use by being transparent with students about when and how you use it.</div>
+          <div class="pillar-point"><div class="pp-dot"></div>Discuss with students what's appropriate — and what's not — when using AI tools.</div>
+          <div class="pillar-point"><div class="pp-dot"></div>Remind learners that AI is a tool, not a replacement for effort, integrity, or original thinking.</div>
+        </div>
+      </div>
+      <div class="pillar-card pc-equity">
+        <div class="pillar-icon">👏</div>
+        <div class="pillar-title">Equity</div>
+        <div class="pillar-points">
+          <div class="pillar-point"><div class="pp-dot"></div>Ask: who has access to AI tools at home, and who is left out?</div>
+          <div class="pillar-point"><div class="pp-dot"></div>Advocate with colleagues and administrators to ensure AI supports all students, not just those with more resources.</div>
+          <div class="pillar-point"><div class="pp-dot"></div>Build AI access into the classroom so it doesn't become a privilege.</div>
+        </div>
+      </div>
+      <div class="pillar-card pc-vision">
+        <div class="pillar-icon">🎯</div>
+        <div class="pillar-title">Vision</div>
+        <div class="pillar-points">
+          <div class="pillar-point"><div class="pp-dot"></div>Think long-term: what do you want students to be able to do in a world where AI is everywhere?</div>
+          <div class="pillar-point"><div class="pp-dot"></div>Focus on skills that will always matter — creativity, collaboration, empathy, ethical reasoning.</div>
+          <div class="pillar-point"><div class="pp-dot"></div>Help shape school culture around AI so it reflects shared values, not just the latest trends.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTENTIONAL QUESTIONS -->
+  <div class="section fade-in">
+    <h2>Leading with Intention</h2>
+    <p>The pace of change can feel fast. But intentional teaching means slowing down long enough to ask the right questions. Check off any that you're already thinking about:</p>
+
+    <div class="intention-block">
+      <div class="ib-label">🧭 Questions for Intentional AI Use</div>
+      <div class="ib-questions">
+        <div class="ib-q" onclick="this.classList.toggle('checked')">
+          <div class="ib-box"></div>
+          <div class="ib-text">Does this AI tool align with my core teaching values — and my school's values?</div>
+        </div>
+        <div class="ib-q" onclick="this.classList.toggle('checked')">
+          <div class="ib-box"></div>
+          <div class="ib-text">How does this tool impact student learning not just today, but over the long run?</div>
+        </div>
+        <div class="ib-q" onclick="this.classList.toggle('checked')">
+          <div class="ib-box"></div>
+          <div class="ib-text">Am I modeling the kind of critical, ethical, and curious mindset I want my students to develop?</div>
+        </div>
+        <div class="ib-q" onclick="this.classList.toggle('checked')">
+          <div class="ib-box"></div>
+          <div class="ib-text">Does this tool widen or narrow the equity gaps in my classroom?</div>
+        </div>
+        <div class="ib-q" onclick="this.classList.toggle('checked')">
+          <div class="ib-box"></div>
+          <div class="ib-text">Would I be comfortable explaining to students and families exactly how and why I'm using this AI?</div>
+        </div>
+      </div>
+      <div class="ib-note">When educators lead with these questions, AI becomes a partner in learning — rather than a distraction or a shortcut.</div>
+    </div>
+  </div>
+
+  <!-- FUTURE SKILLS -->
+  <div class="section fade-in">
+    <h2>Preparing Students for the Future</h2>
+    <p>Your role isn't just to help students navigate AI in school — it's to prepare them for a world beyond it. That means nurturing skills that will matter in any era:</p>
+
+    <div class="future-skills">
+      <div class="fs-card">
+        <div class="fs-icon">🔍</div>
+        <div class="fs-label">Critical Thinking</div>
+        <div class="fs-desc">Teaching students to question sources, verify facts, and evaluate claims — especially AI-generated ones.</div>
+      </div>
+      <div class="fs-card">
+        <div class="fs-icon">🎨</div>
+        <div class="fs-label">Creativity</div>
+        <div class="fs-desc">Guiding students to see AI as a tool for creative exploration — not a shortcut that bypasses their own imagination.</div>
+      </div>
+      <div class="fs-card">
+        <div class="fs-icon">🌍</div>
+        <div class="fs-label">Real Problem-Solving</div>
+        <div class="fs-desc">Encouraging students to use technology to tackle genuine challenges — not just finish homework faster.</div>
+      </div>
+    </div>
+
+    <p>This is how educators transform a moment of disruption into <mark>a moment of opportunity</mark> — for every student they serve.</p>
+  </div>
+
+  <!-- CLOSING DECLARATION -->
+  <div class="section fade-in">
+    <div class="closing-block">
+      <p>AI Will Change Classrooms. Educators Will Change Lives.</p>
+      <p>Artificial Intelligence is not a passing trend — it's a lasting shift that will continue to shape education for years ahead. But technology alone does not define a classroom. <strong>Educators do.</strong> AI may change how students access information. But it is educators who build the trust, the culture, and the relationships that make learning possible.</p>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-block fade-in">
+    <div class="quiz-header">
+      <div class="quiz-icon-box">🧠</div>
+      <div class="quiz-title">Check Your Understanding</div>
+    </div>
+    <div class="quiz-q">According to the article, what does "leading with intention" in an AI-enhanced classroom primarily mean?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">A</div>Adopting every new AI tool quickly so your classroom stays current with technology trends.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">B</div>Avoiding AI tools entirely until your school or district has official policies in place.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,true)"><div class="quiz-opt-letter">C</div>Slowing down to ask whether AI tools align with your values, serve all students equitably, and support long-term learning.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">D</div>Letting AI handle instructional decisions so teachers can focus on administrative tasks.</div>
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="reflection-block fade-in">
+    <div class="reflection-title">Reflection Questions</div>
+    <div class="reflection-items">
+      <div class="reflection-item">
+        <div class="reflection-num">1</div>
+        <div class="reflection-text">What changes in your teaching practice feel most urgent as AI becomes more common in schools — and what would it take to make those changes?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">2</div>
+        <div class="reflection-text">How can you model ethical and equitable use of AI for your students — in a way that's visible, honest, and consistent?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">3</div>
+        <div class="reflection-text">Imagine your students 10 years from now. What skills will they need most to thrive in an AI-driven world — and how can you start nurturing those skills today?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-block fade-in">
+    <div class="summary-title">📌 What You Learned</div>
+    <div class="summary-items">
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">AI is part of a long history of educational transformation — and like every prior shift, it requires educators to lead thoughtfully, not reactively.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">AI reshapes four key dynamics in classrooms: information access, equity, assessment, and teacher identity — all of which require intentional responses.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">The human side of AI in education rests on three pillars: ethics, equity, and long-term vision for what students need to thrive.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">Leading with intention means asking whether AI tools align with your values, serve all students, and build the skills that will matter long after school.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">AI will change classrooms — but educators will continue to change lives. Technology is the backdrop; teachers are the difference-makers.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll',()=>{const el=document.documentElement;document.getElementById('progressBar').style.width=((el.scrollTop/(el.scrollHeight-el.clientHeight))*100)+'%';});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.12});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+  function answerQuiz(el,correct){
+    if(document.querySelector('.quiz-opt.correct,.quiz-opt.wrong'))return;
+    el.classList.add(correct?'correct':'wrong');
+    const fb=document.getElementById('quizFeedback');
+    fb.className='quiz-feedback '+(correct?'correct':'wrong');
+    fb.textContent=correct
+      ?'✅ Exactly right! Leading with intention means pausing to ask the hard questions — about alignment, equity, and long-term impact — rather than adopting AI tools simply because they\'re new or convenient.'
+      :'❌ Not quite. Leading with intention is the opposite of moving fast or stepping back. It means being thoughtful and deliberate — asking whether each AI tool genuinely serves students equitably and builds the skills they\'ll need for the future.';
+  }
+</script>
+</body>
+</html>
