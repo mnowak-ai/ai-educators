@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Communicating with Students, Guardians & Colleagues Using AI — AI in Business Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--purple:#7B2FBE;--purple-pale:#F3EAFF;--purple-mid:#E8D5FF;--purple-dark:#4A1580;--white:#FFFFFF;--gray-soft:#F8F7FA;--gray-text:#3D3547;--gray-muted:#8B7FA0;--accent:#C084FC;--red:#E53E3E;--red-pale:#FFF1F1;--green:#276749;--green-pale:#F0FFF4;--amber:#B45309;--amber-pale:#FFF7ED;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-text);overflow-x:hidden;}
+  .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--purple);width:0%;z-index:100;transition:width 0.1s ease;}
+  .hero{padding:80px 40px 0;max-width:860px;margin:0 auto;}
+  .lesson-tag{display:inline-flex;align-items:center;gap:8px;background:var(--purple-pale);color:var(--purple);font-size:12px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:32px;border:1.5px solid var(--purple-mid);}
+  .lesson-tag::before{content:'';width:6px;height:6px;background:var(--purple);border-radius:50%;display:inline-block;}
+  h1{font-family:'Fraunces',serif;font-size:clamp(34px,5vw,54px);font-weight:900;line-height:1.05;color:var(--purple-dark);margin-bottom:24px;letter-spacing:-0.02em;}
+  .hero-sub{font-size:18px;line-height:1.7;color:var(--gray-muted);max-width:640px;}
+  .hero-divider{width:60px;height:4px;background:var(--purple);border-radius:2px;margin:32px 0;}
+  .content{max-width:860px;margin:0 auto;padding:0 40px 60px;}
+  .section{padding:32px 0 0;}
+  h2{font-family:'Fraunces',serif;font-size:30px;font-weight:700;color:var(--purple-dark);margin-bottom:18px;letter-spacing:-0.01em;line-height:1.2;}
+  p{font-size:17px;line-height:1.8;color:var(--gray-text);margin-bottom:16px;}
+  mark{background:var(--purple-mid);color:var(--purple-dark);border-radius:3px;padding:1px 4px;font-weight:500;}
+
+  /* AUDIENCE TABS */
+  .audience-tabs{margin:24px 0;}
+  .at-nav{display:flex;gap:0;border-radius:16px;overflow:hidden;border:1.5px solid var(--purple-mid);width:fit-content;}
+  .at-btn{padding:12px 22px;font-size:13px;font-weight:700;cursor:pointer;border:none;background:var(--white);color:var(--gray-muted);transition:all 0.2s;display:flex;align-items:center;gap:7px;}
+  .at-btn:not(:last-child){border-right:1.5px solid var(--purple-mid);}
+  .at-btn.active{background:var(--purple);color:white;}
+  .at-panel{display:none;}
+  .at-panel.active{display:block;}
+  .at-panel-inner{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:0 20px 20px 20px;padding:26px 28px;margin-top:-1px;}
+  .at-items{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
+  .at-item{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:14px;}
+  .at-icon{font-size:22px;flex-shrink:0;}
+  .at-label{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:3px;}
+  .at-desc{font-size:13.5px;line-height:1.65;color:var(--gray-muted);}
+
+  /* EMAIL MAKEOVER — before/after */
+  .makeover-block{background:var(--gray-soft);border:1.5px solid var(--purple-mid);border-radius:22px;padding:28px;margin:24px 0;}
+  .mb-label{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .mb-label::after{content:'';flex:1;height:1px;background:var(--purple-mid);}
+  .mb-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:560px){.mb-split{grid-template-columns:1fr;}}
+  .mb-col{}
+  .mb-col-head{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:7px 12px;border-radius:8px;margin-bottom:10px;display:inline-block;}
+  .before-head{background:var(--red-pale);color:var(--red);}
+  .after-head{background:var(--green-pale);color:var(--green);}
+  .mb-email{background:var(--white);border-radius:14px;padding:16px 18px;font-size:13.5px;line-height:1.75;color:var(--gray-text);}
+  .mb-before-email{border:1.5px solid #FCA5A5;}
+  .mb-after-email{border:1.5px solid #86efac;}
+  .mb-arrow{display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--purple);padding:4px 0;}
+  @media(min-width:561px){.mb-arrow{display:none;}}
+
+  /* BENEFITS — 4 card grid */
+  .benefits-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;}
+  @media(max-width:560px){.benefits-grid{grid-template-columns:1fr;}}
+  .ben-card{background:var(--purple-pale);border:1.5px solid var(--purple-mid);border-radius:18px;padding:20px 18px;display:flex;align-items:flex-start;gap:12px;}
+  .ben-icon{font-size:26px;flex-shrink:0;}
+  .ben-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+  .ben-desc{font-size:13px;line-height:1.6;color:var(--gray-muted);}
+
+  /* RISKS — 4 warning cards */
+  .risks-col{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+  .risk-item{display:flex;align-items:flex-start;gap:12px;padding:14px 18px;border-radius:14px;}
+  .risk-auth{background:var(--amber-pale);border:1.5px solid #FCD34D;}
+  .risk-priv{background:var(--red-pale);border:1.5px solid #FCA5A5;}
+  .risk-over{background:var(--purple-pale);border:1.5px solid var(--purple-mid);}
+  .risk-bias{background:var(--gray-soft);border:1.5px solid var(--purple-mid);}
+  .risk-icon{font-size:22px;flex-shrink:0;margin-top:1px;}
+  .risk-title{font-size:14px;font-weight:700;color:var(--purple-dark);margin-bottom:3px;}
+  .risk-desc{font-size:13.5px;line-height:1.65;color:var(--gray-text);}
+
+  /* BEST PRACTICES — numbered cards */
+  .practices-list{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
+  .prac-item{display:flex;align-items:flex-start;gap:16px;padding:18px 20px;background:var(--white);border:1.5px solid var(--purple-mid);border-radius:18px;}
+  .prac-num{min-width:36px;height:36px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white;flex-shrink:0;}
+  .prac-title{font-size:15px;font-weight:700;color:var(--purple-dark);margin-bottom:4px;}
+  .prac-desc{font-size:14px;line-height:1.65;color:var(--gray-muted);}
+
+  /* PULL QUOTE */
+  .pull-quote{margin:20px 0;padding:28px 36px;background:var(--purple-pale);border-left:5px solid var(--purple);border-radius:0 16px 16px 0;position:relative;overflow:hidden;}
+  .pull-quote::before{content:'"';position:absolute;top:-10px;left:20px;font-family:'Fraunces',serif;font-size:100px;color:var(--purple-mid);line-height:1;pointer-events:none;}
+  .pull-quote p{font-family:'Fraunces',serif;font-size:21px;font-style:italic;font-weight:300;color:var(--purple-dark);margin:0;position:relative;z-index:1;line-height:1.55;}
+
+  /* FUTURE CALLOUT */
+  .future-block{background:linear-gradient(135deg,var(--purple-dark) 0%,var(--purple) 100%);border-radius:20px;padding:30px 32px;margin:28px 0;color:white;position:relative;overflow:hidden;}
+  .future-block::before{content:'💬';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:64px;opacity:0.15;}
+  .future-block h3{font-family:'Fraunces',serif;font-size:20px;font-weight:700;margin-bottom:12px;}
+  .future-block p{font-size:15px;line-height:1.7;color:rgba(255,255,255,0.88);margin:0;}
+  .future-block strong{color:#C084FC;}
+
+  /* QUIZ */
+  .quiz-block{background:var(--gray-soft);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:40px 0;}
+  .quiz-header{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+  .quiz-icon-box{width:44px;height:44px;background:var(--purple);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .quiz-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);}
+  .quiz-q{font-size:16px;font-weight:600;color:var(--gray-text);margin-bottom:14px;line-height:1.5;}
+  .quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .quiz-opt{display:flex;align-items:center;gap:13px;padding:14px 18px;background:var(--white);border:2px solid var(--purple-mid);border-radius:14px;cursor:pointer;font-size:15px;color:var(--gray-text);transition:all 0.2s;}
+  .quiz-opt:hover{border-color:var(--purple);background:var(--purple-pale);}
+  .quiz-opt.correct{border-color:var(--green);background:var(--green-pale);color:var(--green);}
+  .quiz-opt.wrong{border-color:var(--red);background:var(--red-pale);color:var(--red);}
+  .quiz-opt-letter{width:28px;height:28px;border-radius:50%;background:var(--purple-pale);border:1.5px solid var(--purple-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--purple);flex-shrink:0;}
+  .quiz-feedback{padding:14px 18px;border-radius:14px;font-size:15px;font-weight:500;display:none;line-height:1.6;}
+  .quiz-feedback.correct{background:var(--green-pale);color:var(--green);border:1.5px solid #86efac;display:block;}
+  .quiz-feedback.wrong{background:var(--red-pale);color:var(--red);border:1.5px solid #FCA5A5;display:block;}
+
+  /* REFLECTION */
+  .reflection-block{background:var(--purple-pale);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .reflection-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+  .reflection-title::before{content:'✍️';font-size:24px;}
+  .reflection-items{display:flex;flex-direction:column;gap:14px;}
+  .reflection-item{display:flex;align-items:flex-start;gap:16px;background:var(--white);border-radius:16px;padding:18px 20px;border:1.5px solid var(--purple-mid);}
+  .reflection-num{min-width:32px;height:32px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+  .reflection-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  /* SUMMARY */
+  .summary-block{background:linear-gradient(135deg,var(--purple-pale) 0%,var(--purple-mid) 100%);border:2px solid var(--purple-mid);border-radius:24px;padding:32px;margin:32px 0;}
+  .summary-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--purple-dark);margin-bottom:20px;}
+  .summary-items{display:flex;flex-direction:column;gap:12px;}
+  .summary-item{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.7);border-radius:14px;padding:14px 18px;}
+  .summary-check{width:24px;height:24px;background:var(--purple);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .summary-check svg{width:11px;height:11px;}
+  .summary-text{font-size:15px;line-height:1.7;color:var(--gray-text);}
+
+  .fade-in{opacity:0;transform:translateY(24px);transition:opacity 0.55s ease,transform 0.55s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="hero">
+  <div class="lesson-tag">Module 1 · AI in the Classroom</div>
+  <h1>Communicating with Students, Guardians & Colleagues Using AI</h1>
+  <p class="hero-sub">Educators spend an enormous amount of time writing, responding, and connecting. AI tools can make that process faster and more impactful — but they also raise real questions about voice, trust, and professionalism.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="content">
+
+  <!-- AUDIENCE TABS -->
+  <div class="section fade-in">
+    <h2>How AI Can Support Educator Communication</h2>
+    <p>AI tools can assist with communication across three key audiences. Click each tab to explore what's possible:</p>
+
+    <div class="audience-tabs">
+      <div class="at-nav">
+        <div class="at-btn active" onclick="switchAudience('students',this)">🎓 Students</div>
+        <div class="at-btn" onclick="switchAudience('guardians',this)">👨‍👩‍👧 Guardians</div>
+        <div class="at-btn" onclick="switchAudience('colleagues',this)">🤝 Colleagues</div>
+      </div>
+
+      <div class="at-panel active" id="aud-students">
+        <div class="at-panel-inner">
+          <div class="at-items">
+            <div class="at-item">
+              <div class="at-icon">📝</div>
+              <div><div class="at-label">Feedback on Assignments</div><div class="at-desc">AI can help draft personalized feedback on essays or projects — saving time while still addressing each student's individual needs and growth areas.</div></div>
+            </div>
+            <div class="at-item">
+              <div class="at-icon">🎯</div>
+              <div><div class="at-label">Clarifying Instructions</div><div class="at-desc">AI can rephrase complex assignment directions into student-friendly language — reducing confusion before students even begin.</div></div>
+            </div>
+            <div class="at-item">
+              <div class="at-icon">💪</div>
+              <div><div class="at-label">Encouragement & Motivation</div><div class="at-desc">Educators can generate positive, motivational phrasing to support students who are struggling — so no one slips through the cracks.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="at-panel" id="aud-guardians">
+        <div class="at-panel-inner">
+          <div class="at-items">
+            <div class="at-item">
+              <div class="at-icon">📈</div>
+              <div><div class="at-label">Progress Updates</div><div class="at-desc">AI can help draft clear, respectful messages about academic or behavioral progress — keeping families informed without taking hours to write.</div></div>
+            </div>
+            <div class="at-item">
+              <div class="at-icon">🌎</div>
+              <div><div class="at-label">Translation Support</div><div class="at-desc">AI-powered translation tools make communication accessible for families who speak different languages — no family should miss critical information.</div></div>
+            </div>
+            <div class="at-item">
+              <div class="at-icon">‼️</div>
+              <div><div class="at-label">Tone Checking</div><div class="at-desc">AI can "soften" difficult messages, ensuring that sensitive conversations — about behavior, grades, or concerns — are framed with empathy and professionalism.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="at-panel" id="aud-colleagues">
+        <div class="at-panel-inner">
+          <div class="at-items">
+            <div class="at-item">
+              <div class="at-icon">🤝</div>
+              <div><div class="at-label">Collaboration & Planning</div><div class="at-desc">AI can help draft meeting agendas, summarize notes, or brainstorm ideas for lesson planning — so collaborative time is spent on decisions, not logistics.</div></div>
+            </div>
+            <div class="at-item">
+              <div class="at-icon">✍️</div>
+              <div><div class="at-label">Professional Writing</div><div class="at-desc">Emails, memos, and reports can be polished quickly without spending hours editing — freeing up time for what matters most.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL MAKEOVER -->
+  <div class="section fade-in">
+    <h2>See It in Action: Email Makeover</h2>
+    <p>Here's a real example of how AI can transform a rushed, blunt message into a clear, empathetic one — without losing the important information:</p>
+
+    <div class="makeover-block">
+      <div class="mb-label">✉️ Before & After: Parent Communication</div>
+      <div class="mb-split">
+        <div class="mb-col">
+          <div class="mb-col-head before-head">❌ Before (rushed draft)</div>
+          <div class="mb-email mb-before-email">Hi,<br><br>Your kid has been missing homework and talking in class. This needs to stop or their grade will drop.<br><br>— Mr. Davis</div>
+        </div>
+        <div class="mb-col">
+          <div class="mb-col-head after-head">✅ After (AI-assisted tone check)</div>
+          <div class="mb-email mb-after-email">Dear [Parent/Guardian],<br><br>I'm reaching out because I care about [Student]'s success and want to make sure we're working together. Lately, I've noticed some missing assignments and occasional difficulty staying focused in class. I'd love to connect to talk through how we can best support them.<br><br>Warm regards,<br>Mr. Davis</div>
+        </div>
+      </div>
+    </div>
+    <p>The core message is the same — but the second version <mark>preserves trust and invites partnership</mark> rather than putting the family on the defensive. AI helps get you there faster.</p>
+  </div>
+
+  <!-- BENEFITS -->
+  <div class="section fade-in">
+    <h2>Benefits of Using AI in Communication</h2>
+
+    <div class="benefits-grid">
+      <div class="ben-card">
+        <div class="ben-icon">⚡</div>
+        <div><div class="ben-title">Efficiency</div><div class="ben-desc">Draft emails, letters, and reports in minutes instead of hours — freeing up time for teaching and relationships.</div></div>
+      </div>
+      <div class="ben-card">
+        <div class="ben-icon">🎯</div>
+        <div><div class="ben-title">Consistency</div><div class="ben-desc">Maintain a professional, respectful tone across all communications — even when you're exhausted or frustrated.</div></div>
+      </div>
+      <div class="ben-card">
+        <div class="ben-icon">🌍</div>
+        <div><div class="ben-title">Accessibility</div><div class="ben-desc">Reach students and families who need information in simpler language, a different format, or another language entirely.</div></div>
+      </div>
+      <div class="ben-card">
+        <div class="ben-icon">👤</div>
+        <div><div class="ben-title">Personalization</div><div class="ben-desc">AI can adapt a base message for multiple audiences — tailoring the same update differently for a student vs. a parent vs. a colleague.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote fade-in">
+    <p>Families, students, and colleagues want to hear your authentic voice. AI is a tool to support that — not replace it.</p>
+  </div>
+
+  <!-- RISKS -->
+  <div class="section fade-in">
+    <h2>Risks and Ethical Considerations</h2>
+    <p>AI-assisted communication comes with real responsibilities. Here are four risks every educator should keep in mind:</p>
+
+    <div class="risks-col">
+      <div class="risk-item risk-auth">
+        <div class="risk-icon">🎭</div>
+        <div><div class="risk-title">Authenticity</div><div class="risk-desc">Students and parents value genuine communication. If a message sounds too robotic or generic, it can erode the trust you've built. Always personalize before sending.</div></div>
+      </div>
+      <div class="risk-item risk-priv">
+        <div class="risk-icon">🔒</div>
+        <div><div class="risk-title">Privacy</div><div class="risk-desc">Never share sensitive student data (names, grades, behavioral details) with public AI tools. Use district-approved platforms that meet privacy standards like FERPA.</div></div>
+      </div>
+      <div class="risk-item risk-over">
+        <div class="risk-icon">⚠️</div>
+        <div><div class="risk-title">Over-Reliance</div><div class="risk-desc">If AI drafts every message, educators can slowly lose their own professional voice. Use AI for efficiency — not as a replacement for thinking and connecting.</div></div>
+      </div>
+      <div class="risk-item risk-bias">
+        <div class="risk-icon">📊</div>
+        <div><div class="risk-title">Bias in Phrasing</div><div class="risk-desc">AI can unintentionally suggest wording that reinforces stereotypes or carries unintended connotations. Always review drafts carefully before sending.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEST PRACTICES -->
+  <div class="section fade-in">
+    <h2>Best Practices for Educators</h2>
+
+    <div class="practices-list">
+      <div class="prac-item">
+        <div class="prac-num">1</div>
+        <div><div class="prac-title">Use AI as a Drafting Tool, Not the Final Voice</div><div class="prac-desc">Always review and edit every AI-generated message to ensure it sounds like you — and reflects the relationship you have with the recipient.</div></div>
+      </div>
+      <div class="prac-item">
+        <div class="prac-num">2</div>
+        <div><div class="prac-title">Maintain Professional Boundaries</div><div class="prac-desc">Avoid using AI for highly personal or sensitive communications — like a crisis conversation with a family, or discussing a student's mental health. Those need your full human attention.</div></div>
+      </div>
+      <div class="prac-item">
+        <div class="prac-num">3</div>
+        <div><div class="prac-title">Prioritize Human Connection</div><div class="prac-desc">AI can help with efficiency, but empathy and genuine relationships come from you. Never let speed compromise the care behind a message.</div></div>
+      </div>
+      <div class="prac-item">
+        <div class="prac-num">4</div>
+        <div><div class="prac-title">Protect Student Privacy at All Times</div><div class="prac-desc">Only use AI platforms your district has vetted for student data privacy. When in doubt, remove identifying information before using any AI drafting tool.</div></div>
+      </div>
+      <div class="prac-item">
+        <div class="prac-num">5</div>
+        <div><div class="prac-title">Be Transparent When Appropriate</div><div class="prac-desc">Some educators let students and families know they use AI for drafting efficiency — but always add personal notes and review before sending. Transparency builds trust.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FUTURE -->
+  <div class="section fade-in">
+    <div class="future-block">
+      <h3>The Future of Communication in Schools</h3>
+      <p>As AI grows, schools may integrate it into official platforms for messaging, translation, and data-driven insights. But one thing will remain constant: families, students, and colleagues want to feel <strong>seen and heard by a real person</strong>. AI can help you communicate more efficiently — but the warmth, judgment, and care behind every message will always need to come from you.</p>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-block fade-in">
+    <div class="quiz-header">
+      <div class="quiz-icon-box">🧠</div>
+      <div class="quiz-title">Check Your Understanding</div>
+    </div>
+    <div class="quiz-q">An educator wants to send a parent a message about their child's declining grades. What is the most responsible way to use AI in this situation?</div>
+    <div class="quiz-options">
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">A</div>Paste the student's full name, grades, and details into ChatGPT and send whatever it generates.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,true)"><div class="quiz-opt-letter">B</div>Use AI to help with tone and structure using a district-approved tool, then review and personalize before sending.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">C</div>Skip AI entirely — parent communication should never involve AI tools.</div>
+      <div class="quiz-opt" onclick="answerQuiz(this,false)"><div class="quiz-opt-letter">D</div>Use AI to write the full message and send it without reviewing, since AI is more professional than casual writing.</div>
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="reflection-block fade-in">
+    <div class="reflection-title">Reflection Questions</div>
+    <div class="reflection-items">
+      <div class="reflection-item">
+        <div class="reflection-num">1</div>
+        <div class="reflection-text">Which communication task takes up the most of your time — writing feedback, parent updates, or colleague emails? How could AI help you streamline it without losing your voice?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">2</div>
+        <div class="reflection-text">How can you make sure your empathy and personality still come through when using AI-generated drafts? What would your editing process look like?</div>
+      </div>
+      <div class="reflection-item">
+        <div class="reflection-num">3</div>
+        <div class="reflection-text">What guardrails would you want your school or district to put in place for the safe and ethical use of AI in educator communication?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-block fade-in">
+    <div class="summary-title">📌 What You Learned</div>
+    <div class="summary-items">
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">AI can support communication with students, guardians, and colleagues — through feedback drafts, tone checking, translation, and professional writing.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">Benefits include efficiency, consistency, accessibility, and personalization — all of which save time and improve clarity.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">Key risks include authenticity erosion, privacy violations, over-reliance, and AI bias in phrasing — all require human oversight.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">Always review and personalize AI drafts — never share sensitive student data with unvetted public AI tools.</div></div>
+      <div class="summary-item"><div class="summary-check"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="summary-text">Your authentic voice, empathy, and judgment are irreplaceable — AI is a drafting tool, not a communicator.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll',()=>{const el=document.documentElement;document.getElementById('progressBar').style.width=((el.scrollTop/(el.scrollHeight-el.clientHeight))*100)+'%';});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.12});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  function switchAudience(id, btn){
+    document.querySelectorAll('.at-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.at-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('aud-'+id).classList.add('active');
+  }
+
+  function answerQuiz(el,correct){
+    if(document.querySelector('.quiz-opt.correct,.quiz-opt.wrong'))return;
+    el.classList.add(correct?'correct':'wrong');
+    const fb=document.getElementById('quizFeedback');
+    fb.className='quiz-feedback '+(correct?'correct':'wrong');
+    fb.textContent=correct
+      ?'✅ Exactly right! Using a vetted tool, reviewing carefully, and personalizing before sending is the responsible approach — it keeps communication efficient, professional, and private.'
+      :'❌ Not quite. Sharing student data with public AI tools violates privacy standards. And sending any AI message without reviewing risks losing authenticity and missing important nuances. Always review, edit, and protect student data.';
+  }
+</script>
+</body>
+</html>
